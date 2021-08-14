@@ -1,0 +1,30 @@
+{
+  "name": "enab",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder build --mac --win --publish never",
+    "deploy": "electron-builder build --mac --win --publish always"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gruce/EnabApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gruce/EnabApp/issues"
+  },
+  "homepage": "https://github.com/Gruce/EnabApp#readme",
+  "devDependencies": {
+    "electron": "^13.1.9",
+    "electron-builder": "^22.11.7"
+  },
+  "dependencies": {
+    "electron-updater": "^4.3.9"
+  }
+}
