@@ -1,0 +1,60 @@
+{
+  "name": "enab-nuxt",
+  "version": "1.0.0",
+  "description": "An electron-nuxt project",
+  "main": "./dist/main/index.js",
+  "scripts": {
+    "dev": "node .electron-nuxt/dev.js",
+    "build": "node .electron-nuxt/build.js",
+    "test": "",
+    "preinstall": "node .electron-nuxt/check-engines.js",
+    "postinstall": "electron-builder install-app-deps "
+  },
+  "keywords": [],
+  "author": "Hassan K. Alkhalidi <gruceing@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/michalzaq12/electron-nuxt/blob/master/README.md",
+  "engines": {
+    "node": ">=12.13.0"
+  },
+  "resolutions": {
+    "@types/node": "12.12.6"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "5.15.3",
+    "@xpda-dev/core": "^0.1.6",
+    "@xpda-dev/electron-builder": "^0.2.1",
+    "@xpda-dev/electron-launcher": "^0.3.0",
+    "@xpda-dev/webpack-step": "^0.1.2",
+    "browser-env": "3.3.0",
+    "cross-env": "7.0.3",
+    "deepmerge": "4.2.2",
+    "electron": "12.0.6",
+    "electron-builder": "22.11.3",
+    "electron-devtools-installer": "3.2.0",
+    "node-sass": "4.14.1",
+    "nuxt": "2.15.6",
+    "sass-loader": "10.0.2",
+    "webpack": "4.44.2",
+    "webpack-node-externals": "2.5.2"
+  },
+  "dependencies": {
+    "@nuxtjs/auth-next": "^5.0.0-1624817847.21691f1",
+    "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/pwa": "^3.3.5",
+    "@nuxtjs/style-resources": "^1.2.1",
+    "@nuxtjs/toast": "^3.3.1",
+    "bootstrap": "^5.1.0",
+    "bootstrap-vue": "^2.21.2",
+    "core-js": "^3.16.1",
+    "electron-updater": "^4.3.9",
+    "nuxt-i18n": "^6.28.1",
+    "vue-long-click": "^0.0.4",
+    "vue-select": "^3.12.2",
+    "vuejs-dialog": "^1.4.2"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/Gruce/EnabApp.git"
+  }
+}
