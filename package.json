@@ -1,11 +1,11 @@
 {
   "name": "enab-nuxt",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "An electron-nuxt project",
   "main": "./dist/main/index.js",
   "scripts": {
     "dev": "node .electron-nuxt/dev.js",
-    "build": "node .electron-nuxt/build.js",
+    "build": "node .electron-nuxt/build.js --win --publish always",
     "test": "",
     "preinstall": "node .electron-nuxt/check-engines.js",
     "postinstall": "electron-builder install-app-deps "
@@ -46,6 +46,7 @@
     "@nuxtjs/toast": "^3.3.1",
     "bootstrap": "^5.1.0",
     "bootstrap-vue": "^2.21.2",
+    "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.16.1",
     "electron-updater": "^4.3.9",
     "nuxt-i18n": "^6.28.1",
@@ -54,7 +55,7 @@
     "vuejs-dialog": "^1.4.2"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/Gruce/EnabApp.git"
+    "type": "git",
+    "url": "https://github.com/Gruce/EnabApp.git"
   }
 }

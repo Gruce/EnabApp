@@ -63,6 +63,8 @@ module.exports = {
 
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+
+    'cookie-universal-nuxt',
   ],
 
   toast: {
@@ -87,6 +89,12 @@ module.exports = {
   },
 
   auth: {
+    rewriteRedirects: false,
+    redirect: {
+      login: '/login',
+      callback: false,
+      home: false
+    },
     strategies: {
       laravelSanctum: {
         provider: 'laravel/sanctum',
@@ -96,6 +104,22 @@ module.exports = {
           login: { 
               url: '/api/login',
           },
+        },
+      },
+      laravelJWT: {
+        provider: 'laravel/jwt',
+        url: 'http://localhost:8000',
+        endpoints: {
+          login: { 
+            url: '/api/auth/login',
+          },
+        },
+        token: {
+          property: 'access_token',
+          maxAge: 60 * 60
+        },
+        refreshToken: {
+          maxAge: 20160 * 60
         },
       },
     }
@@ -144,11 +168,11 @@ module.exports = {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    hotMiddleware: {
-      client: {
-        overlay: false
-      }
-    },
+    // hotMiddleware: {
+    //   client: {
+    //     overlay: false
+    //   }
+    // },
   },
 
   // styleResource

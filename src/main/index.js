@@ -1,4 +1,4 @@
-import { app, ipcMain } from 'electron'
+import { app, ipcMain, protocol  } from 'electron'
 
 
 // Quit when all windows are closed.
@@ -11,6 +11,14 @@ app.on('window-all-closed', function () {
 // Load here all startup windows
 require('./mainWindow')
 
+protocol.registerSchemesAsPrivileged([{
+  scheme: 'app',
+  privileges: {
+      standard: true,
+      secure: false,
+  }
+}]);
+
 ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', { version: app.getVersion() });
 });
@@ -18,3 +26,5 @@ ipcMain.on('app_version', (event) => {
 ipcMain.on('restart_app', () => {
   autoUpdater.quitAndInstall();
 });
+
+

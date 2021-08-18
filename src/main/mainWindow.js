@@ -10,6 +10,7 @@ winHandler.onCreated(_browserWindow => {
   winHandler.loadPage('/')
   // Or load custom url
   // _browserWindow.loadURL('https://google.com')
+
 })
 
 autoUpdater.on('update-available', () => {

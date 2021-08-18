@@ -32,6 +32,9 @@
 
 <script>
     export default {
+        created(){
+
+        },
         data() {
             return {
                 login: {
@@ -53,7 +56,7 @@
                     this.errors.push("كلمة المرور مطلوبة");
                 
                 if (this.errors.length <= 0) {
-                    await this.$auth.loginWith('laravelSanctum',
+                    await this.$auth.loginWith('laravelJWT',
                     {
                         data: {
                             email: this.login.email,
@@ -62,12 +65,21 @@
                     })
                     .then(() => {
                         console.log("Logged in")
+                        // this.$router.push({ path: '/supermarket' })
                     })
                     .catch(() => {
                         this.errors.push("البريد الالكتروني او كلمة المرور خاطئة")
                     })
+                    this.$router.push('/')
                 }
                 this.loading = false
+            }
+        },
+        watch: {
+            '$route.path': {
+                handler (oldUrl, newUrl) {
+                    console.log(oldUrl, newUrl)
+                }
             }
         }
     }

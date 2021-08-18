@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { EventEmitter } from 'events'
-import { BrowserWindow, app } from 'electron'
+import { BrowserWindow, app, protocol } from 'electron'
 const { autoUpdater } = require('electron-updater');
 
 const DEV_SERVER_URL = process.env.DEV_SERVER_URL
@@ -27,6 +27,15 @@ export default class BrowserWinHandler {
     if (app.isReady()) this._create()
     else {
       app.once('ready', () => {
+        protocol.registerFileProtocol('app', (request, callback) => {
+          const url = request.url.substr(6);
+          callback({
+              path: path.normalize(`${__dirname}/${url}`)
+          });
+        }, (error) => {
+            if (error) console.error('Failed to register protocol');
+        });
+        
         this._create()
       })
     }
@@ -49,17 +58,19 @@ export default class BrowserWinHandler {
         }
       }
     )
+
+    
     this.browserWindow.on('closed', () => {
       // Dereference the window object
       this.browserWindow = null
     })
     this._eventEmitter.emit('created')
 
-
     this.browserWindow.once('ready-to-show', () => {
       console.log("Check for updates & send notification")
       autoUpdater.checkForUpdatesAndNotify();
     });
+        
   }
 
   _recreate () {
