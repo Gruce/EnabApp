@@ -46,7 +46,7 @@ module.exports = {
   appId: 'com.itourstory.enab',
   publish: {
     provider: "github",
-    token: "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"
+    token: "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"
   },
   artifactName: 'setup-${version}.${ext}',
   directories: {

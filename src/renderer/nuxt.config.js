@@ -25,7 +25,7 @@ module.exports = {
     '~/assets/css/responsive.css',
     '~/assets/scss/app.scss',
     'vuejs-dialog/dist/vuejs-dialog.min.css',
-    'vue-select/dist/vue-select.css'
+    'vue-select/dist/vue-select.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -36,6 +36,9 @@ module.exports = {
     {src: '~/plugins/vuejs-dialog', mode: 'client'},
     {src: '~/plugins/vuejs-select.js', mode: 'client'},
     {src: '~/plugins/vue-long-click.js', mode: 'client'},
+
+    
+
   ],
   
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -125,10 +128,6 @@ module.exports = {
     }
   },
 
-  bootstrapVue: {
-    bootstrapCSS: false,
-    bootstrapVueCSS: false
-  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {

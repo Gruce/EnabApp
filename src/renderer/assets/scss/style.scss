@@ -14,6 +14,8 @@ body{
     font-family: "Tajawal", sans-serif !important;
 	color: #8c96a7;
     direction: rtl;
+
+    overflow: hidden; /* Hide scrollbars */
 }
 
 .main-container{
@@ -27,8 +29,8 @@ body{
 
 
 .show-scroll {
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
 }
 
 .show-scroll::-webkit-scrollbar {
@@ -148,3 +150,33 @@ input{
     position: relative !important;
 }
 
+.btn-check:checked + button, .btn-check:active + button, button:active, button.active, .show > button.dropdown-toggle{
+    background-color: $tb-1 !important;
+}
+.dropdown-custom{
+    button{
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        border: 0;
+        background-color: $tb-1;
+        &:hover{
+            background-color: $tb-2;
+        }
+        &:focus{
+            background-color: $tb-2;
+        }
+    }
+    .dropdown-toggle::after{
+        display: none;
+    }
+    .dropdown-menu{
+        background: $tb-2;
+        .dropdown-item{
+            color: #ddd;
+            text-align: right;
+            &:hover{
+                background: $tb-2;
+            }
+        }
+    }
+}

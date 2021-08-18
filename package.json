@@ -1,6 +1,6 @@
 {
   "name": "enab-nuxt",
-  "version": "1.0.3",
+  "version": "1.0.2",
   "description": "An electron-nuxt project",
   "main": "./dist/main/index.js",
   "scripts": {
@@ -48,6 +48,7 @@
     "bootstrap-vue": "^2.21.2",
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.16.1",
+    "electron-log": "^4.4.1",
     "electron-updater": "^4.3.9",
     "nuxt-i18n": "^6.28.1",
     "vue-long-click": "^0.0.4",

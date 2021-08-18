@@ -1,4 +1,5 @@
 import { app, ipcMain, protocol  } from 'electron'
+const { autoUpdater } = require('electron-updater');
 
 
 // Quit when all windows are closed.
@@ -26,5 +27,6 @@ ipcMain.on('app_version', (event) => {
 ipcMain.on('restart_app', () => {
   autoUpdater.quitAndInstall();
 });
+
 
 

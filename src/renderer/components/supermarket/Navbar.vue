@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="position-absolute" style="top: 0px; left: 0%; width: 100%;">
+        <div class="position-absolute" style="top: 0px; left: 0%; width: 100%;z-index:1">
             <div class="t-1 p-2">
                 <div class="row">
                     <div class="col-6">
@@ -48,26 +48,38 @@
                                 <!-- <div class="mr-3">
                                     <small></small>
                                 </div> -->
-                                <div class="mr-3">
+                                <div class="mr-1">
                                     <SupermarketServicesEarthlinkUsers service_id="2" />
                                 </div>
-                                <div class="mr-3">
-                                    <div v-if="$nuxt.isOnline" class="badge badge-success">متصل</div>
-                                    <div v-else class="badge badge-danger">غير متصل</div>
-                                    <div class="badge t-1">{{ datetime }}</div>
+                                <div class="mr-1">
+                                    <div class="badge t-1 py-2 px-3">{{ datetime }}</div>
                                 </div>
-                                <ul class="nav nav-pills">
+                                <div class="mr-1">
+                                    <div class="badge t-1 py-2 px-3">الإصدار {{ version }}</div>
+                                </div>
+                                
+                                <ul class="nav nav-pills p-0">
                                     <li class="nav-item">
-                                        <a href="#" @click="sync" class="nav-link py-1">
-                                            <i class="fas fa-sync"></i>
-                                        </a>
+                                        <b-dropdown id="dropdown-1" class="mx-1 dropdown-custom" size="sm">
+                                            <template #button-content>
+                                                <span>{{ $auth.user.name }}</span>
+                                            </template>
+                                            <b-dropdown-item>First Action</b-dropdown-item>
+                                            <b-dropdown-item @click="sync"><small>مزامنة</small></b-dropdown-item>
+                                            <b-dropdown-divider></b-dropdown-divider>
+                                            <b-dropdown-item @click="logout"><small>تسجيل الخروج</small></b-dropdown-item>
+                                            <b-dropdown-item @click="close"><small>إغلاق النظام</small></b-dropdown-item>
+                                        </b-dropdown>
+                                        <!-- <a @click="close()" href="#" class="nav-link py-1 px-3 pointer">
+                                            <i class="fas fa-times"></i>
+                                        </a> -->
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" @click="logout" class="nav-link active py-1">
-                                            <i class="fas fa-sign-out-alt signout-icon"></i>
-                                        </a>
+                                        <small v-if="$nuxt.isOnline" class="badge badge-success text-light p-2 px-3">متصل</small>
+                                        <small v-else class="badge badge-danger text-light p-2 px-3">غير متصل</small>
                                     </li>
-                                </ul>
+
+                                </ul> 
                             </div>
                         </div>
                     </div>
@@ -78,16 +90,25 @@
 </template>
 
 <script>
+    const { remote } = require("electron");
+
     export default {
+        async mounted() {
+            this.version = await this.$version()
+        },
         data() {
             return {
-                datetime: ""
+                datetime: "",
+                version: ""
             }
         },
         created() {
             setInterval(this.getNow, 1000);
         },
         methods: {
+            close(){
+                remote.app.exit();
+            },
             getNow: function() {
                 const today = new Date();
                 const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -128,5 +149,9 @@
 
     .signout-icon{
         transform: scale(-1);
+    }
+
+    .pointer:hover{
+        cursor: pointer;
     }
 </style>

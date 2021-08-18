@@ -2,6 +2,8 @@
 import { EventEmitter } from 'events'
 import { BrowserWindow, app, protocol } from 'electron'
 const { autoUpdater } = require('electron-updater');
+const log = require('electron-log');
+
 
 const DEV_SERVER_URL = process.env.DEV_SERVER_URL
 const isProduction = process.env.NODE_ENV === 'production'
@@ -26,7 +28,9 @@ export default class BrowserWinHandler {
     // Some APIs can only be used after this event occurs.
     if (app.isReady()) this._create()
     else {
-      app.once('ready', () => {
+      app.once('ready', async () => {
+        autoUpdater.checkForUpdatesAndNotify();
+
         protocol.registerFileProtocol('app', (request, callback) => {
           const url = request.url.substr(6);
           callback({
@@ -55,9 +59,29 @@ export default class BrowserWinHandler {
           webSecurity: isProduction, // disable on dev to allow loading local resources
           nodeIntegration: true, // allow loading modules via the require () function
           contextIsolation: false, // https://github.com/electron/electron/issues/18037#issuecomment-806320028
+          enableRemoteModule: true,
         }
       }
     )
+    this.browserWindow.maximize();
+    this.browserWindow.setMenu(null);
+
+    
+
+    autoUpdater.on('update-available', () => {
+      this.browserWindow.webContents.send('update_available');
+    });
+    
+    autoUpdater.on('update-downloaded', () => {
+      this.browserWindow.webContents.send('update_downloaded');
+    });
+
+    autoUpdater.on('download-progress', (progressObj) => {
+      // let log_message = "Download speed: " + progressObj.bytesPerSecond;
+      // log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+      // log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+      this.browserWindow.webContents.send('download_progress', progressObj);
+    });
 
     
     this.browserWindow.on('closed', () => {
@@ -65,11 +89,6 @@ export default class BrowserWinHandler {
       this.browserWindow = null
     })
     this._eventEmitter.emit('created')
-
-    this.browserWindow.once('ready-to-show', () => {
-      console.log("Check for updates & send notification")
-      autoUpdater.checkForUpdatesAndNotify();
-    });
         
   }
 
@@ -109,5 +128,7 @@ export default class BrowserWinHandler {
       this.onCreated(() => resolve(this.browserWindow))
     })
   }
+
+  
 
 }
