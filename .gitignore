@@ -3,5 +3,3 @@ dist
 build/*
 !build/icons
 node_modules
-.electorn-nuxt
-.src
