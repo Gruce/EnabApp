@@ -1,11 +1,11 @@
 {
   "name": "enab-nuxt",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An electron-nuxt project",
   "main": "./dist/main/index.js",
   "scripts": {
     "dev": "node .electron-nuxt/dev.js",
-    "build": "node .electron-nuxt/build.js --win --publish always",
+    "build": "node .electron-nuxt/build.js",
     "test": "",
     "preinstall": "node .electron-nuxt/check-engines.js",
     "postinstall": "electron-builder install-app-deps "

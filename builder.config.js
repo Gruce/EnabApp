@@ -44,6 +44,10 @@ const macOS = {
 module.exports = {
   productName: 'enab-nuxt',
   appId: 'com.itourstory.enab',
+  publish: {
+    provider: "github",
+    token: "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"
+  },
   artifactName: 'setup-${version}.${ext}',
   directories: {
     output: 'build'

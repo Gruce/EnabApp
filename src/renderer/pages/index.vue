@@ -2,7 +2,7 @@
   <div class="container mt-5 text-center">
     <h1 class="mt-5 mb-3">
       مرحباً، يا
-      <!-- {{ this.$auth.user.name }} -->
+      {{ this.$auth.user.name }}
     </h1>
 
     <span class="fs-5 text-white">
