@@ -1,6 +1,6 @@
 # enab-nuxt
 
-> An electron-nuxt project
+> Enab System - Manage Businesses & Connecting Them!
 
 #### Build Setup
 

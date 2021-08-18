@@ -1,7 +1,7 @@
 {
-  "name": "enab-nuxt",
-  "version": "1.0.2",
-  "description": "An electron-nuxt project",
+  "name": "enab",
+  "version": "1.0.3",
+  "description": "Enab System",
   "main": "./dist/main/index.js",
   "scripts": {
     "dev": "node .electron-nuxt/dev.js",
