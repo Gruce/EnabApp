@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="position-absolute" style="top: 0px; left: 0%; width: 100%;z-index:1">
-            <div class="t-1 p-2">
+            <div class="tb-2 p-2">
                 <div class="row">
                     <div class="col-6">
                         <ul class="nav nav-pills mr-5">
@@ -52,34 +52,24 @@
                                     <SupermarketServicesEarthlinkUsers service_id="2" />
                                 </div>
                                 <div class="mr-1">
-                                    <div class="badge t-1 py-2 px-3">{{ datetime }}</div>
+                                    <div class="badge tb-1 py-2 px-3">{{ datetime }}</div>
                                 </div>
                                 <div class="mr-1">
-                                    <div class="badge t-1 py-2 px-3">الإصدار {{ version }}</div>
+                                    <div class="badge tb-1 py-2 px-3">الإصدار {{ version }}</div>
+                                </div>
+
+                                <div class="mr-1">
+                                    <div @click="toggleMenu" class="badge tb-2 py-2 px-3 pointer">
+                                        {{ $auth.user.name }}
+                                    </div>
+                                </div>
+
+                                <div class="mr-1">
+                                    <small v-if="$nuxt.isOnline" class="badge badge-success text-light p-2 px-3">متصل</small>
+                                    <small v-else class="badge badge-danger text-light p-2 px-3">غير متصل</small>
                                 </div>
                                 
-                                <ul class="nav nav-pills p-0">
-                                    <li class="nav-item">
-                                        <b-dropdown id="dropdown-1" class="mx-1 dropdown-custom" size="sm">
-                                            <template #button-content>
-                                                <span>{{ $auth.user.name }}</span>
-                                            </template>
-                                            <b-dropdown-item>First Action</b-dropdown-item>
-                                            <b-dropdown-item @click="sync"><small>مزامنة</small></b-dropdown-item>
-                                            <b-dropdown-divider></b-dropdown-divider>
-                                            <b-dropdown-item @click="logout"><small>تسجيل الخروج</small></b-dropdown-item>
-                                            <b-dropdown-item @click="close"><small>إغلاق النظام</small></b-dropdown-item>
-                                        </b-dropdown>
-                                        <!-- <a @click="close()" href="#" class="nav-link py-1 px-3 pointer">
-                                            <i class="fas fa-times"></i>
-                                        </a> -->
-                                    </li>
-                                    <li class="nav-item">
-                                        <small v-if="$nuxt.isOnline" class="badge badge-success text-light p-2 px-3">متصل</small>
-                                        <small v-else class="badge badge-danger text-light p-2 px-3">غير متصل</small>
-                                    </li>
-
-                                </ul> 
+                                
                             </div>
                         </div>
                     </div>
@@ -90,6 +80,7 @@
 </template>
 
 <script>
+    import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
     const { remote } = require("electron");
 
     export default {
@@ -106,6 +97,9 @@
             setInterval(this.getNow, 1000);
         },
         methods: {
+            ...mapMutations({
+                toggleMenu: 'supermarket/toggleMenu',
+            }),
             close(){
                 remote.app.exit();
             },

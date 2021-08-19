@@ -17,7 +17,7 @@ export default {
             else
                 commit('add', product)
         } else 
-            alert("Product not found") // WHEN SCANNER NOT FOUND THE PRODUCT
+            this.$toast.error('هذا المنتج غير موجود') // WHEN SCANNER NOT FOUND THE PRODUCT
     },
 
     async removeProduct({commit, dispatch}, id){

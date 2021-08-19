@@ -5,6 +5,7 @@
       <client-only>
         <UtilitiesKeyup @keyup="keyboardEvent"></UtilitiesKeyup>
         <SupermarketConsole v-if="showConsole"></SupermarketConsole>
+        <SupermarketMenu @close-menu="hideMenu" v-if="showMenu"></SupermarketMenu>
       </client-only>
       <nuxt />
     </div>
@@ -15,6 +16,11 @@
 import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
+  computed: {
+    showMenu () {
+      return this.$store.state.supermarket.showMenu;
+    },
+  },
   data() {
     return {
       showConsole: false,
@@ -23,6 +29,9 @@ export default {
     };
   },
   methods: {
+    ...mapMutations({
+      toggleMenu: 'supermarket/toggleMenu',
+    }),
     keyboardEvent(e) {
       if (this.interval) clearInterval(this.interval);
       if (e.code == "Enter") {
@@ -49,6 +58,11 @@ export default {
       if (e.which === 192) {
         this.showConsole = !this.showConsole;
         console.log("showed");
+      }
+
+      // Ctrl + ESC => Show Menu
+      if (e.which === 27) {
+        this.toggleMenu()
       }
     },
   },
