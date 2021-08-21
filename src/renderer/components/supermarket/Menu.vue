@@ -216,6 +216,9 @@ export default {
           console.log("sync");
         });
     },
+    async signout(){
+      await this.$auth.logout();
+    }
   },
 };
 </script>

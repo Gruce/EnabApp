@@ -5,7 +5,7 @@
       <client-only>
         <UtilitiesKeyup @keyup="keyboardEvent"></UtilitiesKeyup>
         <SupermarketConsole v-if="showConsole"></SupermarketConsole>
-        <SupermarketMenu @close-menu="hideMenu" v-if="showMenu"></SupermarketMenu>
+        <SupermarketMenu v-if="showMenu"></SupermarketMenu>
       </client-only>
       <nuxt />
     </div>
@@ -20,6 +20,14 @@ export default {
     showMenu () {
       return this.$store.state.supermarket.showMenu;
     },
+  },
+  created(){
+    var user = this.$auth.user;
+    window.$crisp.push(["set", "user:nickname", ["Supermarket." + user.name]])
+    // window.$crisp.push(["set", "session:data", [[Object.keys(user).map(function(key) {return [ key, user[key]] })]]])
+    window.$crisp.push(["set", "session:data", [[
+      ["email", user.email],
+    ]]])
   },
   data() {
     return {

@@ -85,7 +85,11 @@
 
     export default {
         async mounted() {
-            this.version = await this.$version()
+            try {
+                this.version = await this.$version()
+            } catch (e) {
+                console.log(e)
+            }
         },
         data() {
             return {

@@ -12,7 +12,8 @@ module.exports = {
     title: 'enab-nuxt', 
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' },
+      { name: 'HandheldFriendly', content: 'true' },
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
       { "http-equiv":"cache-control", content:"public/private"}
@@ -36,6 +37,7 @@ module.exports = {
     {src: '~/plugins/vuejs-dialog', mode: 'client'},
     {src: '~/plugins/vuejs-select.js', mode: 'client'},
     {src: '~/plugins/vue-long-click.js', mode: 'client'},
+    { src: "~/plugins/crisp.js", mode: "client" },
 
     
 
@@ -65,7 +67,7 @@ module.exports = {
     '@nuxtjs/toast',
 
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
+    // '@nuxtjs/pwa',
 
     'cookie-universal-nuxt',
   ],
@@ -180,5 +182,15 @@ module.exports = {
       '~/assets/scss/variables.scss',
     ]
   },
+
+  // build: {
+  //   babel:{
+  //     plugins: [
+  //       ['@babel/plugin-proposal-class-properties', { loose: true }],
+  //       ['@babel/plugin-proposal-private-methods', { loose: true }],
+  //       ['@babel/plugin-proposal-private-property-in-object', { loose: true }]
+  //     ]
+  //   }
+  // },
 
 };
