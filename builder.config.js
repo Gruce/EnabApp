@@ -45,6 +45,10 @@ module.exports = {
   productName: '{{ name }}',
   appId: '{{ appid }}',
   artifactName: 'setup-${version}.${ext}',
+  publish: {
+    "provider": "github",
+    "releaseType": "release"
+  },
   directories: {
     output: 'build'
   },
