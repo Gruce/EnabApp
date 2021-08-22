@@ -72,6 +72,6 @@ module.exports = {
     }
   ],
   ...windowsOS,
-  ...linuxOS,
-  ...macOS
+  // ...linuxOS,
+  // ...macOS
 }
