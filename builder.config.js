@@ -3,17 +3,12 @@ const ICONS_DIR = 'build/icons/'
 const windowsOS = {
   win: {
     icon: ICONS_DIR + 'win-icon.ico',
-    publisherName: 'Hassan K. AlKhalidi',
+    publisherName: 'ourstory',
     target: 'nsis',
-    "requestedExecutionLevel": "highestAvailable"
   },
 
   nsis: {
-    differentialPackage: true,
-    oneClick: false,
-    perMachine: true,
-    allowElevation: true,
-    deleteAppDataOnUninstall: true,
+    differentialPackage: true
   }
 }
 
@@ -47,11 +42,11 @@ const macOS = {
 }
 
 module.exports = {
-  productName: 'enab-nuxt',
-  appId: 'com.itourstory.enab',
+  productName: '{{ name }}',
+  appId: '{{ appid }}',
   artifactName: 'setup-${version}.${ext}',
   directories: {
-    output: 'dist'
+    output: 'build'
   },
   // default files: https://www.electron.build/configuration/contents
   files: [
@@ -61,10 +56,9 @@ module.exports = {
       to: 'dist/main/'
     },
     {
-      from: 'dist/renderer/',
+      from: 'dist/renderer',
       to: 'dist/renderer/'
-    },
-    'src/**/*'
+    }
   ],
   extraResources: [
     {
@@ -73,6 +67,6 @@ module.exports = {
     }
   ],
   ...windowsOS,
-  // ...linuxOS,
-  // ...macOS
+  ...linuxOS,
+  ...macOS
 }
