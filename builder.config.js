@@ -51,7 +51,7 @@ module.exports = {
     provider: "github",
     owner: "itourstory",
     repo: "EnabApp",
-    // releaseType: "draft"
+    releaseType: "draft"
   },
   directories: {
     output: 'build'
