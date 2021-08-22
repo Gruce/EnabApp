@@ -55,15 +55,8 @@ module.exports = {
   },
   // default files: https://www.electron.build/configuration/contents
   files: [
+    "dist/**/*",
     'package.json',
-    {
-      from: 'dist/main/',
-      to: 'dist/main/'
-    },
-    {
-      from: 'dist/renderer',
-      to: 'dist/renderer/'
-    }
   ],
   extraResources: [
     {
