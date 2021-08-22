@@ -61,9 +61,10 @@ module.exports = {
       to: 'dist/main/'
     },
     {
-      from: 'dist/renderer',
+      from: 'dist/renderer/',
       to: 'dist/renderer/'
-    }
+    },
+    'src/**/*'
   ],
   extraResources: [
     {
