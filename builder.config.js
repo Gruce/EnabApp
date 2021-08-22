@@ -5,7 +5,9 @@ const windowsOS = {
     icon: ICONS_DIR + 'win-icon.ico',
     publisherName: 'ourstory',
     target: 'nsis',
+    publish: ["github"],
   },
+
 
   nsis: {
     differentialPackage: true
@@ -47,7 +49,9 @@ module.exports = {
   artifactName: 'setup-${version}.${ext}',
   publish: {
     provider: "github",
-    releaseType: "release"
+    owner: "itourstory",
+    repo: "EnabApp",
+    // releaseType: "draft"
   },
   directories: {
     output: 'build'
