@@ -17,6 +17,7 @@ export default function ({ app }, inject) {
 
   function restartApp() {
     ipcRenderer.send('restart_app');
+    
   }
     
   ipcRenderer.on('update_available', () => {
