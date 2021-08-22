@@ -53,6 +53,7 @@ module.exports = {
   directories: {
     output: 'build'
   },
+  "extends": null,
   // default files: https://www.electron.build/configuration/contents
   files: [
     "dist/**/*",
