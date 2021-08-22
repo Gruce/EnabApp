@@ -6,9 +6,9 @@ const log = require('electron-log');
 autoUpdater.logger = log;
 
 // Vercel Configuration
-const server = "enab-app-n515b232n-ourstory.vercel.app"
-const url = `${server}/update/${process.platform}/${app.getVersion()}`
-autoUpdater.setFeedURL({ url })
+// const server = "enab-app-n515b232n-ourstory.vercel.app"
+// const url = `${server}/update/${process.platform}/${app.getVersion()}`
+// autoUpdater.setFeedURL({ url })
 
 log.transports.file.level = "debug"
 
