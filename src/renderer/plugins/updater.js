@@ -30,6 +30,7 @@ export default function ({ app }, inject) {
   });
 
   ipcRenderer.on('download_progress', (something) => {
+    app.$toast.info(something, {duration: 1000})
     ipcRenderer.removeAllListeners('download_progress');
   });
 

@@ -4,9 +4,13 @@ import { BrowserWindow, app, protocol } from 'electron'
 const { autoUpdater } = require('electron-updater');
 const log = require('electron-log');
 autoUpdater.logger = log;
-// const server = <your-deployment-url>
-// const url = `${server}/update/${process.platform}/${app.getVersion()}`
-// log.transports.file.level = "debug"
+
+// Vercel Configuration
+const server = "enab-app-n515b232n-ourstory.vercel.app"
+const url = `${server}/update/${process.platform}/${app.getVersion()}`
+autoUpdater.setFeedURL({ url })
+
+log.transports.file.level = "debug"
 
 
 const DEV_SERVER_URL = process.env.DEV_SERVER_URL
