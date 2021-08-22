@@ -1,12 +1,11 @@
 {
   "name": "enab",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Enab System",
   "main": "./dist/main/index.js",
   "scripts": {
     "dev": "node .electron-nuxt/dev.js",
-    "build": "node .electron-nuxt/build.js",
-    "release": "node .electron-nuxt/build.js -p always",
+    "build": "node .electron-nuxt/build.js -p always",
     "test": "", 
     "preinstall": "node .electron-nuxt/check-engines.js",
     "postinstall": "electron-builder install-app-deps "
