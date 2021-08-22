@@ -4,7 +4,9 @@ import { BrowserWindow, app, protocol } from 'electron'
 const { autoUpdater } = require('electron-updater');
 const log = require('electron-log');
 autoUpdater.logger = log;
-log.transports.file.level = "debug"
+// const server = <your-deployment-url>
+// const url = `${server}/update/${process.platform}/${app.getVersion()}`
+// log.transports.file.level = "debug"
 
 
 const DEV_SERVER_URL = process.env.DEV_SERVER_URL
