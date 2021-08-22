@@ -1,7 +1,6 @@
 .nuxt
 dist
 build/*
-builder.config.js
 !build/icons
 node_modules
 electron-builder.yml

@@ -3,6 +3,8 @@ import { EventEmitter } from 'events'
 import { BrowserWindow, app, protocol } from 'electron'
 const { autoUpdater } = require('electron-updater');
 const log = require('electron-log');
+autoUpdater.logger = log;
+log.transports.file.level = "debug"
 
 
 const DEV_SERVER_URL = process.env.DEV_SERVER_URL
@@ -77,11 +79,11 @@ export default class BrowserWinHandler {
     });
 
     autoUpdater.on('download-progress', (progressObj) => {
-      // let log_message = "Download speed: " + progressObj.bytesPerSecond;
-      // log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
-      // log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-      this.browserWindow.webContents.send('download_progress', progressObj);
-    });
+      let log_message = "Download speed: " + progressObj.bytesPerSecond;
+      log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+      log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+      log.info(log_message);
+    })
 
     
     this.browserWindow.on('closed', () => {
