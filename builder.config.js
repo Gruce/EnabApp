@@ -51,7 +51,7 @@ module.exports = {
   appId: 'com.itourstory.enab',
   artifactName: 'setup-${version}.${ext}',
   directories: {
-    output: 'build'
+    output: 'build' 
   },
   // default files: https://www.electron.build/configuration/contents
   files: [
