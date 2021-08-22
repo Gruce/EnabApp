@@ -55,7 +55,7 @@
                                     <div class="badge tb-1 py-2 px-3">{{ datetime }}</div>
                                 </div>
                                 <div class="mr-1">
-                                    <div class="badge tb-1 py-2 px-3">الإصدار {{ version }}</div>
+                                    <div class="badge tb-1 py-2 px-3">الإصدار {{ version }} ###</div>
                                 </div>
 
                                 <div class="mr-1">
