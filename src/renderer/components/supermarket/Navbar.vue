@@ -60,7 +60,7 @@
 
                                 <div class="mr-1">
                                     <div v-if="updateProgress.percent && updateProgress.percent !== 100" class="badge badge-info py-2 px-3">جاري التحديث</div>
-                                    <div v-if="updateProgress.percent == 100" class="badge badge-success py-2 px-3">تم التحديث</div>
+                                    <div @click="updateCompleted" v-if="updateProgress.percent == 100" class="badge badge-success py-2 px-3 pointer">تم التحديث</div>
                                 </div>
 
                                 <div class="mr-1">
@@ -86,7 +86,8 @@
 
 <script>
     import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
-    const { remote } = require("electron");
+    const { remote, ipcRenderer } = require("electron");
+
 
     export default {
         computed: {
@@ -111,6 +112,9 @@
             setInterval(this.getNow, 1000);
         },
         methods: {
+            updateCompleted(){
+                ipcRenderer.send('restart_app');
+            },
             ...mapMutations({
                 toggleMenu: 'supermarket/toggleMenu',
             }),

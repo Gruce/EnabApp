@@ -4,8 +4,8 @@ body{
 
     
     background: #4776E6;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #5688ff, #4776E6);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #5688ff, #4776E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    // background: -webkit-linear-gradient(to right, #5688ff, #4776E6);  /* Chrome 10-25, Safari 5.1-6 */
+    // background: linear-gradient(to right, #5688ff, #4776E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 
 
@@ -180,3 +180,34 @@ input{
         }
     }
 }
+
+.loading:after {
+    content: ' .';
+    animation: dots 1s steps(5, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% {
+      color: rgba(0,0,0,0);
+      text-shadow:
+        .25em 0 0 rgba(0,0,0,0),
+        .5em 0 0 rgba(0,0,0,0);
+    }
+    40% {
+      color: rgba(0,0,0,0);
+      text-shadow:
+        .25em 0 0 white,
+        .5em 0 0 rgba(0,0,0,0);
+    }
+    60% {
+      text-shadow:
+        .25em 0 0 rgba(0,0,0,0),
+        .5em 0 0 white;
+    }
+    80%, 100% {
+      text-shadow:
+        .25em 0 0 white,
+        .5em 0 0 white;
+    }
+}
+  
