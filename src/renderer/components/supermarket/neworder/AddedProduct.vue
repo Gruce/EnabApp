@@ -18,9 +18,9 @@
         </div>
         <div class="col-auto">
             <div @click="removeProduct(product.id)" class="action-item text-danger">
-                <i v-if="product.inCount > 1" class="fas fa-2x fa-minus"></i>
-                <i v-else class="fas fa-2x fa-trash"></i> 
-            </div> 
+                <i v-if="product.count > 1" class="fas fa-2x fa-minus"></i>
+                <i v-else class="fas fa-2x fa-trash"></i>
+            </div>
         </div>
     </div>
 </template>

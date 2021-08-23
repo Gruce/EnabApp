@@ -20,12 +20,8 @@ export default {
     showMenu () {
       return this.$store.state.supermarket.showMenu;
     },
-    backgroundColor () {
-      return this.$store.state.supermarket.utilities.color;
-    },
   },
   created(){
-    this.getColor()
     var user = this.$auth.user;
     window.$crisp.push(["set", "user:nickname", ["Supermarket." + user.name]])
     // window.$crisp.push(["set", "session:data", [[Object.keys(user).map(function(key) {return [ key, user[key]] })]]])
@@ -43,9 +39,6 @@ export default {
   methods: {
     ...mapMutations({
       toggleMenu: 'supermarket/toggleMenu',
-    }),
-    ...mapActions({
-      getColor: 'supermarket/utilities/getColor',
     }),
     keyboardEvent(e) {
       if (this.interval) clearInterval(this.interval);
@@ -81,11 +74,6 @@ export default {
       }
     },
   },
-  watch: {
-    backgroundColor(color) {
-      document.querySelector('body').style.backgroundColor=color
-    }
-  }
 };
 </script>
 
