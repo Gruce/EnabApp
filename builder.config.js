@@ -3,7 +3,6 @@ const ICONS_DIR = 'build/icons/'
 const windowsOS = {
   win: {
     icon: ICONS_DIR + 'win-icon.ico',
-    publisherName: 'ourstory',
     target: 'nsis',
     publish: ["github"],
     verifyUpdateCodeSignature: false
