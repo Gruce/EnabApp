@@ -1,6 +1,6 @@
 {
   "name": "enab",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Enab System",
   "main": "./dist/main/index.js",
   "scripts": {
@@ -54,6 +54,7 @@
     "nuxt-i18n": "^6.28.1",
     "vue-long-click": "^0.0.4",
     "vue-select": "^3.12.2",
+    "vue-swatches": "^2.1.1",
     "vuejs-dialog": "^1.4.2"
   },
   "repository": {

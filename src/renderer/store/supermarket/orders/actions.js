@@ -21,11 +21,11 @@ export default {
     },
 
     async removeProduct({commit, dispatch}, id){
-        if ((await dispatch('getProduct', id)).count >= 1)
+        if ((await dispatch('getProduct', id)).inCount > 1)
             commit('countDown', id)
         else
             commit('remove', id)
-    },
+    }, 
 
     async getProduct({state, dispatch}, id){
         return state.products.find(x => x.id == id)

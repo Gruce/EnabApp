@@ -70,6 +70,8 @@ module.exports = {
     // '@nuxtjs/pwa',
 
     'cookie-universal-nuxt',
+    
+    'vue-swatches/nuxt'
   ],
 
   toast: {
@@ -121,10 +123,10 @@ module.exports = {
         },
         token: {
           property: 'access_token',
-          maxAge: 60 * 60
+          maxAge: 60 * 60 * 24 * 7
         },
         refreshToken: {
-          maxAge: 20160 * 60
+          maxAge: 20160 * 60 * 24 * 7
         },
       },
     }

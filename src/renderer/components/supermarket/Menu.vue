@@ -11,17 +11,6 @@
                 <div class="progress-bar bg-dark" role="progressbar" :aria-valuenow="updateProgress.percent" aria-valuemin="0" aria-valuemax="100" :style="'width: '+updateProgress.percent+'%;'"></div>
             </div>
         </div>
-        <!-- Downloading Completed -->
-        <div v-else class="r-2 alert alert-success py-2 mb-3">
-          <div class="row">
-            <div class="col-6">
-              <h4 class="m-0 p-0">تم التحديث!</h4>
-            </div>
-            <div class="col-6 text-left">
-              <button @click="updateCompleted" class="btn btn-success r-2">تنصيب التحديث</button>
-            </div>
-          </div>
-        </div>
       </div>
 
       <div class="row h-100">
@@ -63,7 +52,7 @@
                     <i class="fas fa-sign-out-alt fa-2x"></i>
                   </li>
                   <li
-                    @click="sync"
+                    @click="refresh"
                     class="
                       nav-item
                       pointer
@@ -121,15 +110,28 @@
                 </div>
                 <div class="row h-25">
                   <div class="col-6 final-column">
-                    <div class="content pointer text-center d-flex flex-column justify-content-center align-items-center">
+                    <div v-b-modal.faq-modal class="content pointer text-center d-flex flex-column justify-content-center align-items-center">
                         <i class="fas fa-life-ring fa-3x text-light"></i>
                         <h6 class="text-light mt-3">الاسئلة الشائعة</h6>
                     </div>
                   </div>
                   <div class="col-6 final-column">
-                    <div class="content pointer text-center d-flex flex-column justify-content-center align-items-center">
-                        <i class="fas fa-headset fa-3x text-light"></i>
-                        <h6 class="text-light mt-3">الدعم الفني</h6>
+                    <!-- Up to date -->
+                    <div v-if="!updateProgress.percent" class="content text-center d-flex flex-column justify-content-center align-items-center">
+                      <i class="fas fa-history fa-3x text-light"></i>
+                      <h6 class="text-light mt-3 fw-bold">{{version}}</h6>
+                      <small class="text-light">(اخر اصدار)</small>
+                    </div>
+                    <!-- Downloading -->
+                    <div v-if="updateProgress.percent && updateProgress.percent !== 100" class="content bg-info text-center d-flex flex-column justify-content-center align-items-center">
+                      <i class="fas fa-redo fa-spin fa-3x text-light"></i>
+                      <h6 class="text-light mt-3 loading">جاري التحديث</h6>
+                    </div>
+                    <!-- Download Completed -->
+                    <div v-if="updateProgress.percent == 100" @click="updateCompleted" class="content pointer bg-success text-center d-flex flex-column justify-content-center align-items-center">
+                      <i class="fas fa-check fa-3x text-light"></i>
+                      <h6 class="text-light mt-3 fw-bold">تم التحديث</h6>
+                      <small class="text-light">هل تريد تنصيب التحديث؟</small>
                     </div>
                   </div>
                 </div>
@@ -192,8 +194,9 @@
                 </div>
               </div>
               <div class="h-correct">
-                  <div class="content">
-                    TEST
+                  <div class="content text-center d-flex flex-column justify-content-center align-items-center">
+                    <v-swatches v-model="color" show-fallback fallback-input-type="color" popover-x="left"></v-swatches>
+                    <h6 class="text-light mt-3">تغيير اللون</h6>
                   </div>
               </div>
             </div>
@@ -207,11 +210,27 @@
         </div>
       </div>
     </div>
+
+
+
+    <b-modal id="faq-modal" hide-footer hide-header content-class="vw-100" scrollable  centered>
+      <a href="#" @click="$bvModal.hide('faq-modal')">
+        <i class="fas fa-times fa-2x"></i>
+      </a>
+
+      <div v-if="$nuxt.isOffline">
+        <h1 class="text-center text-dark">يجب ان تتصل بالانترنت أولا</h1>
+      </div>
+      <div class="vw-100 vh-100" v-else>
+        <iframe src="https://enab.app/support" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe>
+      </div>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
+
 const { remote, ipcRenderer } = require("electron");
 
 export default {
@@ -219,6 +238,22 @@ export default {
     updateProgress () {
       return this.$store.state.update.progress;
     },
+    backgroundColor () {
+      return this.$store.state.supermarket.utilities.color;
+    },
+  },
+  async mounted() {
+      try {
+          this.version = await this.$version()
+      } catch (e) {
+          console.log(e)
+      }
+  },
+  data() {
+    return {
+      version: "",
+      color: "#4776E6"
+    }
   },
   methods: {
     updateCompleted(){
@@ -226,6 +261,9 @@ export default {
     },
     ...mapMutations({
       toggleMenu: "supermarket/toggleMenu",
+    }),
+    ...mapActions({
+      setColor: "supermarket/utilities/setColor",
     }),
     exit() {
       this.$dialog
@@ -238,21 +276,27 @@ export default {
           remote.app.exit();
         });
     },
-    sync() {
+    refresh() {
       this.$dialog
-        .confirm("هل تريد المزامنة؟", {
+        .confirm("هل تريد تحديث الصفحة؟", {
           okText: "متأكد",
           cancelText: "الغاء",
           reverse: false,
         })
         .then(() => {
-          console.log("sync");
+          console.log("refresh");
+          remote.getCurrentWindow().reload();
         });
     },
     async signout(){
       await this.$auth.logout();
     }
   },
+  watch: {
+    color(color){
+      this.setColor(color)
+    },
+  }
 };
 </script>
 
