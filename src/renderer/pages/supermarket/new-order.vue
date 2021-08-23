@@ -75,7 +75,7 @@
                         </div>
                         <div class="show-scroll mt-3">
                             <ul class="list-group products-list list-group-flush h-list-height ml-1 p-0">
-                                <li class="list-group-item" v-for="productAdded in productsAdded" v-if = "productAdded.count > 0" :key="'added'+productAdded.id">
+                                <li class="list-group-item" v-for="productAdded in productsAdded" :key="'added'+productAdded.id">
                                     <SupermarketNeworderAddedProduct :product="productAdded" />
                                 </li>
                             </ul>
