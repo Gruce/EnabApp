@@ -10,7 +10,12 @@ const windowsOS = {
 
 
   nsis: {
-    differentialPackage: true
+    differentialPackage: true,
+    oneClick: false,
+    allowToChangeInstallationDirectory: true,
+    createDesktopShortcut: true,
+    createStartMenuShortcut: true,
+    shortcutName: "عنب",
   }
 }
 
