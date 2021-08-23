@@ -44,14 +44,14 @@ const macOS = {
 }
 
 module.exports = {
-  productName: '{{ name }}',
-  appId: '{{ appid }}',
+  productName: 'enab',
+  appId: 'com.itourstory.enab',
   artifactName: 'setup-${version}.${ext}',
   publish: {
     provider: "github",
     owner: "itourstory",
     repo: "EnabApp",
-    releaseType: "draft"
+    releaseType: "draft",
   },
   directories: {
     output: 'build'

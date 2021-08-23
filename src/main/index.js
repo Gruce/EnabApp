@@ -29,4 +29,3 @@ ipcMain.on('restart_app', () => {
 });
 
 
-

@@ -1,12 +1,35 @@
 <template>
   <div class="main-menu d-flex align-items-center justify-content-center">
     <div class="container">
+
+      <div v-if="updateProgress.percent" class="row">
+      <!-- Downloading Update -->
+        <div class="progress-wrapper px-0" v-if="updateProgress.percent !== 100">
+            <span class="progress-percentage text-light">جاري التحديث</span>
+            <span class="progress-label text-light">{{ Math.round(updateProgress.percent * 100)/100 }}%</span>
+            <div class="progress mt-2 p-0" style="height: 10px;">
+                <div class="progress-bar bg-dark" role="progressbar" :aria-valuenow="updateProgress.percent" aria-valuemin="0" aria-valuemax="100" :style="'width: '+updateProgress.percent+'%;'"></div>
+            </div>
+        </div>
+        <!-- Downloading Completed -->
+        <div v-else class="r-2 alert alert-success py-2 mb-3">
+          <div class="row">
+            <div class="col-6">
+              <h4 class="m-0 p-0">تم التحديث!</h4>
+            </div>
+            <div class="col-6 text-left">
+              <button @click="updateCompleted" class="btn btn-success r-2">تنصيب التحديث</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="row h-100">
         <div class="col-4">
           <div class="row h-100">
             <div class="col-4 final-column">
               <div class="">
-                <ul class="nav flex-column">
+                <ul class="nav flex-column pr-0">
                   <li
                     @click="toggleMenu"
                     class="nav-item pointer content text-center text-light py-4"
@@ -176,6 +199,8 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="row">
         <div class="text-center mt-5 text-light">
             عنب، مع كل الحب 
             <i class="fas fa-heart text-danger"></i>
@@ -187,10 +212,18 @@
 
 <script>
 import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
-const { remote } = require("electron");
+const { remote, ipcRenderer } = require("electron");
 
 export default {
+  computed: {
+    updateProgress () {
+      return this.$store.state.update.progress;
+    },
+  },
   methods: {
+    updateCompleted(){
+      ipcRenderer.send('restart_app');
+    },
     ...mapMutations({
       toggleMenu: "supermarket/toggleMenu",
     }),

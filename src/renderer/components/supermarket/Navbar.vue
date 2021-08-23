@@ -54,8 +54,13 @@
                                 <div class="mr-1">
                                     <div class="badge tb-1 py-2 px-3">{{ datetime }}</div>
                                 </div>
+                                <div v-if="!updateProgress.percent" class="mr-1">
+                                    <div class="badge tb-1 py-2 px-3">الإصدار {{ version }}</div>
+                                </div>
+
                                 <div class="mr-1">
-                                    <div class="badge tb-1 py-2 px-3">الإصدار {{ version }} ###</div>
+                                    <div v-if="updateProgress.percent && updateProgress.percent !== 100" class="badge badge-info py-2 px-3">جاري التحديث</div>
+                                    <div v-if="updateProgress.percent == 100" class="badge badge-success py-2 px-3">تم التحديث</div>
                                 </div>
 
                                 <div class="mr-1">
@@ -84,6 +89,11 @@
     const { remote } = require("electron");
 
     export default {
+        computed: {
+            updateProgress () {
+                return this.$store.state.update.progress;
+            },
+        },
         async mounted() {
             try {
                 this.version = await this.$version()
@@ -94,7 +104,7 @@
         data() {
             return {
                 datetime: "",
-                version: ""
+                version: "",
             }
         },
         created() {

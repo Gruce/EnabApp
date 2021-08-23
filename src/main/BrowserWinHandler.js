@@ -10,7 +10,7 @@ autoUpdater.logger = log;
 // const url = `${server}/update/${process.platform}/${app.getVersion()}`
 // autoUpdater.setFeedURL({ url })
 
-log.transports.file.level = "debug"
+// log.transports.file.level = "debug"
 
 
 const DEV_SERVER_URL = process.env.DEV_SERVER_URL
@@ -58,6 +58,7 @@ export default class BrowserWinHandler {
     app.on('activate', () => this._recreate())
   }
 
+
   _create () {
     this.browserWindow = new BrowserWindow(
       {
@@ -74,7 +75,7 @@ export default class BrowserWinHandler {
     this.browserWindow.maximize();
     this.browserWindow.setMenu(null);
 
-    
+    this.browserWindow.webContents.openDevTools()
 
     autoUpdater.on('update-available', () => {
       this.browserWindow.webContents.send('update_available');
@@ -88,16 +89,22 @@ export default class BrowserWinHandler {
       let log_message = "Download speed: " + progressObj.bytesPerSecond;
       log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
       log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-      log.info(log_message);
+
+      this.sendStatusToWindow(progressObj);
     })
 
-    
+
     this.browserWindow.on('closed', () => {
       // Dereference the window object
       this.browserWindow = null
     })
     this._eventEmitter.emit('created')
         
+  }
+
+  sendStatusToWindow(text) {
+    log.info(text);
+    this.browserWindow.webContents.send('download_progress', text);
   }
 
   _recreate () {
