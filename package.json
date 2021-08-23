@@ -10,7 +10,7 @@
     "test": "",
     "preinstall": "node .electron-nuxt/check-engines.js",
     "postinstall": "electron-builder install-app-deps "
-  },
+  }, 
   "keywords": [],
   "author": "Hassan K. Alkhalidi <gruceing@gmail.com>",
   "license": "MIT",
