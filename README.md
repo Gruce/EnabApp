@@ -1,6 +1,19 @@
-# enab-nuxt
+# Enab App
 
 > Enab System - Manage Businesses & Connecting Them!
+> 
+> Made with :heart:	
+
+
+## Links
+* :grapes: Offical Website: https://enab.app
+* :busts_in_silhouette:	Support: https://enab.app/support
+* :iphone: Instagram: https://instagram.com/enab_app
+* :speech_balloon: Telegram: https://t.me/EnabAppBot
+
+## Features
+* Automatic Update
+* Online / Offline
 
 #### Build Setup
 
@@ -16,7 +29,3 @@ yarn run build
 
 
 ```
-
----
-
-This project was generated with [electron-nuxt](https://github.com/michalzaq12/electron-nuxt) v1.7.1 using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://github.com/michalzaq12/electron-nuxt/blob/master/README.md).
