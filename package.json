@@ -13,6 +13,7 @@
   },
   "keywords": [],
   "author": "Hassan K. Alkhalidi <gruceing@gmail.com>",
+  "publisher": "ourstory",
   "license": "MIT",
   "homepage": "https://github.com/michalzaq12/electron-nuxt/blob/master/README.md",
   "engines": {

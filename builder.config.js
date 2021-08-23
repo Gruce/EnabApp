@@ -6,6 +6,7 @@ const windowsOS = {
     publisherName: 'ourstory',
     target: 'nsis',
     publish: ["github"],
+    verifyUpdateCodeSignature: false
   },
 
 
