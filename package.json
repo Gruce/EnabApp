@@ -50,6 +50,7 @@
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.16.1",
     "electron-log": "^4.4.1",
+    "electron-pos-printer": "^1.2.4",
     "electron-updater": "^4.3.9",
     "nuxt-i18n": "^6.28.1",
     "vue-long-click": "^0.0.4",

@@ -1,25 +1,28 @@
 <template>
   <div class="mt-3">
     <div class="r-2 border-0 shadow-none">
-      <div class="row">
+      <div class="row d-flex justify-content-center align-items-center">
         <div class="col-9 d-flex">
           <h1 class="text-light">الطابعات</h1>
         </div>
-      </div>
-      <div data-v-4e64ef64="" class="form-group text-right mb-2">
-        <div data-v-4e64ef64="" class="form-check form-switch">
-          <label
-            data-v-4e64ef64=""
-            for="onlySearchProducts"
-            class="form-check-label text-light"
-          >
-            <small data-v-4e64ef64="">تفعيل الطباعة</small>
-          </label>
-          <input
-            data-v-4e64ef64=""
-            type="checkbox"
-            class="form-check-input mr-2"
-          />
+        <div class="col-3">
+          <div class="form-group text-right mb-2">
+            <div class="form-check form-switch">
+              <label
+                for="onlySearchProducts"
+                class="form-check-label text-light"
+              >
+                <small>تفعيل الطباعة</small>
+              </label>
+              <input
+                :value="printState"
+                :checked="printState"
+                @change="setPrintState()"
+                type="checkbox"
+                class="form-check-input mr-2"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <div class="row d-flex justify-content-center align-items-center">
@@ -80,18 +83,17 @@ export default {
   created() {
     this.fetchPrinters();
     this.getDefaultPrinter();
+    this.getPrintState();
   },
   methods: {
     ...mapActions({
       fetchPrinters: "supermarket/utilities/fetchPrinters",
       getDefaultPrinter: "supermarket/utilities/getDefaultPrinter",
       setDefaultPrinter: "supermarket/utilities/setDefaultPrinter",
+      getPrintState: "supermarket/utilities/getPrintState",
       setPrintState: "supermarket/utilities/setPrintState",
+      setDefaultPrinter: "supermarket/utilities/setDefaultPrinter",
     }),
   },
 };
 </script>
-
-<style lang="scss" scoped>
-//
-</style>

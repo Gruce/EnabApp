@@ -10,7 +10,13 @@ export default {
     setDefaultPrinter(state, name) {
         state.defaultPrinter = name
     },
-    setPrintState(state, stuts) {
-        state.printState = stuts
+
+    setPrintState(state, data) {
+        state.printState = data
+    },
+
+    togglePrintState(state) {
+        state.printState = !state.printState
+        console.log(state.printState)
     }
 }

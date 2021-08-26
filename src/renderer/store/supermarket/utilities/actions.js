@@ -38,8 +38,16 @@ export default {
         commit('setDefaultPrinter', defaultPrinter)
         this.$auth.$storage.setLocalStorage('default-printer', defaultPrinter)
     },
-    printState({ commit }, printState) {
-        commit('setPrintState', printState)
-    }
 
+    getPrintState({commit}){
+        let thisState = this.$auth.$storage.getLocalStorage('print-state')
+        if (thisState)
+            commit('setPrintState', thisState)
+        console.log(thisState)
+    },
+    
+    async setPrintState({ commit, state }) {
+        await commit('togglePrintState')
+        this.$auth.$storage.setLocalStorage('print-state', state.printState)
+    }
 }
