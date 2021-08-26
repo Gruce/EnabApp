@@ -1,11 +1,11 @@
 const { ipcRenderer } = require('electron');
 
 export default {
-    changeColor({commit}, data){
+    changeColor({ commit }, data) {
         commit('setColor', data)
     },
 
-    getColor({commit}){
+    getColor({ commit }) {
         let color = this.$auth.$storage.getLocalStorage('background-color')
         if (color)
             commit('setColor', color)
@@ -13,20 +13,20 @@ export default {
             commit('setColor', "#4776E6")
     },
 
-    setColor({commit}, color){
+    setColor({ commit }, color) {
         commit('setColor', color)
         this.$auth.$storage.setLocalStorage('background-color', color)
     },
 
-    fetchPrinters(){
+    fetchPrinters() {
         ipcRenderer.send('get_printers');
     },
 
-    changePrinters({commit}, data){
+    changePrinters({ commit }, data) {
         commit('setPrinters', data)
     },
 
-    getDefaultPrinter({commit}){
+    getDefaultPrinter({ commit }) {
         let printer = this.$auth.$storage.getLocalStorage('default-printer')
         if (printer)
             commit('setDefaultPrinter', printer)
@@ -34,9 +34,12 @@ export default {
             return false
     },
 
-    setDefaultPrinter({commit}, defaultPrinter){
+    setDefaultPrinter({ commit }, defaultPrinter) {
         commit('setDefaultPrinter', defaultPrinter)
         this.$auth.$storage.setLocalStorage('default-printer', defaultPrinter)
+    },
+    printState({ commit }, printState) {
+        commit('setPrintState', printState)
     }
 
 }

@@ -6,7 +6,22 @@
           <h1 class="text-light">الطابعات</h1>
         </div>
       </div>
-
+      <div data-v-4e64ef64="" class="form-group text-right mb-2">
+        <div data-v-4e64ef64="" class="form-check form-switch">
+          <label
+            data-v-4e64ef64=""
+            for="onlySearchProducts"
+            class="form-check-label text-light"
+          >
+            <small data-v-4e64ef64="">تفعيل الطباعة</small>
+          </label>
+          <input
+            data-v-4e64ef64=""
+            type="checkbox"
+            class="form-check-input mr-2"
+          />
+        </div>
+      </div>
       <div class="row d-flex justify-content-center align-items-center">
         <div class="col-6">
           <b-dropdown
@@ -22,22 +37,25 @@
               v-for="(printer, i) in printers"
               :key="i"
               @click="setDefaultPrinter(printer.name)"
-              >
-              <span class="badge badge-light text-dark" v-if="printer.name == defaultPrinter">الافتراضي</span>
-              {{ printer.name }}
-              </b-dropdown-item
             >
+              <span
+                class="badge badge-light text-dark"
+                v-if="printer.name == defaultPrinter"
+                >الافتراضي</span
+              >
+              {{ printer.name }}
+            </b-dropdown-item>
           </b-dropdown>
         </div>
         <div class="col-6">
-            <!-- Default -->
-            <h6 class="text-light text-left">
-                <div>
-                    <span v-if="defaultPrinter == ''">لايوجد طابعة افتراضية</span>
-                    <span v-else> {{ defaultPrinter }} </span>
-                    <i class="fas fa-print"></i>
-                </div>
-            </h6>
+          <!-- Default -->
+          <h6 class="text-light text-left">
+            <div>
+              <span v-if="defaultPrinter == ''">لايوجد طابعة افتراضية</span>
+              <span v-else> {{ defaultPrinter }} </span>
+              <i class="fas fa-print"></i>
+            </div>
+          </h6>
         </div>
       </div>
     </div>
@@ -55,6 +73,9 @@ export default {
     defaultPrinter() {
       return this.$store.state.supermarket.utilities.defaultPrinter;
     },
+    printState() {
+      return this.$store.state.supermarket.utilities.printState;
+    },
   },
   created() {
     this.fetchPrinters();
@@ -65,6 +86,7 @@ export default {
       fetchPrinters: "supermarket/utilities/fetchPrinters",
       getDefaultPrinter: "supermarket/utilities/getDefaultPrinter",
       setDefaultPrinter: "supermarket/utilities/setDefaultPrinter",
+      setPrintState: "supermarket/utilities/setPrintState",
     }),
   },
 };
