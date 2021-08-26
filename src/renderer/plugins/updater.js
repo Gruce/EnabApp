@@ -5,6 +5,13 @@ export default function ({ app, store }, inject) {
 
   ipcRenderer.send('app_version');
 
+  ipcRenderer.send('get_printers');
+  
+  ipcRenderer.on('get_printers', (event, arg) => {
+    console.log(arg)
+    // ipcRenderer.removeAllListeners('app_version');
+  });
+
   inject('version', () => {return version})
 
   inject('restart', () => {return arg.version})
