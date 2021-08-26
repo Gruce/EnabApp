@@ -17,27 +17,22 @@ import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   computed: {
-    showMenu() {
+    showMenu () {
       return this.$store.state.supermarket.showMenu;
     },
-    backgroundColor() {
+    backgroundColor () {
       return this.$store.state.supermarket.utilities.color;
     },
   },
-  beforeCreate() {
-    if ($nuxt.isOnline) {
-      this.$auth.$storage.removeLocalStorage("products");
-      this.$auth.$storage.removeLocalStorage("categories");
-      this.$auth.$storage.removeLocalStorage("orders");
-      this.$auth.$storage.removeLocalStorage("lastOrder");
-    }
-  },
-  created() {
-    this.getColor();
+  created(){
+    this.getColor()
+    this.fetchPrinters()
     var user = this.$auth.user;
-    window.$crisp.push(["set", "user:nickname", ["Supermarket." + user.name]]);
+    window.$crisp.push(["set", "user:nickname", ["Supermarket." + user.name]])
     // window.$crisp.push(["set", "session:data", [[Object.keys(user).map(function(key) {return [ key, user[key]] })]]])
-    window.$crisp.push(["set", "session:data", [[["email", user.email]]]]);
+    window.$crisp.push(["set", "session:data", [[
+      ["email", user.email],
+    ]]])
   },
   data() {
     return {
@@ -48,10 +43,11 @@ export default {
   },
   methods: {
     ...mapMutations({
-      toggleMenu: "supermarket/toggleMenu",
+      toggleMenu: 'supermarket/toggleMenu',
     }),
     ...mapActions({
-      getColor: "supermarket/utilities/getColor",
+      getColor: 'supermarket/utilities/getColor',
+      fetchPrinters: 'supermarket/utilities/fetchPrinters'
     }),
     keyboardEvent(e) {
       if (this.interval) clearInterval(this.interval);
@@ -83,15 +79,15 @@ export default {
 
       // Ctrl + ESC => Show Menu
       if (e.which === 27) {
-        this.toggleMenu();
+        this.toggleMenu()
       }
     },
   },
   watch: {
     backgroundColor(color) {
-      document.querySelector("body").style.backgroundColor = color;
-    },
-  },
+      document.querySelector('body').style.backgroundColor=color
+    }
+  }
 };
 </script>
 
