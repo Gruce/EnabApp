@@ -1,3 +1,6 @@
 export default () => ({
-    color: ""
+    color: "",
+    print_state: false,
+    printers: {},
+    defaultPrinter: ""
 })
