@@ -109,6 +109,7 @@ export default {
             return true
         }
 
+
         let products = []
         state.products.forEach(x => {
             products.push({id: x.id, count: x.inCount})
@@ -122,6 +123,13 @@ export default {
         }).catch(function (error) {
             console.log(error)
         })
+
+        // Print Order
+        if (this.state('supermarket/utilities/defaultPrinter') == ""){
+            this.$toast.info('يرجى تحديد طابعة لإجراء عملية الطباعة')
+        } else {
+            console.log("print it")
+        }
 
         let lastOrder = {...await dispatch('fetchLastOrder')}
         lastOrder.id++
