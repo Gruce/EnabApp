@@ -1,6 +1,6 @@
 <template>
     <div v-if="service" class="main">
-        <div class="position-absolute t-3 p-2 r-2 start-50 translate-middle received_title">
+        <div class="received_title mb-3">
             <h6 class="text-center text-dark">
                 <b>المبلغ المستلم</b>
             </h6>
@@ -130,7 +130,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 20%;
+        width: 30vw;
         height: 56%;
         border-radius: $r-2;
         padding: 1rem;
@@ -147,12 +147,22 @@
             right: 0;
             transform: translate(-50%, -50%);
         }
-
-        
     }
 
     .received_title{
         top: -27.5px;
         width: 100%;
+    }
+
+    @media (max-width: 1340px) {
+        .main{
+            width: 40vw;
+        }
+    }
+
+    @media (max-width: 991.98px) {
+    .main{
+            width: 50vw;
+        }
     }
 </style>
