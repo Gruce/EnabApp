@@ -30,11 +30,6 @@
                                     <i class="fas fa-cubes"></i>
                                 </nuxt-link>
                             </li>
-                            <li class="nav-item">
-                                <nuxt-link to="/supermarket/settings" :class="{ 'active' : $nuxt.$route.path === '/supermarket/settings'}" class="nav-link py-1 px-3">
-                                    <i class="fas fa-cog"></i>
-                                </nuxt-link>
-                            </li>
                             <!-- <li class="nav-item">
                                 <a href="https://pos.itourstory.com/supermarket/analysis" class="nav-link  py-1 px-3">
                                     <i class="fas fa-chart-pie"></i>

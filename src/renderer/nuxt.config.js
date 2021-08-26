@@ -38,7 +38,6 @@ module.exports = {
     {src: '~/plugins/vuejs-select.js', mode: 'client'},
     {src: '~/plugins/vue-long-click.js', mode: 'client'},
     { src: "~/plugins/crisp.js", mode: "client" },
-    { src: "~/plugins/utilities.js", mode: "client" },
 
     
 
