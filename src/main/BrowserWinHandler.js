@@ -2,7 +2,6 @@
 import { EventEmitter } from 'events'
 import { BrowserWindow, app, protocol } from 'electron'
 const { autoUpdater } = require('electron-updater');
-const { ipcMain } = require('electron');
 
 const log = require('electron-log');
 autoUpdater.logger = log;
@@ -41,7 +40,7 @@ export default class BrowserWinHandler {
       app.once('ready', async () => {
         setInterval(() => {
           autoUpdater.checkForUpdatesAndNotify();
-        }, 14400) // Every 4 Hours
+        }, 1800000) // Every 4 Hours
 
         protocol.registerFileProtocol('app', (request, callback) => {
           const url = request.url.substr(6);

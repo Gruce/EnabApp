@@ -3366,11 +3366,6 @@ create-require@^1.1.1:
   resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
   integrity sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
 
-credit-pos-printer@^1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/credit-pos-printer/-/credit-pos-printer-1.2.6.tgz#2646ac6fd2b90c83311c4c9db59c505a983f021e"
-  integrity sha512-KxDJGm4bWNc4DG4XKrvjXy0PhCdHA1HpM1vB5P37lSglQrY5tPesJhj+rIufT5f8tpmNo9jCeFVNOvALilhOpQ==
-
 cross-env@7.0.3:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-7.0.3.tgz#865264b29677dc015ba8418918965dd232fc54cf"
@@ -6636,6 +6631,11 @@ mkdirp@^1.0.3, mkdirp@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
+
+modified-pos-printer@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/modified-pos-printer/-/modified-pos-printer-1.2.4.tgz#9bd1f688d0fa0a1cd0a6313fe14fbb8f643934f8"
+  integrity sha512-XPvvtCah3/3N9MU3ip+nLp8M+3Ovqch2eF+M6BjPHJOHN57ZEOhCR+I8jWW9/4/5u+CfgOm/5rie7aik/qN7Mw==
 
 move-concurrently@^1.0.1:
   version "1.0.1"
