@@ -62,7 +62,7 @@
                         <div class="row mx-0">
                             <div class="col-6 p-0">
                                 <h3 class="fw-bold text-light">
-                                    الطلب الحالي <small v-if="lastOrder">#{{ lastOrder.order_number+1 }}</small><small v-else>#1</small>
+                                    الطلب الحالي <small v-if="isNaN(lastOrder)">#1</small><small v-else>#{{ lastOrder.order_number+1 }}</small>
                                 </h3>
                             </div>
                             <div class="col-6 text-left p-0">
@@ -143,80 +143,81 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters, mapActions, mapState } from 'vuex'
+import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
-  layout: 'supermarket',
+  layout: "supermarket",
   head: {
-    title: 'New Order',
+    title: "New Order",
   },
   computed: {
-      products () {
-        return this.$store.state.supermarket.products.products;
-      },
-      categories () {
-        return this.$store.state.supermarket.categories.categories;
-      },
-      productsAdded () {
-        return this.$store.state.supermarket.orders.products;
-      },
-      lastOrder () {
-        return this.$store.state.supermarket.orders.lastOrder;
-      },
-      calculator () {
-        return this.$store.state.supermarket.orders.calculator
-      },
-      selectedCategory(){
-        return this.$store.state.supermarket.orders.selectedCategory
-      },
-      hideCategoriesValue(){
-        return this.$store.state.supermarket.orders.hideCategories
-      },
+    products() {
+      return this.$store.state.supermarket.products.products;
+    },
+    categories() {
+      return this.$store.state.supermarket.categories.categories;
+    },
+    productsAdded() {
+      return this.$store.state.supermarket.orders.products;
+    },
+    lastOrder() {
+      console.log(
+        "last" + this.$store.state.supermarket.orders.lastOrder.order_number
+      );
+      return this.$store.state.supermarket.orders.lastOrder;
+    },
+    calculator() {
+      return this.$store.state.supermarket.orders.calculator;
+    },
+    selectedCategory() {
+      return this.$store.state.supermarket.orders.selectedCategory;
+    },
+    hideCategoriesValue() {
+      return this.$store.state.supermarket.orders.hideCategories;
+    },
   },
-  async mounted() {
-
-  },
+  async mounted() {},
   data() {
     return {
       products_loading: true,
       totalPrice: 0,
-      search: '',
-      invoice: false
-    }
+      search: "",
+      invoice: false,
+    };
   },
-  created(){
-    this.fetchProducts()
-    this.fetchCategories()
-    this.fetchLastOrder()
-    this.products_loading = false
+  created() {
+    this.fetchProducts();
+    this.fetchCategories();
+    this.fetchLastOrder();
+    this.products_loading = false;
   },
   methods: {
     ...mapMutations({
-      onlyProducts: 'supermarket/orders/onlyProducts',
+      onlyProducts: "supermarket/orders/onlyProducts",
     }),
     ...mapActions({
-      fetchProducts: 'supermarket/products/fetchProducts',
-      fetchCategories: 'supermarket/categories/fetchCategories',
-      fetchLastOrder: 'supermarket/orders/fetchLastOrder',
-      emptyProducts: 'supermarket/orders/emptyProducts',
-      endOrder: 'supermarket/orders/endOrder',
-      hideCategories: 'supermarket/orders/hideCategories',
+      fetchProducts: "supermarket/products/fetchProducts",
+      fetchCategories: "supermarket/categories/fetchCategories",
+      fetchLastOrder: "supermarket/orders/fetchLastOrder",
+      emptyProducts: "supermarket/orders/emptyProducts",
+      endOrder: "supermarket/orders/endOrder",
+      hideCategories: "supermarket/orders/hideCategories",
     }),
   },
 
   watch: {
     productsAdded: {
-        deep: true,
-        handler(newVal) {
-          this.totalPrice = 0
-          newVal.forEach(x => (this.totalPrice += x.price * x.inCount))
-        }
+      deep: true,
+      handler(newVal) {
+        this.totalPrice = 0;
+        newVal.forEach((x) => (this.totalPrice += x.price * x.inCount));
+      },
     },
     ...mapActions({
-      search: 'supermarket/orders/searchItems',
+      search: "supermarket/orders/searchItems",
     }),
   },
-}
+};
 </script>
 
 <style lang="scss">
@@ -248,23 +249,23 @@ export default {
   left: 20px;
   top: 8px;
 }
-.category-list .nav-item{
+.category-list .nav-item {
   border: 1px solid #fff4;
-  &:first-of-type{
+  &:first-of-type {
     background: $t-1;
     border-top-left-radius: $r-2;
     border-top-right-radius: $r-2;
   }
-  &:last-of-type{
+  &:last-of-type {
     border-bottom-left-radius: $r-2;
     border-bottom-right-radius: $r-2;
   }
-  &:hover{
+  &:hover {
     background: $t-3;
   }
 }
 
-.activeCategory{
+.activeCategory {
   background: #fff3 !important;
 }
 </style>
