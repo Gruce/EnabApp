@@ -39,7 +39,9 @@ export default class BrowserWinHandler {
     if (app.isReady()) this._create()
     else {
       app.once('ready', async () => {
-        autoUpdater.checkForUpdatesAndNotify();
+        setInterval(() => {
+          autoUpdater.checkForUpdatesAndNotify();
+        }, 14400) // Every 4 Hours
 
         protocol.registerFileProtocol('app', (request, callback) => {
           const url = request.url.substr(6);
