@@ -1,4 +1,4 @@
-import { ipcMain  } from 'electron'
+import { ipcMain } from 'electron'
 import BrowserWinHandler from './BrowserWinHandler'
 
 const winHandler = new BrowserWinHandler({
@@ -9,7 +9,6 @@ const winHandler = new BrowserWinHandler({
 
 winHandler.onCreated(_browserWindow => {
   winHandler.loadPage('/')
-  
   // Or load custom url
   // _browserWindow.loadURL('https://google.com')
 })
@@ -17,6 +16,9 @@ winHandler.onCreated(_browserWindow => {
 ipcMain.on('get_printers', (event) => {
   event.sender.send('get_printers', { ...winHandler.browserWindow.webContents.getPrinters() });
 });
+
+
+
 
 
 export default winHandler

@@ -1,82 +1,7 @@
-const { PosPrinter } = require('electron').remote.require("electron-pos-printer");
+const electron = require('electron')
+const BrowserWindow = electron.remote.BrowserWindow;
+const { PosPrinter } = require('electron').remote.require("credit-pos-printer");
 const path = require("path");
-const options = {
-    preview: false,               // Preview in window or print
-    width: '170px',               //  width of content body
-    margin: '0 0 0 0',            // margin of content body
-    copies: 1,                    // Number of copies to print
-    printerName: 'XP-80C',        // printerName: string, check with webContent.getPrinters()
-    timeOutPerLine: 400,
-    pageSize: { height: 301000, width: 71000 }  // page size
-}
-
-const data = [
-    {
-        type: 'text',                                       // 'text' | 'barCode' | 'qrCode' | 'image' | 'table
-        value: 'SAMPLE HEADING',
-        style: `text-align:center;`,
-        css: { "font-weight": "700", "font-size": "18px" }
-    }, {
-        type: 'text',                       // 'text' | 'barCode' | 'qrCode' | 'image' | 'table'
-        value: 'Secondary text',
-        style: `text-align:left;color: red;`,
-        css: { "text-decoration": "underline", "font-size": "10px" }
-    }, {
-        type: 'barCode',
-        value: 'HB4587896',
-        height: 12,                     // height of barcode, applicable only to bar and QR codes
-        width: 1,                       // width of barcode, applicable only to bar and QR codes
-        displayValue: true,             // Display value below barcode
-        fontsize: 8,
-    }, {
-        type: 'qrCode',
-        value: 'https://github.com/Hubertformin/electron-pos-printer',
-        height: 55,
-        width: 55,
-        style: 'margin: 10 20px 20 20px'
-    }, {
-        type: 'table',
-        // style the table
-        style: 'border: 1px solid #ddd',
-        // list of the columns to be rendered in the table header
-        tableHeader: ['Animal', 'Age'],
-        // multi dimensional array depicting the rows and columns of the table body
-        tableBody: [
-            ['Cat', 2],
-            ['Dog', 4],
-            ['Horse', 12],
-            ['Pig', 4],
-        ],
-        // list of columns to be rendered in the table footer
-        tableFooter: ['Animal', 'Age'],
-        // custom style for the table header
-        tableHeaderStyle: 'background-color: #000; color: white;',
-        // custom style for the table body
-        tableBodyStyle: 'border: 0.5px solid #ddd',
-        // custom style for the table footer
-        tableFooterStyle: 'background-color: #000; color: white;',
-    }, {
-        type: 'table',
-        style: 'border: 1px solid #ddd',             // style the table
-        // list of the columns to be rendered in the table header
-        tableHeader: [{ type: 'text', value: 'Animal' }, { type: 'image', path: path.join(__dirname, 'icons/animal.png') }],
-        // multi dimensional array depicting the rows and columns of the table body
-        tableBody: [
-            [{ type: 'text', value: 'Cat' }, { type: 'image', path: './animals/cat.jpg' }],
-            [{ type: 'text', value: 'Dog' }, { type: 'image', path: './animals/dog.jpg' }],
-            [{ type: 'text', value: 'Horse' }, { type: 'image', path: './animals/horse.jpg' }],
-            [{ type: 'text', value: 'Pig' }, { type: 'image', path: './animals/pig.jpg' }],
-        ],
-        // list of columns to be rendered in the table footer
-        tableFooter: [{ type: 'text', value: 'Animal' }, 'Image'],
-        // custom style for the table header
-        tableHeaderStyle: 'background-color: #000; color: white;',
-        // custom style for the table body
-        tableBodyStyle: 'border: 0.5px solid #ddd',
-        // custom style for the table footer
-        tableFooterStyle: 'background-color: #000; color: white;',
-    },
-]
 
 
 export default {
@@ -211,22 +136,10 @@ export default {
                 this.$toast.info('يرجى تحديد طابعة لإجراء عملية الطباعة')
             } else {
                 console.log("print it")
-                PosPrinter.print(data, {
-                    preview: false,               // Preview in window or print
-                    width: '170px',               //  width of content body
-                    margin: '0 0 0 0',            // margin of content body
-                    copies: 1,                    // Number of copies to print
-                    printerName: 'EPSON6E27D1 (L805 Series)',        // printerName: string, check with webContent.getPrinters()
-                    timeOutPerLine: 1000,
-                    silent: true,
-                    pageSize: { height: 301000, width: 71000 }  // page size
-                })
-                    .then(() => {
-                        console.log("printed")
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
+                // Printer
+
+                // dispatch('invoice', state.products)
+                dispatch('invoice2', state.products)
             }
         }
 
@@ -263,6 +176,253 @@ export default {
         commit('hideCategories')
     },
 
+
+    invoice2({ }, products) {
+        console.log("hi invoice")
+        const data = [
+            {
+              type: 'image',                                       
+              path: path.join(__dirname, 'assets/banner.png'),     // file path
+              position: 'center',                                  // position of image: 'left' | 'center' | 'right'
+              width: '60px',                                           // width of image in px; default: auto
+              height: '60px',                                          // width of image in px; default: 50 or '50px'
+            },{
+               type: 'text',                                       // 'text' | 'barCode' | 'qrCode' | 'image' | 'table
+               value: 'SAMPLE HEADING',
+               style: `text-align:center;`,
+               css: {"font-weight": "700", "font-size": "18px"}
+            },{
+               type: 'text',                       // 'text' | 'barCode' | 'qrCode' | 'image' | 'table'
+               value: 'Secondary text',
+               style: `text-align:left;color: red;`,
+               css: {"text-decoration": "underline", "font-size": "10px"}
+            },{
+               type: 'barCode',
+               value: 'HB4587896',
+               height: 12,                     // height of barcode, applicable only to bar and QR codes
+               width: 1,                       // width of barcode, applicable only to bar and QR codes
+               displayValue: true,             // Display value below barcode
+               fontsize: 8,
+            },{
+              type: 'qrCode',
+               value: 'https://github.com/Hubertformin/electron-pos-printer',
+               height: 55,
+               width: 55,
+               style: 'margin: 10 20px 20 20px'
+             },{
+                type: 'table',
+                // style the table
+                style: 'border: 1px solid #ddd',
+                // list of the columns to be rendered in the table header
+                tableHeader: ['Animal', 'Age'],
+                // multi dimensional array depicting the rows and columns of the table body
+                tableBody: [
+                    ['Cat', 2],
+                    ['Dog', 4],
+                    ['Horse', 12],
+                    ['Pig', 4],
+                ],
+                // list of columns to be rendered in the table footer
+                tableFooter: ['Animal', 'Age'],
+                // custom style for the table header
+                tableHeaderStyle: 'background-color: #000; color: white;',
+                // custom style for the table body
+                tableBodyStyle: 'border: 0.5px solid #ddd',
+                // custom style for the table footer
+                tableFooterStyle: 'background-color: #000; color: white;',
+             },{
+                type: 'table',
+                style: 'border: 1px solid #ddd',             // style the table
+                // list of the columns to be rendered in the table header
+                tableHeader: [{type: 'text', value: 'Animal'}, {type: 'image', path: path.join(__dirname, 'icons/animal.png')}],
+                // multi dimensional array depicting the rows and columns of the table body
+                tableBody: [
+                    [{type: 'text', value: 'Cat'}, {type: 'image', path: './animals/cat.jpg'}],
+                    [{type: 'text', value: 'Dog'}, {type: 'image', path: './animals/dog.jpg'}],
+                    [{type: 'text', value: 'Horse'}, {type: 'image', path: './animals/horse.jpg'}],
+                    [{type: 'text', value: 'Pig'}, {type: 'image', path: './animals/pig.jpg'}],
+                ],
+                // list of columns to be rendered in the table footer
+                tableFooter: [{type: 'text', value: 'Animal'}, 'Image'],
+                // custom style for the table header
+                tableHeaderStyle: 'background-color: #000; color: white;',
+                // custom style for the table body
+                tableBodyStyle: 'border: 0.5px solid #ddd',
+                // custom style for the table footer
+                tableFooterStyle: 'background-color: #000; color: white;',
+             },
+         ]
+
+        // returns promise<any>
+        PosPrinter.print(data, {
+            printerName: this.state.supermarket.utilities.defaultPrinter,
+            preview: false,
+            width: '170px',               //  width of content body
+            margin: '0 0 0 0',            // margin of content body
+            copies: 1,                   // The number of copies to print
+            timeOutPerLine: 5000,
+            // silent: true,
+            pageSize: { height: 301000, width: 71000 }  // page size
+        })
+            .catch((error) => {
+                console.error(error);
+            });
+    },
+
+
+
+    invoice({ }, products) {
+        console.log("dispatched")
+        let invoice_html = `
+        <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        * {
+            font-size: 12px;
+            font-family: 'Times New Roman';
+        }
+
+        td,
+        th,
+        tr,
+        table {
+            border-top: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        td.description,
+        th.description {
+            width: 75px;
+            max-width: 75px;
+        }
+
+        td.quantity,
+        th.quantity {
+            width: 40px;
+            max-width: 40px;
+            word-break: break-all;
+        }
+
+        td.price,
+        th.price {
+            width: 40px;
+            max-width: 40px;
+            word-break: break-all;
+        }
+
+        .centered {
+            text-align: center;
+            align-content: center;
+        }
+
+        .ticket {
+            width: 155px;
+            max-width: 155px;
+        }
+
+        img {
+            max-width: inherit;
+            width: inherit;
+        }
+
+        @media print {
+
+            .hidden-print,
+            .hidden-print * {
+                display: none !important;
+            }
+        }
+    </style>
+    <title>Receipt example</title>
+</head>
+
+<body>
+    <div class="ticket">
+        <img src="./logo.png" alt="Logo">
+        <p class="centered">RECEIPT EXAMPLE
+            <br>Address line 1
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="quantity">Q.</th>
+                    <th class="description">Description</th>
+                    <th class="price">$$</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="quantity">1.00</td>
+                    <td class="description">ARDUINO UNO R3</td>
+                    <td class="price">$25.00</td>
+                </tr>
+                <tr>
+                    <td class="quantity">2.00</td>
+                    <td class="description">JAVASCRIPT BOOK</td>
+                    <td class="price">$10.00</td>
+                </tr>
+                <tr>
+                    <td class="quantity">1.00</td>
+                    <td class="description">STICKER PACK</td>
+                    <td class="price">$10.00</td>
+                </tr>
+                <tr>
+                    <td class="quantity"></td>
+                    <td class="description">TOTAL</td>
+                    <td class="price">$55.00</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="centered">Thanks for your purchase!
+            <br>parzibyte.me/blog
+        </p>
+    </div>
+</body>
+
+</html>
+      `
+        var options = {
+            silent: false,
+            printBackground: true,
+            color: false,
+            margin: {
+                marginType: 'printableArea'
+            },
+            landscape: false,
+            pagesPerSheet: 1,
+            collate: false,
+            copies: 1,
+            header: 'Header of the Page',
+            footer: 'Footer of the Page'
+        }
+
+        let win = new BrowserWindow({
+            show: true,
+            webPreferences: {
+                nodeIntegration: true
+            }
+        });
+        // win.setMenu(null);
+
+        var html = [
+            "<body>",
+            invoice_html,
+            "</body>",
+        ].join("");
+        win.loadURL("data:text/html;charset=utf-8," + encodeURI(html));
+
+        win.webContents.on('did-finish-load', () => {
+            win.webContents.print(options, (success, failureReason) => {
+                if (!success) console.log(failureReason);
+                console.log('Print Initiated');
+            });
+        });
+    }
 
 
 }
