@@ -1,34 +1,26 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\khans\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+  C:\Program Files\nodejs\node.exe C:\Users\Hassan\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
 
 PATH: 
-  C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Users\khans\AppData\Local\Microsoft\WindowsApps;C:\Users\khans\AppData\Roaming\npm;D:\Programs\Microsoft VS Code\bin;C:\Users\khans\AppData\Local\GitHubDesktop\bin;C:\Users\khans\AppData\Roaming\Composer\vendor\bin
+  C:\ProgramData\Oracle\Java\javapath;C:\Program Files\AdoptOpenJDK\jre-11.0.7.10-hotspot\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\Microsoft VS Code\bin;C:\Windows\System32;C:\Program Files\Git\git-cmd.exe;C:\src\flutter\bin;C:\Program Files\Java\jre1.8.0_251\bin;C:\Users\Hassan\AppData\Roaming\npm;C:\Users\Hassan\AppData\Roaming\Composer\vendor\bin;C:\Program Files\JetBrains\PhpStorm 2020.3.2\bin;
 
 Yarn version: 
   1.22.11
 
 Node version: 
-  14.17.5
+  14.15.3
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/app-builder-bin/-/app-builder-bin-3.7.1.tgz: ESOCKETTIMEDOUT
-      at ClientRequest.<anonymous> (C:\Users\khans\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141390:19)
-      at Object.onceWrapper (events.js:519:28)
-      at ClientRequest.emit (events.js:400:28)
-      at TLSSocket.emitRequestTimeout (_http_client.js:790:9)
-      at Object.onceWrapper (events.js:519:28)
-      at TLSSocket.emit (events.js:412:35)
-      at TLSSocket.Socket._onTimeout (net.js:484:8)
-      at listOnTimeout (internal/timers.js:557:17)
-      at processTimers (internal/timers.js:500:7)
+  Error: unexpected end of file
+      at Zlib.zlibOnError [as onerror] (zlib.js:182:17)
 
 npm manifest: 
   {
     "name": "enab",
-    "version": "1.2.5",
+    "version": "1.2.3",
     "description": "Enab System",
     "main": "./dist/main/index.js",
     "scripts": {

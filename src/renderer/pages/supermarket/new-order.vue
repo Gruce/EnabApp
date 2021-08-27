@@ -67,6 +67,9 @@
                             </div>
                             <div class="col-6 text-left p-0">
                                 <div>
+                                    <button @click="invoice = !invoice" :class="[productsAdded.length > 0 ? '' : 'disabled']" type="button" class="btn btn-light">
+                                        <i class="fas fa-receipt"></i>
+                                    </button>
                                     <button @click="emptyProducts()" :class="[productsAdded.length > 0 ? '' : 'disabled']" type="button" class="btn btn-danger">
                                         حذف الكل
                                     </button>
@@ -74,11 +77,16 @@
                             </div>
                         </div>
                         <div class="show-scroll mt-3">
-                            <ul class="list-group products-list list-group-flush h-list-height ml-1 p-0">
-                                <li class="list-group-item" v-for="productAdded in productsAdded" :key="'added'+productAdded.id">
-                                    <SupermarketNeworderAddedProduct :product="productAdded" />
-                                </li>
-                            </ul>
+                            <div class="h-list-height">
+                              <div v-if="invoice">
+                                invoice
+                              </div>
+                              <ul v-else class="list-group products-list list-group-flush ml-1 p-0">
+                                  <li class="list-group-item" v-for="productAdded in productsAdded" :key="'added'+productAdded.id">
+                                      <SupermarketNeworderAddedProduct :product="productAdded" />
+                                  </li>
+                              </ul>
+                            </div>
                         </div>
 
                         <div class="row mt-3">
@@ -173,6 +181,7 @@ export default {
       products_loading: true,
       totalPrice: 0,
       search: '',
+      invoice: false
     }
   },
   created(){
@@ -224,8 +233,8 @@ export default {
   max-height: calc(100vh - 12.75rem) !important;
 }
 .h-list-height {
-  min-height: calc(100vh - 26rem) !important;
-  max-height: calc(100vh - 26rem) !important;
+  min-height: calc(100vh - 27rem) !important;
+  max-height: calc(100vh - 27rem) !important;
 }
 .products-list .list-group-item:first-child {
   border-top-left-radius: 0.375rem !important;

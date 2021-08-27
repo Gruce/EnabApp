@@ -26,6 +26,7 @@ export default {
   },
   created(){
     this.getColor()
+    this.fetchPrinters()
     var user = this.$auth.user;
     window.$crisp.push(["set", "user:nickname", ["Supermarket." + user.name]])
     // window.$crisp.push(["set", "session:data", [[Object.keys(user).map(function(key) {return [ key, user[key]] })]]])
@@ -46,6 +47,7 @@ export default {
     }),
     ...mapActions({
       getColor: 'supermarket/utilities/getColor',
+      fetchPrinters: 'supermarket/utilities/fetchPrinters'
     }),
     keyboardEvent(e) {
       if (this.interval) clearInterval(this.interval);

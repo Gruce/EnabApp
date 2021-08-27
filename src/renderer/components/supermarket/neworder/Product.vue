@@ -13,7 +13,7 @@
             </div>
             <div class="row">
                 <span class="text-light text-left">
-                    {{ $n(product.price, 'currency') }} د.ع                                       
+                    {{ $n(product.price, 'currency') }}                                      
                 </span>
             </div>
         </div>

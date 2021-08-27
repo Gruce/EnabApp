@@ -1,6 +1,6 @@
 import { app, ipcMain, protocol  } from 'electron'
 const { autoUpdater } = require('electron-updater');
-
+const {PosPrinter} = require("credit-pos-printer");
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -27,5 +27,7 @@ ipcMain.on('app_version', (event) => {
 ipcMain.on('restart_app', () => {
   autoUpdater.quitAndInstall();
 });
+
+
 
 

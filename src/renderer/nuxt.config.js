@@ -38,6 +38,7 @@ module.exports = {
     {src: '~/plugins/vuejs-select.js', mode: 'client'},
     {src: '~/plugins/vue-long-click.js', mode: 'client'},
     { src: "~/plugins/crisp.js", mode: "client" },
+    { src: "~/plugins/utilities.js", mode: "client" },
 
     
 
@@ -105,8 +106,8 @@ module.exports = {
     strategies: {
       laravelSanctum: {
         provider: 'laravel/sanctum',
-        url: 'http://localhost:8000',
-        // url: 'https://pos.itourstory.com',
+        // url: 'http://localhost:8000',
+        url: 'https://api.enab.app',
         endpoints: {
           login: { 
               url: '/api/login',
@@ -115,7 +116,7 @@ module.exports = {
       },
       laravelJWT: {
         provider: 'laravel/jwt',
-        url: 'http://localhost:8000',
+        url: 'https://api.enab.app',
         endpoints: {
           login: { 
             url: '/api/auth/login',
@@ -136,7 +137,7 @@ module.exports = {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // baseURL: 'https://pos.itourstory.com',
-    baseURL: 'http://localhost:8000',
+    baseURL: 'https://api.enab.app',
     withCredentials: true,
   },
 

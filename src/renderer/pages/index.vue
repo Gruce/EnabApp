@@ -5,33 +5,30 @@
       {{ this.$auth.user.name }}
     </h1>
 
-    <span class="fs-5 text-white">
-      الخدمات المجانية المتوفرة لك 😉
-    </span>
+    <span class="fs-5 text-white"> الخدمات المجانية المتوفرة لك 😉 </span>
 
     <div class="row mx-lg-n1 d-flex justify-content-center mt-5">
-        <div class="col-md-4 px-lg-4">
-          <Businesses link="/supermarket" title='سوبرماركت' sub_title="إدارة السوبر ماركت" :new_service=true />
-        </div>
+      <div class="col-md-4 px-lg-4">
+        <Businesses
+          link="/supermarket"
+          title="سوبرماركت"
+          sub_title="إدارة السوبر ماركت"
+          :new_service="true"
+        />
+      </div>
     </div>
-
   </div>
 </template>
 
 <script>
-
 export default {
-  created(){
-    
-  },
-  methods: {
-    
-  }
-}
+  created() {},
+  methods: {},
+};
 </script>
 
 <style lang="scss" scoped>
-  h1{
-    font-weight: 600;
-  }
+h1 {
+  font-weight: 600;
+}
 </style>

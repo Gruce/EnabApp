@@ -2,6 +2,8 @@
 import { EventEmitter } from 'events'
 import { BrowserWindow, app, protocol } from 'electron'
 const { autoUpdater } = require('electron-updater');
+const { ipcMain } = require('electron');
+
 const log = require('electron-log');
 autoUpdater.logger = log;
 
@@ -37,7 +39,9 @@ export default class BrowserWinHandler {
     if (app.isReady()) this._create()
     else {
       app.once('ready', async () => {
-        autoUpdater.checkForUpdatesAndNotify();
+        setInterval(() => {
+          autoUpdater.checkForUpdatesAndNotify();
+        }, 14400) // Every 4 Hours
 
         protocol.registerFileProtocol('app', (request, callback) => {
           const url = request.url.substr(6);
@@ -72,6 +76,7 @@ export default class BrowserWinHandler {
         }
       }
     )
+    
     this.browserWindow.maximize();
     this.browserWindow.setMenu(null);
 
@@ -86,12 +91,11 @@ export default class BrowserWinHandler {
     });
 
     autoUpdater.on('download-progress', (progressObj) => {
-      let log_message = "Download speed: " + progressObj.bytesPerSecond;
-      log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
-      log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-
       this.sendStatusToWindow(progressObj);
     })
+
+
+
 
 
     this.browserWindow.on('closed', () => {
@@ -99,7 +103,7 @@ export default class BrowserWinHandler {
       this.browserWindow = null
     })
     this._eventEmitter.emit('created')
-        
+
   }
 
   sendStatusToWindow(text) {

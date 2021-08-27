@@ -4,7 +4,7 @@ export default function ({ app, store }, inject) {
   let version = "Loading..."
 
   ipcRenderer.send('app_version');
-
+  
   inject('version', () => {return version})
 
   inject('restart', () => {return arg.version})
