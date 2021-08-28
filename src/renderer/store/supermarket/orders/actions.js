@@ -96,15 +96,22 @@ export default {
     },
 
     async fetchLastOrder({ commit }) {
-        if (!this.$auth.$storage.getLocalStorage('lastOrder'))
+        if (this.$auth.$storage.getLocalStorage('lastOrder'))
+            commit('lastOrder', await this.$auth.$storage.getLocalStorage('lastOrder'))
+        else
             this.$axios.get(
                 '/api/supermarket/orders/last-order', { withCredentials: true }
             ).then((response) => {
-                commit('lastOrder', response.data)
-                this.$auth.$storage.setLocalStorage('lastOrder', response.data)
+                if (response.data.order_number){
+                    commit('lastOrder', response.data)
+                    this.$auth.$storage.setLocalStorage('lastOrder', response.data)
+                }
+                else {
+                    commit('lastOrder', {order_number: 0})
+                    this.$auth.$storage.setLocalStorage('lastOrder', {order_number: 0})
+                }
             })
 
-        commit('lastOrder', await this.$auth.$storage.getLocalStorage('lastOrder'))
         return await this.$auth.$storage.getLocalStorage('lastOrder')
     },
 
