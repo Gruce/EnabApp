@@ -62,7 +62,7 @@
                         <div class="row mx-0">
                             <div class="col-6 p-0">
                                 <h3 class="fw-bold text-light">
-                                    الطلب الحالي <small v-if="isNaN(lastOrder)">#1</small><small v-else>#{{ lastOrder.order_number+1 }}</small>
+                                    الطلب الحالي <small v-if="lastOrder.order_number">#{{ lastOrder.order_number+1 }}</small><small v-else>#لايوجد طلب</small>
                                 </h3>
                             </div>
                             <div class="col-6 text-left p-0">
@@ -161,9 +161,7 @@ export default {
       return this.$store.state.supermarket.orders.products;
     },
     lastOrder() {
-      console.log(
-        "last" + this.$store.state.supermarket.orders.lastOrder.order_number
-      );
+      console.log("last" + this.$store.state.supermarket.orders.lastOrder);
       return this.$store.state.supermarket.orders.lastOrder;
     },
     calculator() {
