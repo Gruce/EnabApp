@@ -60,9 +60,9 @@
                                     <div class="badge tb-1 py-2 px-3">{{ datetime }}</div>
                                 </div>
                                 <div class="mr-1">
-                                    <div class="badge tb-2 py-2 px-3 text-danger pointer">
-                                        0 نقطة
-                                    </div>
+                                    <nuxt-link to="/credits">
+                                        <div class="badge tb-2 py-2 px-3 text-danger pointer">0 نقطة</div>
+                                    </nuxt-link>
                                 </div>
 
                                 <div class="mr-1">

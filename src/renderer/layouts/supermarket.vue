@@ -24,6 +24,14 @@ export default {
       return this.$store.state.supermarket.utilities.color;
     },
   },
+  beforeCreate() {
+    if ($nuxt.isOnline) {
+      this.$auth.$storage.removeLocalStorage("products");
+      this.$auth.$storage.removeLocalStorage("categories");
+      this.$auth.$storage.removeLocalStorage("orders");
+      this.$auth.$storage.removeLocalStorage("lastOrder");
+    }
+  },
   created() {
     this.getColor();
     this.fetchPrinters();
