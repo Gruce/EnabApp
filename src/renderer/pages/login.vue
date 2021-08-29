@@ -23,6 +23,9 @@
                         <label for="inputPassword" class="form-label">كلمة المرور</label>
                         <input v-model="login.password" placeholder="******" type="password" class="form-control" id="inputPassword">
                     </div>
+                    <nuxt-link to="/forgetpassword" class="text-light">
+                        هل نسيت كلمة السر؟
+                    </nuxt-link>
                     <button type="submit" class="btn btn-block btn-light py-2 mt-3">تسجيل الدخول</button>
                 </form>
             </div>
@@ -32,9 +35,6 @@
 
 <script>
     export default {
-        created(){
-
-        },
         data() {
             return {
                 login: {
@@ -75,13 +75,6 @@
                 this.loading = false
             }
         },
-        watch: {
-            '$route.path': {
-                handler (oldUrl, newUrl) {
-                    console.log(oldUrl, newUrl)
-                }
-            }
-        }
     }
 </script>
 

@@ -43,7 +43,6 @@ export default {
         let thisState = this.$auth.$storage.getLocalStorage('print-state')
         if (thisState)
             commit('setPrintState', thisState)
-        console.log(thisState)
     },
     
     async setPrintState({ commit, state }) {

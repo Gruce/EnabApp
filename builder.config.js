@@ -80,6 +80,6 @@ module.exports = {
     }
   ],
   ...windowsOS,
-  // ...linuxOS,
+  ...linuxOS,
   // ...macOS
 }
