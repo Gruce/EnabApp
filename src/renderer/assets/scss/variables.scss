@@ -18,10 +18,13 @@ $t-3: #eaecf340;
     color: $dark
 }
 
+
 // Rounded
 $r-1: .375rem;
 $r-2: $r-1*2;
 .r-1{border-radius: $r-1 !important;}
 .r-2{border-radius: $r-2 !important;}
 
+$b-1: $t-3;
+.b-1{border: 1px solid $b-1}
 

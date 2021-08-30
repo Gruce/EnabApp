@@ -12,7 +12,9 @@
                             </div>
                             <div class="col-4 d-flex">
                                 <div class="align-self-center w-100 text-left">
-                                    <!-- Left -->
+                                   <!-- <span class="text-light">
+                                       {{ this.$auth.user }}
+                                   </span> -->
                                 </div>
                             </div>
                         </div>

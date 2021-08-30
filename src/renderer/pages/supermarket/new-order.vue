@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-7 t-1 r-2">
+            <div class="col-7 r-2 b-1">
                 <div class="card-fluid p-5">
                     <div class="text-right">
                         <div class="row mx-0">
@@ -67,9 +67,6 @@
                             </div>
                             <div class="col-6 text-left p-0">
                                 <div>
-                                    <button @click="invoice = !invoice" :class="[productsAdded.length > 0 ? '' : 'disabled']" type="button" class="btn btn-light">
-                                        <i class="fas fa-receipt"></i>
-                                    </button>
                                     <button @click="emptyProducts()" :class="[productsAdded.length > 0 ? '' : 'disabled']" type="button" class="btn btn-danger">
                                         حذف الكل
                                     </button>
@@ -78,10 +75,7 @@
                         </div>
                         <div class="show-scroll mt-3">
                             <div class="h-list-height">
-                              <div v-if="invoice">
-                                invoice
-                              </div>
-                              <ul v-else class="list-group products-list list-group-flush ml-1 p-0">
+                              <ul class="list-group products-list list-group-flush ml-1 p-0">
                                   <li class="list-group-item" v-for="productAdded in productsAdded" :key="'added'+productAdded.id">
                                       <SupermarketNeworderAddedProduct :product="productAdded" />
                                   </li>
@@ -180,7 +174,6 @@ export default {
       products_loading: true,
       totalPrice: 0,
       search: "",
-      invoice: false,
     };
   },
   created() {

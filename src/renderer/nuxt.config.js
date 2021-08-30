@@ -3,6 +3,7 @@
  * This default configuration can be overwritten in this file
  * @link {https://nuxtjs.org/guide/configuration/}
  */
+const { resolve } = require('path')
 
 
 module.exports = {
@@ -37,8 +38,11 @@ module.exports = {
     {src: '~/plugins/vuejs-dialog.js', mode: 'client'},
     {src: '~/plugins/vuejs-select.js', mode: 'client'},
     {src: '~/plugins/vue-long-click.js', mode: 'client'},
-    { src: "~/plugins/crisp.js", mode: "client" },
-    { src: "~/plugins/utilities.js", mode: "client" },
+    {src: "~/plugins/crisp.js", mode: "client"},
+    {src: "~/plugins/utilities.js", mode: "client"},
+    {src: "~/plugins/click-outside.js", mode: "client"},
+
+
 
     
 
@@ -171,13 +175,13 @@ module.exports = {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
+  // build: {
     // hotMiddleware: {
     //   client: {
     //     overlay: false
     //   }
     // },
-  },
+  // },
 
   // styleResource
   styleResources: {
@@ -186,14 +190,14 @@ module.exports = {
     ]
   },
 
-  // build: {
-  //   babel:{
-  //     plugins: [
-  //       ['@babel/plugin-proposal-class-properties', { loose: true }],
-  //       ['@babel/plugin-proposal-private-methods', { loose: true }],
-  //       ['@babel/plugin-proposal-private-property-in-object', { loose: true }]
-  //     ]
-  //   }
-  // },
+  build: {
+    babel:{
+      plugins: [
+        ['@babel/plugin-proposal-class-properties', { loose: true }],
+        ['@babel/plugin-proposal-private-methods', { loose: true }],
+        ['@babel/plugin-proposal-private-property-in-object', { loose: true }]
+      ]
+    }
+  },
 
 };
