@@ -1,5 +1,5 @@
 <template>
-    <div v-if="service" class="main">
+    <div v-click-outside="outsideClick" v-if="service" class="main">
         <div class="received_title mb-3">
             <h6 class="text-center text-dark">
                 <b>المبلغ المستلم</b>
@@ -63,6 +63,9 @@
     export default {
         props: ['service_id', 'totalPrice'],
         computed: {
+            calculator() {
+                return this.$store.state.supermarket.orders.calculator;
+            },
             service(){
                 return this.$store.state.supermarket.services.services.find(x => (x.id == this.service_id && x.state == true))
             }
@@ -72,6 +75,7 @@
         },
         data(){
             return {
+                firstOpen: true,
                 final: 0,
                 numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9].reverse(),
                 thousnads: ['0', '00', '000'].reverse(),
@@ -106,7 +110,16 @@
                     return Math.abs(a - this.totalPrice) - Math.abs(b - this.totalPrice);
                 })[0];
                     this.suggestions = this.suggestedNumbers.slice(0, -3).reverse()
-            }
+            },
+            outsideClick(){
+                if (this.firstOpen)
+                    this.firstOpen = false
+                else
+                    this.toggleCalculator()
+            },
+            ...mapMutations({
+                toggleCalculator: "supermarket/orders/calculator",
+            }),
         },
         watch: {
             totalPrice: {

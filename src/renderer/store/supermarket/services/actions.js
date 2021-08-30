@@ -7,7 +7,18 @@ export default {
         // let services = this.$auth.$storage.getLocalStorage('services')
 
         //############### Fetch from API ###########
-        // let services = 
+        // this.$axios.get(
+        //     '/api/supermarket/orders/last-order', { withCredentials: true }
+        // ).then((response) => {
+        //     if (response.data.order_number){
+        //         commit('lastOrder', response.data)
+        //         this.$auth.$storage.setLocalStorage('lastOrder', response.data)
+        //     }
+        //     else {
+        //         commit('lastOrder', {order_number: 0})
+        //         this.$auth.$storage.setLocalStorage('lastOrder', {order_number: 0})
+        //     }
+        // })
 
         // commit('set_all', services)
     },

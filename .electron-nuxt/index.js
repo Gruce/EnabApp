@@ -41,12 +41,13 @@ const webpackConfig = Webpack.getBaseConfig({
     filename: 'index.js',
     path: path.join(DIST_DIR, 'main')
   },
+
   plugins: [
     new webpack.DefinePlugin({
       'process.resourcesPath': resourcesPath.mainProcess(),
       'process.env.DEV_SERVER_URL': `'${SERVER_HOST}:${SERVER_PORT}'`
     })
-  ]
+  ],
 })
 
 const webpackMain = new Webpack({

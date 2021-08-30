@@ -79,7 +79,7 @@ export default class BrowserWinHandler {
     this.browserWindow.maximize();
     this.browserWindow.setMenu(null);
 
-    this.browserWindow.webContents.openDevTools()
+    // this.browserWindow.webContents.openDevTools()
 
     autoUpdater.on('update-available', () => {
       this.browserWindow.webContents.send('update_available');

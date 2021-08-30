@@ -59,8 +59,10 @@
                                 <div class="mr-1">
                                     <div class="badge tb-1 py-2 px-3">{{ datetime }}</div>
                                 </div>
-                                <div v-if="!updateProgress.percent" class="mr-1">
-                                    <div class="badge tb-1 py-2 px-3">الإصدار {{ version }}</div>
+                                <div class="mr-1">
+                                    <nuxt-link to="/credits">
+                                        <div class="badge tb-2 py-2 px-3 text-danger pointer">0 نقطة</div>
+                                    </nuxt-link>
                                 </div>
 
                                 <div class="mr-1">
@@ -101,31 +103,20 @@
             },
         },
         async mounted() {
-            try {
-                this.version = await this.$version()
-            } catch (e) {
-                console.log(e)
-            }
+
         },
         data() {
             return {
                 datetime: "",
-                version: "",
             }
         },
         created() {
             setInterval(this.getNow, 1000);
         },
         methods: {
-            updateCompleted(){
-                ipcRenderer.send('restart_app');
-            },
             ...mapMutations({
                 toggleMenu: 'supermarket/toggleMenu',
             }),
-            close(){
-                remote.app.exit();
-            },
             getNow: function() {
                 const today = new Date();
                 const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -136,19 +127,6 @@
             async logout() {
                 await this.$auth.logout();
             },
-            async sync(){
-                // await this.$dialog.confirm('هل انت متأكد تريد إعادة البيانات؟').then(() => {
-                //     // Sycning products & categories
-                //     this.$axios
-                //     .get('/api/supermarket/productsCategories', { withCredentials: true })
-                //     .then((response) => {
-                //         response.data.categories.unshift({id: 0, name: "جميع الفئات"})
-                //         this.$auth.$storage.setLocalStorage('products', response.data.products)
-                //         this.$auth.$storage.setLocalStorage('categories', response.data.categories)
-                //     })
-                // })
-                // this.$dialog.alert("تمت المزامنة بنجاح!")
-            }
         }
     }
 </script>
