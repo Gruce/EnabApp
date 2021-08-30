@@ -140,7 +140,7 @@
         -webkit-backdrop-filter: blur(15px);
         z-index: 999;
         margin: 0;
-        top: 50%;
+        top: 35vh;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 30vw;
