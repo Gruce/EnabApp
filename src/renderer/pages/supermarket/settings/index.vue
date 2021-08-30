@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-8 t-1 r-1 show-scroll">
+            <div class="col-8 b-1 r-1 show-scroll">
                 <div class="card-fluid p-5 h-items-height">
                     <div class="text-right">
                         <div v-if="open=='personal_information'">
