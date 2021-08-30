@@ -23,14 +23,15 @@ export default {
 
         //############### Send to API ###########
         
-        
+
         await commit('toggle', id)
         this.$toast.success("تم تعديل الخدمة !")
         dispatch('syncLocalStorage')
     },
 
     async serviceState({state, commit}, id){
-        return (service.state && service.owned)
+        let service = state.services.find(x => x.id == id)
+        return (service.state && (service.owned || service.price == 0))
     }
 
 
