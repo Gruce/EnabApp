@@ -188,24 +188,24 @@ input{
 
 @keyframes dots {
     0%, 20% {
-      color: rgba(0,0,0,0);
-      text-shadow:
+        color: rgba(0,0,0,0);
+        text-shadow:
         .25em 0 0 rgba(0,0,0,0),
         .5em 0 0 rgba(0,0,0,0);
     }
     40% {
-      color: rgba(0,0,0,0);
-      text-shadow:
+        color: rgba(0,0,0,0);
+        text-shadow:
         .25em 0 0 white,
         .5em 0 0 rgba(0,0,0,0);
     }
     60% {
-      text-shadow:
+        text-shadow:
         .25em 0 0 rgba(0,0,0,0),
         .5em 0 0 white;
     }
     80%, 100% {
-      text-shadow:
+        text-shadow:
         .25em 0 0 white,
         .5em 0 0 white;
     }
