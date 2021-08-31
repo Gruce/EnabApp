@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="row mt-3">
-                <div v-for="service in services" :key="service.id" class="col-4">
+                <div v-for="service in services" :key="service.id" class="col-6">
                     <SupermarketServicesService :service="service" />
                 </div>
             </div>

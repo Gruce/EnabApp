@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-7 t-1 r-2">
+            <div class="col-7 r-2 b-1">
                 <div class="card-fluid p-5">
                     <div class="text-right">
                         <div class="row mx-0">
