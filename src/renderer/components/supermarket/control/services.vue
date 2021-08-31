@@ -23,7 +23,7 @@
     export default {
         computed: {
             services() {
-                let services = this.$store.state.supermarket.services.services.filter(x => (x.owned == true || x.price == 0))
+                let services = this.$store.state.supermarket.services.services.filter(x => x.owned == true)
                 return services
             },
         },

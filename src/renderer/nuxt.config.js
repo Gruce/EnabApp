@@ -54,7 +54,7 @@ module.exports = {
   loading: false,
   
   buildModules: [
-    
+    '@nuxtjs/moment',
   ],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -199,5 +199,6 @@ module.exports = {
       ]
     }
   },
+  
 
 };

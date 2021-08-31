@@ -17,6 +17,5 @@ export default {
 
     togglePrintState(state) {
         state.printState = !state.printState
-        console.log(state.printState)
     }
 }

@@ -1,269 +1,221 @@
 <template>
-  <div class="main-menu d-flex align-items-center justify-content-center">
+  <div class="main-menu d-flex justify-content-center">
+    <!-- Components Container -->
     <div class="container">
 
-      <div v-if="updateProgress.percent" class="row">
-      <!-- Downloading Update -->
-        <div class="progress-wrapper px-0" v-if="updateProgress.percent !== 100">
-            <span class="progress-percentage text-light">جاري التحديث...</span>
-            <span class="progress-label text-light">{{ Math.round(updateProgress.percent * 100)/100 }}%</span>
-            <div class="progress mt-2 p-0" style="height: 10px;">
-                <div class="progress-bar bg-dark" role="progressbar" :aria-valuenow="updateProgress.percent" aria-valuemin="0" aria-valuemax="100" :style="'width: '+updateProgress.percent+'%;'"></div>
+      <div class="row mx-0 mb-5">
+        <div class="col-12 p-0">
+          <div class="text-light" style="text-shadow: rgb(31 45 61 / 60%) 3px 4px 5px">
+            <div class="display-3">
+              {{ this.time }}
             </div>
+            <span>
+              {{ this.date }}
+            </span>
+          </div>
         </div>
       </div>
 
-      <div class="row h-100">
-        <div class="col-4">
-          <div class="row h-100">
-            <div class="col-4 final-column">
-              <div class="">
-                <ul class="nav flex-column pr-0">
-                  <li
-                    @click="toggleMenu"
-                    class="nav-item pointer content text-center text-light py-4"
-                  >
-                    <i class="fas fa-times fa-2x"></i>
-                  </li>
-                  <li
-                    @click="exit"
-                    class="
-                      nav-item
-                      pointer
-                      content
-                      text-center text-danger
-                      py-4
-                      mt-1
-                    "
-                  >
-                    <i class="fas fa-power-off fa-2x"></i>
-                  </li>
-                  <li
-                    @click="signout"
-                    class="
-                      nav-item
-                      pointer
-                      content
-                      text-center text-light
-                      py-4
-                      mt-1
-                    "
-                  >
-                    <i class="fas fa-sign-out-alt fa-2x"></i>
-                  </li>
-                  <li
-                    @click="refresh"
-                    class="
-                      nav-item
-                      pointer
-                      content
-                      text-center text-light
-                      py-4
-                      mt-1
-                    "
-                  >
-                    <i class="fas fa-sync fa-2x"></i>
-                  </li>
-                  <li
-                    v-if="$nuxt.isOnline"
-                    class="
-                      nav-item
-                      content
-                      text-center text-light
-                      bg-success
-                      py-4
-                      mt-1
-                    "
-                  >
-                    متصل
-                  </li>
-                  <li
-                    v-else
-                    class="
-                      nav-item
-                      content
-                      text-center
-                      bg-danger
-                      text-light
-                      py-4
-                      mt-1
-                    "
-                  >
-                    غير متصل
-                  </li>
-                </ul>
+      <!-- Updating ProgressBar -->
+      <div v-if="updateProgress.percent" class="row">
+        <div class="progress-wrapper px-0" v-if="updateProgress.percent !==100"> <span class="progress-percentage text-light">جاري التحديث...</span> <span class="progress-label text-light">{{Math.round(updateProgress.percent * 100)/100}}%</span>
+          <div class="progress mt-2 p-0" style="height: 10px;">
+            <div class="progress-bar bg-dark" role="progressbar" :aria-valuenow="updateProgress.percent" aria-valuemin="0" aria-valuemax="100" :style="'width: '+updateProgress.percent+'%;'"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Components -->
+      <div class="row d-flex align-content-stretch flex-wrap">
+        <!-- Quick Access Buttons -->
+        <div class="col-1">
+          <ul class="nav flex-column pr-0">
+            <li @click="toggleMenu" class="nav-item pointer content text-center text-light py-4"> <i class="fas fa-times fa-2x"></i> </li>
+            <li @click="exit" class="nav-item pointer content text-center text-danger py-4 mt-3"> <i class="fas fa-power-off fa-2x"></i> </li>
+            <li @click="signout" class=" nav-item pointer content text-center text-light py-4 mt-3"> <i class="fas fa-sign-out-alt fa-2x"></i> </li>
+            <li @click="refresh" class=" nav-item pointer content text-center text-light py-4 mt-3"> <i class="fas fa-sync fa-2x"></i> </li>
+            <li v-if="$nuxt.isOnline" class=" nav-item content text-center text-light bg-success py-4 mt-3"> متصل </li>
+            <li v-else class=" nav-item content text-center bg-danger text-light py-4 mt-3"> غير متصل </li>
+          </ul>
+        </div>
+        <!-- Quick Change Buttons -->
+        <div class="col-3">
+          <ul class="nav flex-column pr-0">
+            <li @click="setPrintState" class="nav-item pointer content text-center py-4 " :class="printState ? 'text-light' : 'text-secondary' ">
+              <i class="fas fa-print fa-3x"></i>
+              <div class="mt-3">حالة الطباعة</div>
+            </li>
+            <nuxt-link to="/credits">
+              <li class="nav-item pointer content text-center py-4 mt-3 text-light ">
+                <i class="fas fa-credit-card fa-3x"></i>
+                <div class="mt-3">{{ $auth.user.points }} نقطة</div>
+              </li>
+            </nuxt-link>
+          </ul>
+        </div>
+        <!-- Important Details -->
+        <div class="col-5 d-flex flex-column">
+          <div class="row flex-fill">
+            <div class="col-12">
+              <div class="content">
+                TOP
               </div>
             </div>
-            <div class="col-8 final-column">
-              <div class="content">asd</div>
+          </div>
+          <div class="row pt-3">
+            <div class="col-6">
+              <div v-b-modal.faq-modal class="content pointer d-flex flex-column justify-content-center align-items-center  text-center py-3">
+                <i class="fas fa-life-ring fa-3x text-light"></i>
+                <h6 class="text-light mt-3">الاسئلة الشائعة</h6>
+              </div>
+            </div>
+            <div class="col-6">
+              <div v-if="!updateProgress.percent" class="content text-center d-flex flex-column justify-content-center align-items-center">
+                <i class="fas fa-history fa-3x text-light"></i>
+                <span class="text-light mt-3 fw-bold h6">{{version}} <small class="text-light">(اخر اصدار)</small></span>
+              </div>
+              <div v-if="updateProgress.percent && updateProgress.percent !==100" class="content bg-info text-center d-flex flex-column justify-content-center align-items-center">
+                <i class="fas fa-redo fa-spin fa-3x text-light"></i>
+                <h6 class="text-light mt-3 loading">جاري التحديث</h6>
+              </div>
+              <div v-if="updateProgress.percent==100" @click="updateCompleted" class="content pointer bg-success text-center d-flex flex-column justify-content-center align-items-center">
+                <i class="fas fa-check fa-3x text-light"></i>
+                <h6 class="text-light mt-3 fw-bold">تم التحديث</h6> <small class="text-light">هل تريد تنصيب التحديث؟</small>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-8">
-          <div class="row h-100">
-            <div class="col-7">
-              <div class="row h-100">
-                <div class="row h-75 pb-1">
-                  <div class="col-12 final-column">
-                    <div class="content">Top</div>
-                  </div>
-                </div>
-                <div class="row h-25">
-                  <div class="col-6 final-column">
-                    <div v-b-modal.faq-modal class="content pointer text-center d-flex flex-column justify-content-center align-items-center">
-                        <i class="fas fa-life-ring fa-3x text-light"></i>
-                        <h6 class="text-light mt-3">الاسئلة الشائعة</h6>
-                    </div>
-                  </div>
-                  <div class="col-6 final-column">
-                    <!-- Up to date -->
-                    <div v-if="!updateProgress.percent" class="content text-center d-flex flex-column justify-content-center align-items-center">
-                      <i class="fas fa-history fa-3x text-light"></i>
-                      <h6 class="text-light mt-3 fw-bold">{{version}}</h6>
-                      <small class="text-light">(اخر اصدار)</small>
-                    </div>
-                    <!-- Downloading -->
-                    <div v-if="updateProgress.percent && updateProgress.percent !== 100" class="content bg-info text-center d-flex flex-column justify-content-center align-items-center">
-                      <i class="fas fa-redo fa-spin fa-3x text-light"></i>
-                      <h6 class="text-light mt-3 loading">جاري التحديث</h6>
-                    </div>
-                    <!-- Download Completed -->
-                    <div v-if="updateProgress.percent == 100" @click="updateCompleted" class="content pointer bg-success text-center d-flex flex-column justify-content-center align-items-center">
-                      <i class="fas fa-check fa-3x text-light"></i>
-                      <h6 class="text-light mt-3 fw-bold">تم التحديث</h6>
-                      <small class="text-light">هل تريد تنصيب التحديث؟</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-5 final-column">
-              <div class="content text-center h-75 mb-2">
-                <div class="mt-5 w-100">
-                  <div class="img-fluid mb-1">
-                    <img
-                      class="w-50 r-2"
-                      :src="$auth.user.profile_photo_url"
-                      alt="Image placeholder"
-                    />
-                  </div>
-                  <h3 class="text-light">{{ $auth.user.name }}</h3>
-
+        <!-- User Configuration -->
+        <div class="col-3 d-flex flex-column">
+          <div class="row flex-fill">
+            <div class="col-12">
+              <div class="content">
+                <div class="mt-5 text-center">
+                  <div class="img-fluid mb-1"> <img class="w-50 r-2" :src="$auth.user.profile_photo_url" alt="Image placeholder" /> </div>
+                  <h3 class="text-light">{{$auth.user.name}}</h3>
                   <div class="mt-4">
                     <ul class="list-group p-0">
-                      <li
-                        class="
-                          list-group-item
-                          custom
-                          d-flex
-                          justify-content-between
-                          align-items-center
-                          fs-6
-                          pointer
-                        "
-                      >
-                        <div>
-                          <i class="fas fa-map-marker-alt ml-3"></i>
-                          <span>العنوان</span>
-                        </div>
-                        <span>
-                          <i class="fas fa-edit text-light"></i>
-                        </span>
+                      <li class=" list-group-item custom d-flex justify-content-between align-items-center fs-6 pointer ">
+                        <div> <i class="fas fa-map-marker-alt ml-3"></i> <span>العنوان</span> </div><span> <i class="fas fa-edit text-light"></i> </span>
                       </li>
-                      <li
-                        class="
-                          list-group-item
-                          custom
-                          d-flex
-                          justify-content-between
-                          align-items-center
-                          fs-6
-                          pointer
-                        "
-                      >
-                        <div>
-                          <i class="fab fa-instagram ml-3"></i>
-                          <span>الانستكرام</span>
-                        </div>
-                        <span>
-                          <i class="fas fa-edit text-light"></i>
-                        </span>
+                      <li class=" list-group-item custom d-flex justify-content-between align-items-center fs-6 pointer ">
+                        <div> <i class="fab fa-instagram ml-3"></i> <span>الانستكرام</span> </div><span> <i class="fas fa-edit text-light"></i> </span>
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
-              <div class="h-correct">
-                  <div class="content text-center d-flex flex-column justify-content-center align-items-center">
-                    <v-swatches v-model="color" show-fallback fallback-input-type="color" popover-x="left"></v-swatches>
-                    <h6 class="text-light mt-3">تغيير اللون</h6>
-                  </div>
+            </div>
+          </div>
+          <div class="row pt-3">
+            <div class="col-12">
+              <div class="content">
+                <div class="d-flex flex-column justify-content-center align-items-center text-center py-2" style="margin: 6px">
+                  <v-swatches v-model="color" :swatches="swatches" popover-x="left"></v-swatches>
+                  <h6 class="text-light mt-3">تغيير اللون</h6>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="text-center mt-5 text-light">
-            عنب، مع كل الحب 
-            <i class="fas fa-heart text-danger"></i>
-        </div>
+
+      <div class="row mt-5">
+        <div class="text-center text-light"> عنب، مع كل الحب <i class="fas fa-heart text-danger"></i> </div>
       </div>
     </div>
 
-
-
-    <b-modal id="faq-modal" hide-footer hide-header content-class="vw-100" scrollable  centered>
-      <a href="#" @click="$bvModal.hide('faq-modal')">
-        <i class="fas fa-times fa-2x"></i>
-      </a>
-
+    <!-- FAQ MODAL -->
+    <b-modal id="faq-modal" hide-footer hide-header content-class="vw-100" scrollable centered> <a href="#" @click="$bvModal.hide('faq-modal')"> <i class="fas fa-times fa-2x"></i> </a>
       <div v-if="$nuxt.isOffline">
         <h1 class="text-center text-dark">يجب ان تتصل بالانترنت أولا</h1>
       </div>
-      <div class="vw-100 vh-100" v-else>
-        <iframe src="https://enab.app/support" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe>
-      </div>
+      <div class="vw-100 vh-100" v-else> <iframe src="https://enab.app/support" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe> </div>
     </b-modal>
   </div>
-</template>
-
-<script>
+</template><script>
 import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
-
 const { remote, ipcRenderer } = require("electron");
-
 export default {
   computed: {
-    updateProgress () {
+    updateProgress() {
       return this.$store.state.update.progress;
     },
-    backgroundColor () {
+    backgroundColor() {
       return this.$store.state.supermarket.utilities.color;
+    },
+    printState() {
+      return this.$store.state.supermarket.utilities.printState;
     },
   },
   async mounted() {
-      try {
-          this.version = await this.$version()
-      } catch (e) {
-          console.log(e)
-      }
+    try {
+      this.version = await this.$version();
+    } catch (e) {
+      console.log(e);
+    }
+  },
+  created() {
+    setInterval(this.updateClock, 1000);
+    this.$moment.updateLocale("en", {
+      monthsShort: [
+        "يناير",
+        "فبراير",
+        "مارس",
+        "أبريل",
+        "مايو",
+        "يونيو",
+        "يوليو",
+        "أغسطس",
+        "سبتمبر",
+        "أكتوبر",
+        "نوفمبر",
+        "ديسمبر",
+      ],
+      weekdaysShort: [
+        "الأحد",
+        "الأثنين",
+        "الثلاثاء",
+        "الأربعاء",
+        "الخميس",
+        "الجمعة",
+        "السبت",
+      ],
+      meridiem: function (hour, minute, isLowercase) {
+        if (hour < 7) {
+          return "فجراً";
+        } else if (hour < 11 && minute < 30) {
+          return "صباحاً";
+        } else if (hour < 15 && minute < 30) {
+          return "ظهراً";
+        } else if (hour < 18) {
+          return "عصراً";
+        } else {
+          return "مساءاً";
+        }
+      },
+    });
   },
   data() {
     return {
       version: "",
-      color: "#4776E6"
-    }
+      color: "#4776E6",
+      swatches: [
+        "#4776E6", //Primary Color
+        "#070d1d", //Secondary Color
+      ],
+      time: "00:00",
+      date: "",
+    };
   },
   methods: {
-    updateCompleted(){
-      ipcRenderer.send('restart_app');
+    updateCompleted() {
+      ipcRenderer.send("restart_app");
     },
-    ...mapMutations({
-      toggleMenu: "supermarket/toggleMenu",
-    }),
+    ...mapMutations({ toggleMenu: "supermarket/toggleMenu" }),
     ...mapActions({
       setColor: "supermarket/utilities/setColor",
+      setPrintState: "supermarket/utilities/setPrintState",
     }),
     exit() {
       this.$dialog
@@ -288,19 +240,21 @@ export default {
           remote.getCurrentWindow().reload();
         });
     },
-    async signout(){
+    async signout() {
       await this.$auth.logout();
-    }
+    },
+    updateClock() {
+      this.time = this.$moment().format("LT");
+      this.date = this.$moment().format("ddd، D MMM، YYYY");
+    },
   },
   watch: {
-    color(color){
-      this.setColor(color)
+    color(color) {
+      this.setColor(color);
     },
-  }
+  },
 };
-</script>
-
-<style lang="scss" scoped>
+</script><style lang="scss" scoped>
 .main-menu {
   position: fixed;
   top: 0;
@@ -309,35 +263,30 @@ export default {
   height: 100vh;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 10;
-
   .container {
-    height: 60%;
+    margin-top: 10%;
     .close {
       &:hover {
         cursor: pointer;
       }
     }
-    .row {
-      .final-column {
-        padding: 2px;
-        .content {
-          height: 100%;
-          padding: 10px;
-          background: rgba(0, 0, 0, 0.4);
-          border-radius: $r-2;
-          transition: 0.3s;
-        }
-      }
-    }
   }
 }
+
+.content {
+  height: 100%;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: $r-2;
+  transition: 0.3s;
+}
+
 
 .pointer:hover {
   cursor: pointer;
   background: rgba(0, 0, 0, 0.6) !important;
-
   &.bg-success {
     background: #146c43 !important;
   }
@@ -352,14 +301,12 @@ export default {
     background: #ffffff00 !important;
     transition: 0.3s;
     border-radius: $r-2;
-
-    &:hover{
-        background: rgba(0, 0, 0, 0.6) !important;
+    &:hover {
+      background: rgba(0, 0, 0, 0.6) !important;
     }
   }
 }
-
-.h-correct{
-    height: calc(25% - 0.5rem) !important;
+.h-correct {
+  height: calc(25% - 0.5rem) !important;
 }
 </style>

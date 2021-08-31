@@ -54,14 +54,11 @@
                                     <small></small>
                                 </div> -->
                                 <div class="mr-1">
-                                    <SupermarketServicesEarthlinkUsers service_id="2" />
-                                </div>
-                                <div class="mr-1">
                                     <div class="badge tb-1 py-2 px-3">{{ datetime }}</div>
                                 </div>
                                 <div class="mr-1">
                                     <nuxt-link to="/credits">
-                                        <div class="badge tb-2 py-2 px-3 text-danger pointer">0 نقطة</div>
+                                        <div :class="$auth.user.points <= 0 ? 'text-danger' : 'text-light'" class="badge tb-2 py-2 px-3 pointer">{{ $auth.user.points }} نقطة</div>
                                     </nuxt-link>
                                 </div>
 
