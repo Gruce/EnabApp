@@ -11,11 +11,11 @@
                     <div class="card bg-none b-1 r-2">
                       <div class="card-body">
                         <h5 class="text-light card-title">المبيعات</h5>
-                        <div class="mb-3">
-                          <div class="icon icon-shape icon-md  text-white">
-                            <i class="fas fa-wallet"></i>
+                        <div class="mb-2 text-left">
+                          <div class="icon icon-shape icon-xl  text-white ">
+                            <i class="far fa-chart-bar "></i>
                           </div>
-                          <h5 class="mb-2">$25,370.00</h5>
+                          <h5 class="mb-1 text-right text-light">$25,370.00</h5>
                         </div>
                       </div>
                     </div>
@@ -24,7 +24,12 @@
                     <div class="card bg-none b-1 r-2">
                       <div class="card-body">
                         <h5 class="text-light card-title">الارباح</h5>
-
+                        <div class="mb-2 text-left">
+                          <div class="icon icon-shape icon-xl  text-white ">
+                            <i class="fas fa-dollar-sign"></i>
+                          </div>
+                          <h5 class="mb-1 text-right text-light">$25,370.00</h5>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -32,7 +37,12 @@
                     <div class="card bg-none b-1 r-2">
                       <div class="card-body">
                         <h5 class="text-light card-title">الديون</h5>
-
+                        <div class="mb-2 text-left">
+                          <div class="icon icon-shape icon-xl  text-white ">
+                            <i class="fas fa-wallet"></i>
+                          </div>
+                          <h5 class="mb-1 text-right text-light">$25,370.00</h5>
+                        </div>
                       </div>
                     </div>
                   </div>
