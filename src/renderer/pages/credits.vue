@@ -9,7 +9,7 @@
 
     <div class="row mx-lg-n1 d-flex justify-content-center mt-5">
       <div class="col-md-9 px-lg-9">
-        <div class="card tb-2 r-2 p-5">
+          <div class="card hover-translate-y-n3 hover-shadow-lg t-1 mb-15 r-2 p-5">
           <h3 class="text-light">طريقة الدفع</h3>
           <!-- Payment Methods -->
           <div class="row mt-3">
@@ -19,6 +19,7 @@
                 class="btn btn-block"
                 :class="payment.enabled ? 'btn-light' : 'btn-secondary'"
               >
+              <i class="fas fa-credit-card"></i>
                 {{ payment.name }}
               </button>
             </div>
@@ -44,7 +45,6 @@
               </h3>
             </div>
           </div>
-
           <!-- Credit Calculation -->
           <div class="row mt-4">
             <div class="col-6 d-flex align-items-center justify-content-center">
@@ -57,10 +57,8 @@
             </div>
           </div>
             
-            <hr />
+            <hr/>
             <input class="form-control bg-light my-4" v-model="copun" placeholder="رقم الرصيد" /> 
-
-
             <hr class="" />
             <button class="btn btn-light">
                 أدفع
@@ -109,5 +107,8 @@ export default {
 <style lang="scss" scoped>
 h1 {
   font-weight: 600;
+}
+small , hr {
+  color: aliceblue;
 }
 </style>
