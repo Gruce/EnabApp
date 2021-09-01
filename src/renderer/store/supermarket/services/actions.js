@@ -37,7 +37,10 @@ export default {
 
     async serviceState({state, commit}, id){
         let service = state.services.find(x => x.id == id)
-        return (service.state && service.owned)
+        if (service)
+            return (service.state && service.owned)
+        else
+            return false
     },
 
     async buyService({state, commit, dispatch}, id){

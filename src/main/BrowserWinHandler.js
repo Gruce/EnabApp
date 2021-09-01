@@ -41,7 +41,7 @@ export default class BrowserWinHandler {
         autoUpdater.checkForUpdatesAndNotify();
         setInterval(() => {
           autoUpdater.checkForUpdatesAndNotify();
-        }, 1000 * 60 * 15);
+        }, 1000 * 60 * 30);
 
         protocol.registerFileProtocol('app', (request, callback) => {
           const url = request.url.substr(6);
@@ -80,7 +80,7 @@ export default class BrowserWinHandler {
     this.browserWindow.maximize();
     this.browserWindow.setMenu(null);
 
-    this.browserWindow.webContents.openDevTools()
+    // this.browserWindow.webContents.openDevTools()
 
     autoUpdater.on('update-available', () => {
       this.browserWindow.webContents.send('update_available');

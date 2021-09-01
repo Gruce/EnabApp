@@ -43,7 +43,10 @@
           <ul class="nav flex-column pr-0">
             <li @click="setPrintState" class="nav-item pointer content text-center py-4 " :class="printState ? 'text-light' : 'text-secondary' ">
               <i class="fas fa-print fa-3x"></i>
-              <div class="mt-3">حالة الطباعة</div>
+              <div class="mt-3">
+                <span v-if="defaultPrinter">{{ defaultPrinter }}</span>
+                <span v-else>لم يتم اختيار طابعة</span>
+              </div>
             </li>
             <nuxt-link to="/credits">
               <li class="nav-item pointer content text-center py-4 mt-3 text-light ">
@@ -64,7 +67,7 @@
           </div>
           <div class="row pt-3">
             <div class="col-6">
-              <div v-b-modal.faq-modal class="content pointer d-flex flex-column justify-content-center align-items-center  text-center py-3">
+              <div v-b-modal.faq-modal class="content pointer d-flex flex-column justify-content-center align-items-center text-center py-4">
                 <i class="fas fa-life-ring fa-3x text-light"></i>
                 <h6 class="text-light mt-3">الاسئلة الشائعة</h6>
               </div>
@@ -146,6 +149,9 @@ export default {
     },
     printState() {
       return this.$store.state.supermarket.utilities.printState;
+    },
+    defaultPrinter() {
+      return this.$store.state.supermarket.utilities.defaultPrinter;
     },
   },
   async mounted() {
