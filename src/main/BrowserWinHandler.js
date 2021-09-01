@@ -38,10 +38,10 @@ export default class BrowserWinHandler {
     if (app.isReady()) this._create()
     else {
       app.once('ready', async () => {
+        autoUpdater.checkForUpdatesAndNotify();
         setInterval(() => {
           autoUpdater.checkForUpdatesAndNotify();
-
-        }, 60000) // Every 5 Minutes
+        }, 1000 * 60 * 15);
 
         protocol.registerFileProtocol('app', (request, callback) => {
           const url = request.url.substr(6);
@@ -80,7 +80,7 @@ export default class BrowserWinHandler {
     this.browserWindow.maximize();
     this.browserWindow.setMenu(null);
 
-    // this.browserWindow.webContents.openDevTools()
+    this.browserWindow.webContents.openDevTools()
 
     autoUpdater.on('update-available', () => {
       this.browserWindow.webContents.send('update_available');

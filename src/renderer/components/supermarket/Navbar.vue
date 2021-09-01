@@ -111,6 +111,9 @@
             setInterval(this.getNow, 1000);
         },
         methods: {
+            updateCompleted() {
+                ipcRenderer.send("restart_app");
+            },
             ...mapMutations({
                 toggleMenu: 'supermarket/toggleMenu',
             }),

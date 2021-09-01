@@ -7,10 +7,10 @@
         <div class="col-12 p-0">
           <div class="text-light" style="text-shadow: rgb(31 45 61 / 60%) 3px 4px 5px">
             <div class="display-3">
-              {{ this.time }}
+              {{ time }}
             </div>
             <span>
-              {{ this.date }}
+              {{ date }}
             </span>
           </div>
         </div>
@@ -154,9 +154,9 @@ export default {
     } catch (e) {
       console.log(e);
     }
+    setInterval(this.updateClock, 1000);
   },
   created() {
-    setInterval(this.updateClock, 1000);
     this.$moment.updateLocale("en", {
       monthsShort: [
         "يناير",
@@ -282,7 +282,6 @@ export default {
   border-radius: $r-2;
   transition: 0.3s;
 }
-
 
 .pointer:hover {
   cursor: pointer;
