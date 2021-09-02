@@ -63,31 +63,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle {
-        background-color: #d3e7ff82 !important;
-    }
-    .btn-feature:not(:disabled):not(.disabled):active, .btn-feature:not(:disabled):not(.disabled).active, .show > .btn-feature.dropdown-toggle {
-        background-color: #1100ff9b !important;
-    }
-    .btn {
-        background-color: #ddeaff1c !important;
-        border-radius: 0;
-        border: 0;
-    }
-    .btn-secondary{
-        transition: .2s;
-    }
-    .btn-secondary:hover {
-        background-color: #fcfcfc45 !important;
-    }
-    .btn-feature{
-        background-color: #1300ff4a !important;
-        color: white;
-    }
-    .btn-feature:hover {
-        background-color: #1300ff82 !important;
-    }
-    .nav-pills .nav-link, .nav-pills > .nav-link {
-        color: #ffffff;
-    }
+    .btn-secondary:not(:disabled):not(.disabled):active,
+.btn-secondary:not(:disabled):not(.disabled).active,
+.show > .btn-secondary.dropdown-toggle {
+  background-color: #ddeaff29 !important;
+  border: 1px solid #ddeaff7a !important;
+}
+.btn {
+  background-color: #ddeaff0a !important;
+  border-radius: 0;
+  border: 1px solid #ddeaff00 !important;
+}
+.btn-secondary {
+  transition: 0.2s;
+}
+.btn-secondary:hover {
+  background-color: #ddeaff1f !important;
+  border: 1px solid #ddeaff3d !important;
+}
+// .btn-feature{
+//     background-color: #1300ff4a !important;
+//     color: white;
+// }
+// .btn-feature:hover {
+//     background-color: #1300ff82 !important;
+// }
+.nav-pills .nav-link,
+.nav-pills > .nav-link {
+  color: #ffffff;
+}
 </style>

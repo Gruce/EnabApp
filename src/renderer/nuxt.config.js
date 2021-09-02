@@ -108,21 +108,11 @@ module.exports = {
       home: false
     },
     strategies: {
-      laravelSanctum: {
-        provider: 'laravel/sanctum',
-        // url: 'http://localhost:8000',
-        url: 'https://api.enab.app',
-        endpoints: {
-          login: { 
-              url: '/api/login',
-          },
-        },
-      },
       laravelJWT: {
         provider: 'laravel/jwt',
         url: 'https://api.enab.app',
         endpoints: {
-          login: { 
+          login: {
             url: '/api/auth/login',
           },
         },

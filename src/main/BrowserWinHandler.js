@@ -95,13 +95,19 @@ export default class BrowserWinHandler {
     })
 
 
-
-
+    
+    
+    this.browserWindow.webContents.on('new-window', function(e, url) {
+      e.preventDefault();
+      require('electron').shell.openExternal(url);
+    });
 
     this.browserWindow.on('closed', () => {
       // Dereference the window object
       this.browserWindow = null
     })
+
+
     this._eventEmitter.emit('created')
 
   }

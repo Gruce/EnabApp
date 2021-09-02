@@ -10,6 +10,12 @@
       <!-- Card body -->
       <div class="card-body p-4">
 
+        <div class="faq position-relative">
+          <a :href="service.faq_url" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-question text-light position-absolute top-0 start-100 translate-middle"></i>
+          </a>
+        </div>
+
         <!-- App logo + status -->
         <div class="row d-flex justify-content-between align-items-center">
           <div class="text-center">
@@ -119,6 +125,13 @@ export default {
     }
   }
 
+  .faq{
+    i {
+      opacity: 0;
+      transition: 0.3s ease-in-out;
+    }
+  }
+
   .subtitle {
     color: #fff;
     opacity: 0;
@@ -156,6 +169,12 @@ export default {
 
     .subtitle {
       opacity: 1;
+    }
+
+    .faq{
+      i {
+        opacity: 1;
+      }
     }
   }
 }

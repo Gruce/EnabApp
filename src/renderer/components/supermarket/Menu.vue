@@ -30,10 +30,13 @@
         <!-- Quick Access Buttons -->
         <div class="col-1">
           <ul class="nav flex-column pr-0">
-            <li @click="toggleMenu" class="nav-item pointer content text-center text-light py-4"> <i class="fas fa-times fa-2x"></i> </li>
-            <li @click="exit" class="nav-item pointer content text-center text-danger py-4 mt-3"> <i class="fas fa-power-off fa-2x"></i> </li>
-            <li @click="signout" class=" nav-item pointer content text-center text-light py-4 mt-3"> <i class="fas fa-sign-out-alt fa-2x"></i> </li>
-            <li @click="refresh" class=" nav-item pointer content text-center text-light py-4 mt-3"> <i class="fas fa-sync fa-2x"></i> </li>
+            <li @click="toggleMenu" class="nav-item pointer content text-center text-light py-4" v-b-tooltip.hover.left title="إغلاق النافذة"> <i class="fas fa-times fa-2x"></i> </li>
+            <li @click="exit" class="nav-item pointer content text-center text-danger py-4 mt-3" v-b-tooltip.hover.left title="إغلاق النظام"> <i class="fas fa-power-off fa-2x"></i> </li>
+            <li @click="signout" class=" nav-item pointer content text-center text-light py-4 mt-3" v-b-tooltip.hover.left title="تسجيل الخروج"> <i class="fas fa-sign-out-alt fa-2x"></i> </li>
+            <li @click="refresh" class=" nav-item pointer content text-center text-light py-4 mt-3" v-b-tooltip.hover.left title="إعادة تحديث النافذة"> <i class="fas fa-sync fa-2x"></i> </li>
+            <nuxt-link to="/">
+              <li class=" nav-item pointer content text-center text-light py-4 mt-3" v-b-tooltip.hover.left title="الرجوع الى قائمة الخدمات"> <i class="fas fa-arrow-left fa-2x"></i> </li>
+            </nuxt-link>
             <li v-if="$nuxt.isOnline" class=" nav-item content text-center text-light bg-success py-4 mt-3"> متصل </li>
             <li v-else class=" nav-item content text-center bg-danger text-light py-4 mt-3"> غير متصل </li>
           </ul>
@@ -41,14 +44,14 @@
         <!-- Quick Change Buttons -->
         <div class="col-3">
           <ul class="nav flex-column pr-0">
-            <li @click="setPrintState" class="nav-item pointer content text-center py-4 " :class="printState ? 'text-light' : 'text-secondary' ">
+            <li @click="setPrintState" class="nav-item pointer content text-center py-4 " :class="printState ? 'text-light' : 'text-secondary' " v-b-tooltip.hover.left title="تفعيل / تعطيل خاصية الطباعة">
               <i class="fas fa-print fa-3x"></i>
               <div class="mt-3">
                 <span v-if="defaultPrinter">{{ defaultPrinter }}</span>
                 <span v-else>لم يتم اختيار طابعة</span>
               </div>
             </li>
-            <nuxt-link to="/credits">
+            <nuxt-link to="/credits" v-b-tooltip.hover.left title="شحن رصيد">
               <li class="nav-item pointer content text-center py-4 mt-3 text-light ">
                 <i class="fas fa-credit-card fa-3x"></i>
                 <div class="mt-3">{{ $auth.user.points }} نقطة</div>
@@ -95,14 +98,18 @@
               <div class="content">
                 <div class="mt-5 text-center">
                   <div class="img-fluid mb-1"> <img class="w-50 r-2" :src="$auth.user.profile_photo_url" alt="Image placeholder" /> </div>
-                  <h3 class="text-light">{{$auth.user.name}}</h3>
+                  <h3 class="text-light mb-0">{{$auth.user.name}}</h3>
+                  <h6 class="text-light mt-0">( {{$auth.user.supermarket.name}} )</h6>
                   <div class="mt-4">
                     <ul class="list-group p-0">
-                      <li class=" list-group-item custom d-flex justify-content-between align-items-center fs-6 pointer ">
-                        <div> <i class="fas fa-map-marker-alt ml-3"></i> <span>العنوان</span> </div><span> <i class="fas fa-edit text-light"></i> </span>
+                      <li class=" list-group-item custom d-flex justify-content-between align-items-center fs-6">
+                        <div> <i class="fas fa-map-marker-alt ml-3"></i> <span>{{ $auth.user.supermarket.city }} - {{ $auth.user.supermarket.location }}</span> </div>
                       </li>
-                      <li class=" list-group-item custom d-flex justify-content-between align-items-center fs-6 pointer ">
-                        <div> <i class="fab fa-instagram ml-3"></i> <span>الانستكرام</span> </div><span> <i class="fas fa-edit text-light"></i> </span>
+                      <li v-if="$auth.user.supermarket.instagram" class="list-group-item custom d-flex justify-content-between align-items-center fs-6">
+                        <div> <i class="fab fa-instagram ml-3"></i> <span>{{ $auth.user.supermarket.instagram }}</span> </div>
+                      </li>
+                      <li v-if="$auth.user.supermarket.instagram" class="list-group-item custom d-flex justify-content-between align-items-center fs-6">
+                        <div> <i class="fab fa-instagram ml-3"></i> <span>{{ $auth.user.supermarket.instagram }}</span> </div>
                       </li>
                     </ul>
                   </div>
@@ -161,6 +168,8 @@ export default {
       console.log(e);
     }
     setInterval(this.updateClock, 1000);
+    if (this.$nuxt.isOnline)
+      this.$auth.fetchUser()
   },
   created() {
     this.$moment.updateLocale("en", {
@@ -225,7 +234,7 @@ export default {
     }),
     exit() {
       this.$dialog
-        .confirm("هل انت متأكد؟", {
+        .confirm("هل انت متأكد من إغلاق النظام؟", {
           okText: "متأكد",
           cancelText: "الغاء",
           reverse: false,

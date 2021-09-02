@@ -16,31 +16,12 @@
           </div>
         </div>
       </div>
-      <!-- <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-6">
-          <b-dropdown id="dropdown-offset" text="قائمة الطابعات" block toggle-class="t-1 border-0 text-right" class="m-2" size="lg">
-            <b-dropdown-item href="#" v-for="(printer, i) in printers" :key="i" @click="setDefaultPrinter(printer.name)">
-              <span class="badge badge-light text-dark" v-if="printer.name == defaultPrinter">الافتراضي</span>
-              {{ printer.name }}
-            </b-dropdown-item>
-          </b-dropdown>
-        </div>
-        <div class="col-6">
-          <h6 class="text-light text-left">
-            <div>
-              <span v-if="defaultPrinter == ''">لايوجد طابعة افتراضية</span>
-              <span v-else> {{ defaultPrinter }} </span>
-              <i class="fas fa-print"></i>
-            </div>
-          </h6>
-        </div>
-      </div>
 
-      <br /> -->
+      <br /> 
 
       <div class="row mt-4">
         <div class="col-6" v-for="(printer, i) in printers" :key="i" @click="setDefaultPrinter(printer.name)">
-          <div class="card p-3 r-2 pointer hover-shadow-lg hover-translate-y-n3" :class="printer.name == defaultPrinter ? 'tb-2' : 't-1'">
+          <div class="m-1 p-3 r-2 pointer hover-translate-y-n3" :class="printer.name == defaultPrinter ? 'tb-2' : 'bg-none b-1'">
             <div class="card-body text-center h-100">
               <h5 class="mb-0 text-light">{{ printer.name }}</h5>
             </div>
