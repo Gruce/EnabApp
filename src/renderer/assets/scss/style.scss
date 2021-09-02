@@ -216,18 +216,18 @@ input{
 }
 
 .dg-content-footer{
-    direction: ltr;
+    direction: ltr !important;
 }
 
 .dg-content-body {
-    border-bottom: 1px solid #00000042;
+    border-bottom: 1px solid #00000042 !important;
 }
 
 .dg-btn--cancel {
-    background-color: #ba0000;
+    background-color: #ba0000 !important;
 }
 
 .dg-btn--ok {
-    color: #212529;
-    border-color: #ffffff00;
+    color: #212529 !important;
+    border-color: #ffffff00 !important;
 }

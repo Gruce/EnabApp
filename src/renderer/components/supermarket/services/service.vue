@@ -71,10 +71,17 @@
               مجاناً 🤩
             </div>
             <div class="text-center w-100" v-else>
-              {{ service.points }} نقطة
-              <small class="text-dark">
-                (1 شهر)
-              </small>
+              <button v-if="service.owned" @click="buyService(service.id)" type="button" class="btn bg-none btn-icon text-dark">
+                <div class="text-light">
+                  <span class="btn-inner--icon"><i class="fas fa-credit-card mx-1"></i></span>
+                  <span class="btn-inner--text ml-1">
+                    تمديد ( {{ service.points }} نقطة)
+                  </span>
+                </div>
+              </button>
+              <div v-else>
+                {{ service.points }} نقطة
+              </div>
             </div>
           </div>
         </div>
