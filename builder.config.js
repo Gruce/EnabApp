@@ -10,7 +10,7 @@ const windowsOS = {
 
 
   nsis: {
-    differentialPackage: true,
+    differentialPackage: false,
     oneClick: false,
     allowToChangeInstallationDirectory: true,
     createDesktopShortcut: true,
