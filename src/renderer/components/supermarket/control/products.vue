@@ -53,7 +53,7 @@
                 </div>
               </div>
               <div class="row mt-2">
-                <div class="col-3">
+                <div class="col-4">
                   <b-form-group
                     id="input-group-1"
                     label="الباركود"
@@ -62,8 +62,8 @@
                     <b-form-input v-model="thisProduct.barcode" id="product_barcode_input" type="text" required></b-form-input>
                   </b-form-group>
                 </div>
-                <div class="col-3">
-                  <b-form-group label="النوع">
+                <div class="col-2">
+                  <b-form-group class="text-dark" label="النوع">
                     <b-form-radio-group
                       v-model="thisProduct.type"
                       dir="ltr"
@@ -165,7 +165,7 @@ export default {
       thisProduct: {type:0},
       editState: '',
       types: [
-        {text: 'وزني', value: 1},
+        // {text: 'وزني', value: 1},
         {text: 'عددي', value: 0},
       ]
     }

@@ -5,67 +5,65 @@
       {{ this.$auth.user.name }}
     </h1>
 
-    <span class="fs-5 text-white"> شحن رصيد الى حسابك </span>
-
-    <div class="row mx-lg-n1 d-flex justify-content-center mt-5">
-      <div class="col-md-9 px-lg-9">
-          <div class="card tb-2 mb-15 r-2 p-5">
-          <h3 class="text-light">طريقة الدفع</h3>
+    <span class="fs-3 text-white"> شحن رصيد الى حسابك </span>
+    <div class="row mx-lg-n1 d-flex justify-content-center mt-4">
+      <div class="col-md-12 px-xl-9">
+        <div class="card t-1 b-1 r-2 p-5">
           <!-- Payment Methods -->
-          <div class="row mt-3">
-            <div class="col-6" v-for="payment in payments" :key="payment.name">
-              <button
-                @click="changePayment(payment.name)"
-                class="btn btn-block"
-                :class="payment.enabled ? 'btn-light' : 'btn-secondary'"
-              >
-              <i class="fas fa-credit-card"></i>
-                {{ payment.name }}
+
+          <div class="row mt-3 d-flex">
+            <div class="col-4 payment-method" v-for="payment in payments" :key="payment.name">
+              <button :disabled="payment.statue ? false : true" @click="changePayment(payment.name)" class="btn btn-block py-3 fs-5 r-2" :class="payment.enabled ? 'btn-light selected' : 'btn-secondary'">
+                <div>
+                  <img class="icon icon-shape r-2" width="100%" :src="require(`~/assets/imgs/${payment.icon}.png`)" :alt="payment.name">
+                </div>
+                <div class="mt-3">
+                  {{ payment.name }}
+                </div>
               </button>
             </div>
           </div>
 
           <br />
-
           <!-- Cash to pay -->
 
-          <div class="row mt-4">
-            <div class="col-6 d-flex align-items-center justify-content-center">
-              <h4 class="text-light">الرصيد</h4>
+          <div class="row t-1 p-3 r-2 mx-0">
+            <div class="col-6 d-flex align-items-center">
+              <h2 class="text-light text-right">الرصيد</h2>
             </div>
-            <div class="col-6 d-flex align-items-center justify-content-center">
-              <h3 class="text-light">
-                <button class="btn btn-light" @click="creditChange(true)">
-                  <i class="fas fa-arrow-up"></i>
+            <div class="col-6 text-left">
+              <h3 class="text-light mb-0">
+                <button class="btn t-1 b-1 r-2" @click="creditChange(true)">
+                  <i class="fas fa-arrow-up fa-2x text-light"></i>
                 </button>
                 <span class="mx-4">{{ credit }}$</span>
-                <button class="btn btn-light" @click="creditChange(false)">
-                  <i class="fas fa-arrow-down"></i>
+                <button class="btn t-1 b-1 r-2" @click="creditChange(false)">
+                  <i class="fas fa-arrow-down fa-2x text-light"></i>
                 </button>
               </h3>
             </div>
           </div>
           <!-- Credit Calculation -->
-          <div class="row mt-4">
-            <div class="col-6 d-flex align-items-center justify-content-center">
-              <h4 class="text-light">النقاط المستحصلة</h4>
-            </div>
-            <div class="col-6 d-flex align-items-center justify-content-center">
-              <h3 class="text-light">
+          <div class="row mt-4 tb-2 p-3 r-2 mx-0">
+            <div class="col-12">
+              <h1 class="text-light mb-0">
                 {{ points }}
-              </h3>
+              </h1>
+              <small>النقاط المستحصلة</small>
             </div>
           </div>
-            
-            <hr/>
-            <input class="form-control bg-light my-4" v-model="copun" placeholder="رقم الرصيد" /> 
-            <hr class="" />
-            <button class="btn btn-light">
-                أدفع
-            </button>
-            <small class="text-right mt-1">
-                * سيتم شحن النقاط في حسابك خلال فترة لاتتجاوز 24 ساعة
-            </small>
+
+          <input class="form-control form-control-lg t-3 r-2 my-4" v-model="copun" placeholder="رقم الرصيد" />
+
+          <button class="btn btn-light btn-lg r-2 py-3">
+            أدفع
+          </button>
+          <small class="text-right mt-1">
+            * سيتم شحن النقاط في حسابك خلال فترة لاتتجاوز 24 ساعة
+          </small>
+          <small class="text-right mt-1">
+            * في حال محاولتك في ادخال رقم غير صحيح لإكثر من 5 محاولات سيتم إغلاق حسابك نهائياً
+          </small>
         </div>
       </div>
     </div>
@@ -77,11 +75,18 @@ export default {
   data() {
     return {
       payments: [
-        { name: "Asiacell", enabled: true },
-        { name: "Zain", enabled: false },
+        { name: "Asiacell", enabled: true, icon: "asiacell", statue: true },
+        { name: "Zain", enabled: false, icon: "zaincash", statue: true },
+        {
+          name: "Credit Card",
+          enabled: false,
+          icon: "MA",
+          statue: false,
+        },
       ],
       credit: 5,
-      points: 2500
+      points: 2500,
+      copun: "",
     };
   },
   created() {},
@@ -97,10 +102,10 @@ export default {
     },
   },
   watch: {
-      credit(){
-          this.points = this.credit * 500
-      }
-  }
+    credit() {
+      this.points = this.credit * 500;
+    },
+  },
 };
 </script>
 
@@ -108,7 +113,21 @@ export default {
 h1 {
   font-weight: 600;
 }
-small , hr {
+small,
+hr {
   color: aliceblue;
 }
+.btn-secondary {
+  background: $t-1;
+  border: 1px solid $t-1;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background: $t-3;
+  }
+}
+
+// .payment-method {
+//   flex: 1 1 auto !important;
+// }
 </style>

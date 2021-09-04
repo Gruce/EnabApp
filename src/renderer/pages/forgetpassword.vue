@@ -4,7 +4,6 @@
       <div class="row d-flex justify-content-center mt-6">
         <div class="col-6 text-white">
           <h1 class="fw-bold text-center text-white mb-3">نسيت كلمة المرور</h1>
-          <nuxt-link to="/login" class="text-light"> الرجوع الى تسجيل الدخول </nuxt-link>
           <br /><br />
 
           <p class="text-center">
@@ -21,33 +20,33 @@
           <form @submit.prevent="sendEmail" class="text-right" v-if="requestEmail">
             <div class="mb-3">
               <label for="inputEmail" class="form-label">البريد الالكتروني</label>
-              <input v-model="email" placeholder="example@enab.com" type="email" class="form-control" id="inputEmail" />
+              <input v-model="email" placeholder="example@enab.com" type="email" class="form-control form-control-lg r-2" id="inputEmail" />
             </div>
-            <button type="submit" class="btn btn-block btn-light py-2 mt-3">
+            <button type="submit" class="btn btn-block btn-light btn-lg py-3 r-2 mt-3">
               ارسال
             </button>
           </form>
           <form @submit.prevent="sendRequest" class="text-right" v-else>
             <div class="mb-3">
               <label for="inputEmail" class="form-label">البريد الالكتروني</label>
-              <input v-model="email" placeholder="example@enab.com" type="email" class="form-control" id="inputEmail" />
+              <input v-model="email" placeholder="example@enab.com" type="email" class="form-control form-control-lg r-2" id="inputEmail" />
             </div>
             <div class="mb-3">
               <label for="inputEmail" class="form-label">كود التحقق</label>
-              <input v-model="token" placeholder="example@enab.com" type="text" class="form-control" id="inputEmail" maxlength="9" />
+              <input v-model="token" placeholder="example@enab.com" type="text" class="form-control form-control-lg r-2" id="inputEmail" maxlength="9" />
             </div>
             <div class="mb-3">
               <label for="inputEmail" class="form-label">كلمة المرور الجديدة</label>
-              <input v-model="password" type="password" class="form-control" id="inputEmail" />
+              <input v-model="password" type="password" class="form-control form-control-lg r-2" id="inputEmail" />
             </div>
             <div class="mb-3">
               <label for="inputEmail" class="form-label">اعد كتابة كلمة المرور</label>
-              <input v-model="password_confirm" type="password" class="form-control" id="inputEmail" />
+              <input v-model="password_confirm" type="password" class="form-control form-control-lg r-2" id="inputEmail" />
             </div>
             <a @click="requestEmail = false" class="text-light pointer">
               أعد ارسال كود التحقق
             </a>
-            <button type="submit" class="btn btn-block btn-light py-2 mt-3">
+            <button type="submit" class="btn btn-block btn-light btn-g r-2 py-3 mt-3">
               تغيير كلمة المرور
             </button>
           </form>

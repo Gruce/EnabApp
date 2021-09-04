@@ -64,7 +64,7 @@ export default {
     return {};
   },
   created() {
-    this.fetchOrders();
+    this.fetchOrders(true);
     this.fetchProducts();
     this.fetchCategories();
     this.fetchServices();

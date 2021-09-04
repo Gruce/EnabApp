@@ -1,12 +1,17 @@
 <template>
   <div>
     <div class="main-container position-relative">
-      <div class="position-absolute top-0 start-50 translate-middle pointer">
-        <div @click="exit" class="icon icon-xl icon-shape rounded-circle t-1">
-          <i class="fas fa-times fa-2x text-dark"></i>
-          </div>
-      </div>
       <nuxt-child />
+      <div class="position-absolute top-0 start-0 pointer my-3 ml-4">
+        <span @click="exit">
+          <UtilitiesClose />
+        </span>
+      </div>
+      <div class="position-absolute top-0 pointer my-3">
+        <span @click="$router.go(-1);" v-if="$nuxt.$route.path !== '/' && $nuxt.$route.path !== '/login'">
+          <UtilitiesBack />
+        </span>
+      </div>
     </div>
   </div>
 </template>

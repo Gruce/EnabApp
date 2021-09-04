@@ -31,6 +31,10 @@ export default {
         state.orders = orders
     },
 
+    insert_order(state, order){
+        state.orders.push(order)
+    },
+
     calculator(state){
         state.calculator = !state.calculator
     },

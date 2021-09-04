@@ -1,4 +1,5 @@
 export default () => ({
+    orders: [],
     products: [],
     onlyProducts: true,
     lastOrder: {order_number: 0},

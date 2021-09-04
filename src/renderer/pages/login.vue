@@ -17,16 +17,16 @@
                     </div>
                     <div class="mb-3">
                         <label for="inputEmail" class="form-label">البريد الالكتروني</label>
-                        <input v-model="login.email" placeholder="example@enab.com" type="email" class="form-control" id="inputEmail">
+                        <input v-model="login.email" placeholder="example@enab.com" type="email" class="form-control form-control-lg r-2" id="inputEmail">
                     </div>
                     <div class="mb-3">
                         <label for="inputPassword" class="form-label">كلمة المرور</label>
-                        <input v-model="login.password" placeholder="******" type="password" class="form-control" id="inputPassword">
+                        <input v-model="login.password" placeholder="******" type="password" class="form-control form-control-lg r-2" id="inputPassword">
                     </div>
                     <nuxt-link to="/forgetpassword" class="text-light">
                         هل نسيت كلمة السر؟
                     </nuxt-link>
-                    <button type="submit" class="btn btn-block btn-light py-2 mt-3">تسجيل الدخول</button>
+                    <button type="submit" class="btn btn-block btn-lg r-2 btn-light py-3 mt-3">تسجيل الدخول</button>
                 </form>
             </div>
         </div>
@@ -65,12 +65,15 @@
                     })
                     .then(() => {
                         console.log("Logged in")
-                        // this.$router.push({ path: '/supermarket' })
+                        this.$router.push('/')
                     })
-                    .catch(() => {
-                        this.errors.push("البريد الالكتروني او كلمة المرور خاطئة")
+                    .catch((error) => {
+                        if (error.response.data.message)
+                            this.errors.push(error.response.data.message)
+                        else
+                            this.errors.push("البريد الالكتروني او كلمة المرور خاطئة")
+
                     })
-                    this.$router.push('/')
                 }
                 this.loading = false
             }

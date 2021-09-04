@@ -70,10 +70,10 @@
           </div>
           <div class="row pt-3">
             <div class="col-6">
-              <div v-b-modal.faq-modal class="content pointer d-flex flex-column justify-content-center align-items-center text-center py-4">
+              <a href="https://enab.app/support" target="_blank" rel="noopener noreferrer" class="content pointer d-flex flex-column justify-content-center align-items-center text-center py-4">
                 <i class="fas fa-life-ring fa-3x text-light"></i>
                 <h6 class="text-light mt-3">الاسئلة الشائعة</h6>
-              </div>
+              </a>
             </div>
             <div class="col-6">
               <div v-if="!updateProgress.percent" class="content text-center d-flex flex-column justify-content-center align-items-center">
@@ -135,13 +135,6 @@
       </div>
     </div>
 
-    <!-- FAQ MODAL -->
-    <b-modal id="faq-modal" hide-footer hide-header content-class="vw-100" scrollable centered> <a href="#" @click="$bvModal.hide('faq-modal')"> <i class="fas fa-times fa-2x"></i> </a>
-      <div v-if="$nuxt.isOffline">
-        <h1 class="text-center text-dark">يجب ان تتصل بالانترنت أولا</h1>
-      </div>
-      <div class="vw-100 vh-100" v-else> <iframe src="https://enab.app/support" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe> </div>
-    </b-modal>
   </div>
 </template><script>
 import { mapMutations, mapGetters, mapActions, mapState } from "vuex";

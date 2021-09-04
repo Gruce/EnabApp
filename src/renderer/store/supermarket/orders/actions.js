@@ -60,22 +60,23 @@ export default {
         this.commit('supermarket/products/set_all', products.filter(x => x.name.includes(name)));
     },
 
-    async fetchOrders({ commit, dispatch }) {
+    async fetchOrders({ commit, dispatch }, force = false) {
         var orders = await this.$auth.$storage.getLocalStorage('orders')
-        if (orders === null) // If not set on the storage
+        if (orders === null || force) // If not set on the storage Or forced
             await this.$axios
                 .get('/api/supermarket/orders', { withCredentials: true })
                 .then(async (response) => {
                     // Send to Mutations
-                    commit('set_all', response.data);
+                    await commit('set_all', response.data);
                     //Save To Storage
-                    this.$auth.$storage.setLocalStorage('orders', response.data)
+                    await this.$auth.$storage.setLocalStorage('orders', response.data)
                 }).catch(error => {
                     throw new Error(`${error}`);
                 })
         else
-            commit('set_all', orders); // Send to Mutations
+            await commit('set_all', orders); // Send to Mutations
     },
+
 
     async filterByCategory({ }, category_id) {
         let products = await this.dispatch('supermarket/products/getProducts')
@@ -102,13 +103,13 @@ export default {
             this.$axios.get(
                 '/api/supermarket/orders/last-order', { withCredentials: true }
             ).then((response) => {
-                if (response.data.order_number){
+                if (response.data.order_number) {
                     commit('lastOrder', response.data)
                     this.$auth.$storage.setLocalStorage('lastOrder', response.data)
                 }
                 else {
-                    commit('lastOrder', {order_number: 0})
-                    this.$auth.$storage.setLocalStorage('lastOrder', {order_number: 0})
+                    commit('lastOrder', { order_number: 0 })
+                    this.$auth.$storage.setLocalStorage('lastOrder', { order_number: 0 })
                 }
             })
 
@@ -128,6 +129,7 @@ export default {
             products.push({ id: x.id, count: x.inCount })
         })
 
+        //############### Send Order to API ##################
         this.$axios
             .post(
                 '/api/supermarket/orders/end-order', { products: products, customer_id: null }, { withCredentials: true }
@@ -146,6 +148,7 @@ export default {
             }
         }
 
+        // Last Order
         let lastOrder = { ...await dispatch('fetchLastOrder') }
         lastOrder.id++
         lastOrder.order_number++
@@ -156,12 +159,19 @@ export default {
             this.commit('supermarket/products/changeCount', { id: x.id, count: x.inCount * -1 })
         })
 
+        // Insert Order to Database
+        // commit('insert_order', { products: products, customer_id: null })
+
+        // Sync Order Data
         await this.dispatch('supermarket/products/syncLocalStorage')
 
         commit('lastOrder', lastOrder)
         this.$auth.$storage.setLocalStorage('lastOrder', lastOrder)
 
+
+        // Empty This order products
         commit('emptyProducts')
+
 
         this.$toast.success('تم انهاء الطلب')
         if (this.isOffline)
