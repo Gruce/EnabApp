@@ -26,9 +26,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(product, i) in showProducts"
-            :key="product.id"
-          >
+          <tr v-for="(product, i) in showProducts" :key="product.id">
             <th scope="row">{{ ++i }}</th>
             <td>{{ product.name }}</td>
             <td>{{ categories.find(x => x.id == product.category_id).name }}</td>
@@ -42,22 +40,17 @@
 
     <div class="r-2 border-0 shadow-none">
       <div class="row">
-        <div class="col-9 d-flex">
+        <div class="col-8 d-flex">
           <h1 class="text-light">الطلبات</h1>
         </div>
-        <div class="col-3">
+        <div class="col-4">
           <div class="form-group">
-            <input
-              v-model="search"
-              type="text"
-              class="form-control"
-              placeholder="بحث بحسب رقم الطلب"
-            />
+            <input v-model="search" type="text" class="form-control r-2" placeholder="بحث بحسب رقم الطلب" />
           </div>
         </div>
       </div>
       <div class="row mt-3">
-          <div class="table-responsive">
+        <div class="table-responsive">
           <table class="table table-cards text-right">
             <thead>
               <tr class="text-light">
@@ -68,12 +61,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="(order, i) in orders"
-                :key="order.id"
-                class="table-divider hover-translate-y-n3 pointer"
-                @click="getProducts(products), $bvModal.show('bv-show-products')"
-              >
+              <tr v-for="(order, i) in orders" :key="order.id" class="table-divider hover-translate-y-n3 pointer" @click="getProducts(products), $bvModal.show('bv-show-products')">
                 <td scope="row">{{ i + 1 }}</td>
                 <td>{{ (order.customer_id ? order.customer_id : 'لايوجد') }}</td>
                 <td>{{ order.order_number }}</td>
@@ -88,48 +76,55 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters, mapActions, mapState } from 'vuex'
+import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   computed: {
     categories() {
-      let categories = this.$store.state.supermarket.categories.categories.filter(x => x.id !== 0)
-      return categories
+      let categories =
+        this.$store.state.supermarket.categories.categories.filter(
+          (x) => x.id !== 0
+        );
+      return categories;
     },
     orders() {
-        return this.$store.state.supermarket.orders.orders
+      return this.$store.state.supermarket.orders.orders;
     },
     products() {
-        return this.$store.state.supermarket.products.products
+      return this.$store.state.supermarket.products.products;
     },
   },
-  data(){
+  data() {
     return {
-      search: '',
+      search: "",
       showProducts: [],
-    }
+    };
   },
   methods: {
     totalPrice: function (products) {
-      let price = 0
-      products.forEach(x => (price += this.products.find(y=>y.id==x.id).price * x.pivot.count))
-      return price
+      let price = 0;
+      products.forEach(
+        (x) =>
+          (price +=
+            this.products.find((y) => y.id == x.id).price * x.pivot.count)
+      );
+      return price;
     },
-    getProducts: function (products){
-      this.showProducts = products
-      console.log(products)
-    }
+    getProducts: function (products) {
+      this.showProducts = products;
+      console.log(products);
+    },
   },
   watch: {
     ...mapActions({
-      search: 'supermarket/orders/search',
+      search: "supermarket/orders/search",
     }),
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .pointer:hover{
-    cursor: pointer;
-  }
+.pointer:hover {
+  cursor: pointer;
+}
 </style>

@@ -22,9 +22,9 @@ module.exports = {
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '~/assets/css/font.css',
-    '~/assets/css/quick-website.css',
-    '~/assets/css/responsive.css',
+    // '~/assets/css/font.css',
+    // '~/assets/css/quick-website.css',
+    // '~/assets/css/responsive.css',
     '~/assets/scss/app.scss',
     'vuejs-dialog/dist/vuejs-dialog.min.css',
     'vue-select/dist/vue-select.css',
@@ -41,6 +41,8 @@ module.exports = {
     {src: "~/plugins/crisp.js", mode: "client"},
     {src: "~/plugins/utilities.js", mode: "client"},
     {src: "~/plugins/click-outside.js", mode: "client"},
+
+    
 
 
 
@@ -76,8 +78,14 @@ module.exports = {
 
     'cookie-universal-nuxt',
     
-    'vue-swatches/nuxt'
+    'vue-swatches/nuxt',
+
   ],
+
+  bootstrapVue: {
+    bootstrapCSS: false, // Or `css: false`
+    bootstrapVueCSS: false // Or `bvCSS: false`
+  },
 
   toast: {
     position: 'top-left',
@@ -179,7 +187,13 @@ module.exports = {
       '~/assets/scss/variables.scss',
     ]
   },
-
+  
+  // resolve: {
+  //   alias: {
+  //     vue$: 'vue/dist/vue.runtime.esm.js' // 'vue/dist/vue.common.js' for webpack 1
+  //   }
+  // },
+  
   build: {
     babel:{
       plugins: [
@@ -187,7 +201,7 @@ module.exports = {
         ['@babel/plugin-proposal-private-methods', { loose: true }],
         ['@babel/plugin-proposal-private-property-in-object', { loose: true }]
       ]
-    }
+    },
   },
   
 

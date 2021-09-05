@@ -274,7 +274,8 @@ export default {
   background: rgba(0, 0, 0, 0.4);
   z-index: 10;
   .container {
-    margin-top: 10%;
+    margin-top: 2rem;
+    // margin-top: 10%;
     .close {
       &:hover {
         cursor: pointer;

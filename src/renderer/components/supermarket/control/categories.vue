@@ -2,24 +2,19 @@
   <div class="mt-3">
     <div class="r-2 border-0 shadow-none">
       <div class="row">
-        <div class="col-9 d-flex">
+        <div class="col-8 d-flex">
           <h1 class="text-light">الفئات</h1>
           <span class="mx-2">-</span>
-          <b-button v-if="$nuxt.isOnline" @click="editState=false,thisCategory = {}" class="t-1 r-1 px-4 border-0 text-light" v-b-toggle.add-edit>
+          <b-button v-if="$nuxt.isOnline" @click="editState=false,thisCategory = {}" class="t-1 r-2 px-4 border-0 text-light" v-b-toggle.add-edit>
             إضافة فئة
           </b-button>
-          <b-button v-if="$nuxt.isOffline" disabled class="t-1 r-1 px-4 border-0 text-light">
+          <b-button v-if="$nuxt.isOffline" disabled class="t-1 r-2 px-4 border-0 text-light">
             إضافة فئة
           </b-button>
         </div>
-        <div class="col-3">
+        <div class="col-4">
           <div class="form-group">
-            <input
-              v-model="search"
-              type="text"
-              class="form-control"
-              placeholder="بحث"
-            />
+            <input v-model="search" type="text" class="form-control" placeholder="بحث" />
           </div>
         </div>
       </div>
@@ -31,11 +26,7 @@
             <b-form class="p-4" @submit.prevent="submit">
               <h2 v-if="editState">تعديل الفئة</h2>
               <h2 v-else>إضافة فئة</h2>
-              <b-form-group
-                id="input-group-1"
-                label="أسم الفئة"
-                label-for="category_name_input"
-              >
+              <b-form-group id="input-group-1" label="أسم الفئة" label-for="category_name_input">
                 <b-form-input v-model="thisCategory.name" id="category_name_input" type="text" required></b-form-input>
               </b-form-group>
               <b-button v-if="editState" type="submit" class="tb-2 border-0 fs-5 btn-block py-2 mt-3">تعديل</b-button>
@@ -58,11 +49,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="(category, i) in categories"
-                :key="category.id"
-                class="table-divider"
-              >
+              <tr v-for="(category, i) in categories" :key="category.id" class="table-divider">
                 <td scope="row">{{ i + 1 }}</td>
                 <td>{{ category.name }}</td>
                 <td>{{ category.productsCount }}</td>
@@ -84,57 +71,67 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters, mapActions, mapState } from 'vuex'
+import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   computed: {
     categories() {
-      return this.$store.state.supermarket.categories.categories
+      return this.$store.state.supermarket.categories.categories;
     },
     category() {
-        return this.$store.state.supermarket.categories.category
+      return this.$store.state.supermarket.categories.category;
     },
   },
   data() {
     return {
-      search: '',
+      search: "",
       thisCategory: {},
-      editState: ''
-    }
+      editState: "",
+    };
   },
   async mounted() {
     // Set each category products count
-    const products = await this.$store.dispatch('supermarket/products/getProducts')
-    await this.categories.forEach(x => {
-        this.$store.commit('supermarket/categories/set_products_count', {id: x.id, count: (products.filter(y => y.category_id == x.id)).length})
-    })
+    const products = await this.$store.dispatch(
+      "supermarket/products/getProducts"
+    );
+    await this.categories.forEach((x) => {
+      this.$store.commit("supermarket/categories/set_products_count", {
+        id: x.id,
+        count: products.filter((y) => y.category_id == x.id).length,
+      });
+    });
   },
   methods: {
-    submit: function (){
-      if (this.editState){
-        this.$store.dispatch('supermarket/categories/editCategory', this.thisCategory)
+    submit: function () {
+      if (this.editState) {
+        this.$store.dispatch(
+          "supermarket/categories/editCategory",
+          this.thisCategory
+        );
       } else {
-        this.$store.dispatch('supermarket/categories/addCategory', this.thisCategory)
-        this.thisCategory = {}
+        this.$store.dispatch(
+          "supermarket/categories/addCategory",
+          this.thisCategory
+        );
+        this.thisCategory = {};
       }
     },
 
     ...mapActions({
-      removeCategory: 'supermarket/categories/removeCategory',
+      removeCategory: "supermarket/categories/removeCategory",
     }),
-    
   },
   watch: {
     ...mapActions({
-      search: 'supermarket/categories/search',
+      search: "supermarket/categories/search",
     }),
     category(x) {
-      this.thisCategory = {...x}
+      this.thisCategory = { ...x };
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
-//
+
 </style>

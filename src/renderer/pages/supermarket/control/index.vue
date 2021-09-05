@@ -40,7 +40,7 @@
               <SupermarketControlProducts />
             </div>
             <div v-if="open=='customers'">
-              <h1>customers</h1>
+              <SupermarketControlCustomers />
             </div>
             <div v-if="open=='services'">
               <SupermarketControlServices />
@@ -68,6 +68,7 @@ export default {
     this.fetchProducts();
     this.fetchCategories();
     this.fetchServices();
+    this.fetchCustomers();
   },
   data() {
     return {
@@ -80,6 +81,7 @@ export default {
       fetchOrders: "supermarket/orders/fetchOrders",
       fetchProducts: "supermarket/products/fetchProducts",
       fetchServices: "supermarket/services/fetchServices",
+      fetchCustomers: "supermarket/customers/fetchCustomers",
     }),
     getOpen: function (opened) {
       return this.open == opened ? "active" : "";
