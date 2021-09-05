@@ -10,14 +10,14 @@ module.exports = {
   ssr: false,
   target: 'static',
   head: {
-    title: 'enab-nuxt', 
+    title: 'enab-nuxt',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' },
       { name: 'HandheldFriendly', content: 'true' },
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
-      { "http-equiv":"cache-control", content:"public/private"}
+      { "http-equiv": "cache-control", content: "public/private" }
     ]
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -32,29 +32,29 @@ module.exports = {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    {ssr: true, src: '@/plugins/icons.js'},
-    {src: '~/plugins/updater.js', mode: 'client'},
-    {src: '~/plugins/custom-functions.js', mode: 'client'},
-    {src: '~/plugins/vuejs-dialog.js', mode: 'client'},
-    {src: '~/plugins/vuejs-select.js', mode: 'client'},
-    {src: '~/plugins/vue-long-click.js', mode: 'client'},
-    {src: "~/plugins/crisp.js", mode: "client"},
-    {src: "~/plugins/utilities.js", mode: "client"},
-    {src: "~/plugins/click-outside.js", mode: "client"},
-
-    
+    { ssr: true, src: '@/plugins/icons.js' },
+    { src: '~/plugins/updater.js', mode: 'client' },
+    { src: '~/plugins/custom-functions.js', mode: 'client' },
+    { src: '~/plugins/vuejs-dialog.js', mode: 'client' },
+    { src: '~/plugins/vuejs-select.js', mode: 'client' },
+    { src: '~/plugins/vue-long-click.js', mode: 'client' },
+    { src: "~/plugins/crisp.js", mode: "client" },
+    { src: "~/plugins/utilities.js", mode: "client" },
+    { src: "~/plugins/click-outside.js", mode: "client" },
 
 
 
-    
+
+
+
 
   ],
-  
+
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
   loading: false,
-  
+
   buildModules: [
     '@nuxtjs/moment',
   ],
@@ -68,7 +68,7 @@ module.exports = {
     '@nuxtjs/auth-next',
     // style resource
     '@nuxtjs/style-resources',
-    
+
     'nuxt-i18n',
 
     '@nuxtjs/toast',
@@ -77,9 +77,8 @@ module.exports = {
     // '@nuxtjs/pwa',
 
     'cookie-universal-nuxt',
-    
-    'vue-swatches/nuxt',
 
+    'vue-swatches/nuxt'
   ],
 
   bootstrapVue: {
@@ -89,7 +88,7 @@ module.exports = {
 
   toast: {
     position: 'top-left',
-    duration : 2500
+    duration: 2500
   },
 
   i18n: {
@@ -100,7 +99,7 @@ module.exports = {
       numberFormats: {
         ar: {
           currency: {
-            style: 'currency', 
+            style: 'currency',
             currency: 'iqd'
           }
         }
@@ -174,11 +173,11 @@ module.exports = {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   // build: {
-    // hotMiddleware: {
-    //   client: {
-    //     overlay: false
-    //   }
-    // },
+  // hotMiddleware: {
+  //   client: {
+  //     overlay: false
+  //   }
+  // },
   // },
 
   // styleResource
@@ -187,15 +186,15 @@ module.exports = {
       '~/assets/scss/variables.scss',
     ]
   },
-  
+
   // resolve: {
   //   alias: {
   //     vue$: 'vue/dist/vue.runtime.esm.js' // 'vue/dist/vue.common.js' for webpack 1
   //   }
   // },
-  
+
   build: {
-    babel:{
+    babel: {
       plugins: [
         ['@babel/plugin-proposal-class-properties', { loose: true }],
         ['@babel/plugin-proposal-private-methods', { loose: true }],
@@ -203,6 +202,6 @@ module.exports = {
       ]
     },
   },
-  
+
 
 };

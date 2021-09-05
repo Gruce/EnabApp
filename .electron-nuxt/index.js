@@ -59,7 +59,7 @@ const webpackMain = new Webpack({
 const nuxt = new NuxtApp(new Logger('Nuxt', 'green'))
 
 const pipe = new Pipeline({
-  title: 'Electron-nuxt',
+  title: 'ُEnab',
   isDevelopment: isDev,
   steps: [webpackMain, nuxt],
   launcher,
