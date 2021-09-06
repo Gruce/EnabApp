@@ -96,6 +96,7 @@ export default {
 .show > .btn-secondary.dropdown-toggle {
   background-color: #ddeaff29 !important;
   border: 1px solid #ddeaff7a !important;
+  color: #fff;
 }
 .btn {
   background-color: #ddeaff0a !important;
