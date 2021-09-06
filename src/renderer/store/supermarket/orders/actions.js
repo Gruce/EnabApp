@@ -34,12 +34,12 @@ export default {
     },
 
     async getProduct({ state, dispatch }, id) {
-        return state.products.find(x => x.id == id)
+        return state.products[state.selectedOrderNumber].find(x => x.id == id)
     },
 
     async setCount({ state, commit, dispatch }, id) {
         const product = await dispatch('getProduct', id)
-        return products.find(x => x.id == id)
+        return products[state.selectedOrderNumber].find(x => x.id == id)
     },
 
     async search({ state, commit, dispatch }, id) {
@@ -125,7 +125,7 @@ export default {
 
 
         let products = []
-        state.products.forEach(x => {
+        state.products[state.selectedOrderNumber].forEach(x => {
             products.push({ id: x.id, count: x.inCount })
         })
 
@@ -154,7 +154,7 @@ export default {
         lastOrder.order_number++
         lastOrder.order_price = 0
 
-        await state.products.forEach(x => {
+        await state.products[state.selectedOrderNumber].forEach(x => {
             lastOrder.order_price += x.inCount * x.price
             this.commit('supermarket/products/changeCount', { id: x.id, count: x.inCount * -1 })
         })
@@ -170,7 +170,7 @@ export default {
 
 
         // Empty This order products
-        commit('emptyProducts')
+        commit('removeOrder')
 
 
         this.$toast.success('تم انهاء الطلب')
@@ -192,9 +192,9 @@ export default {
 
     async invoice({ state }) {
         let products = []
-        let total = state.products.reduce((sum, { price, inCount }) => sum + price * inCount, 0)
+        let total = state.products[state.selectedOrderNumber].reduce((sum, { price, inCount }) => sum + price * inCount, 0)
 
-        state.products.forEach((x, i) => {
+        state.products[state.selectedOrderNumber].forEach((x, i) => {
             products.push(
                 [
                     x.price * x.inCount,

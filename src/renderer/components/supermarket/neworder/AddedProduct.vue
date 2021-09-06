@@ -30,7 +30,7 @@
 
     export default {
         props: [
-            'product'
+            'product', 'orderIndex'
         ],
         data(){
             return {

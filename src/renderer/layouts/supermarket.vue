@@ -33,6 +33,7 @@ export default {
     }
   },
   created() {
+    this.fetchServices();
     this.getColor();
     this.fetchPrinters();
     this.getDefaultPrinter();
@@ -58,6 +59,7 @@ export default {
       fetchPrinters: "supermarket/utilities/fetchPrinters",
       getDefaultPrinter: "supermarket/utilities/getDefaultPrinter",
       getPrintState: "supermarket/utilities/getPrintState",
+      fetchServices: "supermarket/services/fetchServices",
     }),
     keyboardEvent(e) {
       if (this.interval) clearInterval(this.interval);

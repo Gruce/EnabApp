@@ -54,7 +54,7 @@ export default {
     },
   },
   created() {
-    this.fetchServices();
+    this.fetchServices(true);
   },
   methods: {
     ...mapActions({
