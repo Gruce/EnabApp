@@ -1,17 +1,25 @@
 <template>
-  <div class="main-menu d-flex justify-content-center">
+  <div class="main-menu d-flex justify-content-center align-items-center" :class="!day ? 'night' : 'day'">
     <!-- Components Container -->
     <div class="container">
 
       <div class="row mx-0 mb-5">
-        <div class="col-12 p-0">
-          <div class="text-light" style="text-shadow: rgb(31 45 61 / 60%) 3px 4px 5px">
+        <div class="col-6 p-0">
+          <div class="text-light">
             <div class="display-3">
               {{ time }}
             </div>
             <span>
               {{ date }}
             </span>
+          </div>
+        </div>
+        <div class="col-6 p-0">
+          <div class="text-light text-left">
+            <a @click="color == '#070d1d' ? color = '#4776E6' : color = '#070d1d'" href="#" class="display-4 text-light">
+              <i v-if="day" class="fas fa-sun"></i>
+              <i v-else class="fas fa-moon"></i>
+            </a>
           </div>
         </div>
       </div>
@@ -160,11 +168,18 @@ export default {
     } catch (e) {
       console.log(e);
     }
+
+    // Check PM or AM
+    if (this.$moment().format("A") == "مساءاً")
+      this.day = false
+
     setInterval(this.updateClock, 1000);
-    if (this.$nuxt.isOnline)
-      this.$auth.fetchUser()
+    if (this.$nuxt.isOnline) this.$auth.fetchUser();
+
+    this.color = this.backgroundColor
   },
   created() {
+    this.updateClock();
     this.$moment.updateLocale("en", {
       monthsShort: [
         "يناير",
@@ -211,9 +226,15 @@ export default {
       swatches: [
         "#4776E6", //Primary Color
         "#070d1d", //Secondary Color
+        "#04898b", // تركوازي
+        "#362222", //بني
+        "#046582", // مائي
+        "#6C5B7B", // بنفسجي فاتح
+
       ],
       time: "00:00",
       date: "",
+      day: true
     };
   },
   methods: {
@@ -262,7 +283,17 @@ export default {
     },
   },
 };
-</script><style lang="scss" scoped>
+</script>
+
+
+<style lang="scss" scoped>
+@media (max-width: 991.98px) {
+}
+
+.night{
+  background: rgba(0, 0, 0, 0.4) !important;
+}
+
 .main-menu {
   position: fixed;
   top: 0;
@@ -271,16 +302,20 @@ export default {
   height: 100vh;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.1);
   z-index: 10;
   .container {
-    margin-top: 2rem;
+    // margin-top: 2rem;
     // margin-top: 10%;
     .close {
       &:hover {
         cursor: pointer;
       }
     }
+  }
+
+  .day{
+
   }
 }
 

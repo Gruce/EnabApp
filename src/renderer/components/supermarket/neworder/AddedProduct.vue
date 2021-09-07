@@ -1,11 +1,11 @@
 <template>
-    <div class="row align-items-center">
+    <div class="row align-items-center d-flex">
         <div class="col-auto action-item">
             <div @click="addProduct(product.id)" class="text-dark">
                 <i class="fas fa-2x fa-plus"></i>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col">
             <p class="card-text fs-6">{{ product.name }} </p>
         </div>
         <div class="col">

@@ -1,5 +1,5 @@
 <template>
-  <div class="py-1 mb-2 r-2 position-relative product" @click="addProduct(product.id)">
+  <div class="py-1 mb-2 r-2 position-relative product" @click="addProduct(product.id)" @click.right="removeProduct(product.id)">
     <span class="position-absolute badge badge-light border-white text-dark count" v-if="inCount > 0">
       {{ inCount }}
     </span>
@@ -41,7 +41,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions({ addProduct: "supermarket/orders/addProduct" }),
+    ...mapActions({
+      addProduct: "supermarket/orders/addProduct",
+      removeProduct: "supermarket/orders/removeProduct",
+    }),
     inCountCheck() {
       let productAdded = this.productsAdded.find(
         (x) => x.id == this.product.id

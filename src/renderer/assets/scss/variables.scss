@@ -2,16 +2,21 @@ $link-decoration: none;
 
 // Color
 $dark: #273444;
+$success: #20c997;
 
 // Transparency
 $t-1: #fcfcfc18;
+$tb-0: #00000011;
 $tb-1: #00000024;
 $tb-2: #00000080;
+$tb-3: #000000b0;
 $t-2: #fcfcfc90;
 $t-3: #eaecf340;
 .t-1{background: $t-1 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
+.tb-0{background: $tb-0 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
 .tb-1{background: $tb-1 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
 .tb-2{background: $tb-2 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
+.tb-3{background: $tb-3 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
 .t-2{background: $t-2 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
 .t-3{background: $t-3 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
 .t-1 label, .t-2 label, .t-3 label{

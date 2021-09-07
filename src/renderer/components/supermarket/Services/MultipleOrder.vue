@@ -7,7 +7,7 @@
       </li>
       <div class="me-auto d-flex">
         <li @click="removeOrder()" class="nav-item ml-1">
-          <a class="nav-link tb-1 btn-icon-label r-2" href="#">
+          <a class="nav-link nav-link-button tb-1 btn-icon-label r-2" href="#">
             <span class="btn-inner--text">
               حذف الطلب
             </span>
@@ -17,7 +17,7 @@
           </a>
         </li>
         <li @click="newOrder()" class="nav-item">
-          <a class="nav-link tb-1 btn-icon-label r-2" href="#">
+          <a class="nav-link nav-link-button tb-1 btn-icon-label r-2" href="#">
             <span class="btn-inner--text">
               طلب جديد
             </span>
@@ -72,6 +72,14 @@ export default {
   }
   .nav-link{
     color: #fff;
+  }
+}
+
+.nav-link-button{
+  transition: .3s ease-out;
+
+  &:hover{
+    background: $tb-2 !important;
   }
 }
 </style>

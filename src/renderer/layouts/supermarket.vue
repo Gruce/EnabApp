@@ -42,7 +42,6 @@ export default {
     this.getPrintState();
     var user = this.$auth.user;
     window.$crisp.push(["set", "user:nickname", ["Supermarket." + user.name]]);
-    // window.$crisp.push(["set", "session:data", [[Object.keys(user).map(function(key) {return [ key, user[key]] })]]])
     window.$crisp.push(["set", "session:data", [[["email", user.email]]]]);
   },
   data() {

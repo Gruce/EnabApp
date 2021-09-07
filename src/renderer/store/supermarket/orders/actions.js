@@ -27,10 +27,13 @@ export default {
     },
 
     async removeProduct({ commit, dispatch }, id) {
-        if ((await dispatch('getProduct', id)).inCount > 1)
-            commit('countDown', id)
-        else
-            commit('remove', id)
+        let product = await dispatch('getProduct', id)
+        if (product) {
+            if (product.inCount > 1)
+                commit('countDown', id)
+            else if (product.inCount == 1)
+                commit('remove', id)
+        } else this.$toast.error('هذا المنتج لم يتم اضافته') // When inCount < 1
     },
 
     async getProduct({ state, dispatch }, id) {

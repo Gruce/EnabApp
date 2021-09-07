@@ -28,7 +28,7 @@
         </div>
         <!-- <hr class="bg-light" /> -->
         <div class="row h-items-height mt-4 mx-3">
-          <div v-for="service in services" :key="service.id" class="col-4">
+          <div v-for="service in services" :key="service.id" class="col-xl-4 col-lg-6">
             <SupermarketServicesService :service="service" />
           </div>
         </div>

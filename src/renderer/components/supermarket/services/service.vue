@@ -39,7 +39,7 @@
       </div>
       <div class="card-footer">
         <div class="row m-0">
-          <div class="col-6 statueColumn">
+          <div class="col-5 statueColumn">
             <div class="text-right d-flex flex-column">
               <button v-if="service.owned" @click="toggleService(service.id), loading_state=true" type="button" class="btn bg-none btn-icon text-dark">
                 <div v-if="loading_state">
@@ -66,7 +66,7 @@
               </button>
             </div>
           </div>
-          <div class="col-6 d-flex align-items-center text-light">
+          <div class="col-7 d-flex align-items-center text-light">
             <div class="text-center w-100" v-if="service.points == 0">
               مجاناً 🤩
             </div>
