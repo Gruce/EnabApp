@@ -17,6 +17,8 @@
                     <!-- <span class="text-light">
                         {{ this.$auth.user }}
                     </span> -->
+
+                    <button @click="refreshAuth()">asdasd</button>
                   </div>
                 </div>
               </div>
@@ -34,6 +36,13 @@ export default {
   head: {
     title: "Supermarket",
   },
+  methods: {
+    refreshAuth(){
+      this.$auth.refreshTokens().then((x) => {
+        console.log(x)
+      })
+    }
+  }
 };
 </script>
 

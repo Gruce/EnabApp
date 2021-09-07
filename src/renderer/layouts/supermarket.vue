@@ -28,8 +28,10 @@ export default {
     if ($nuxt.isOnline) {
       this.$auth.$storage.removeLocalStorage("products");
       this.$auth.$storage.removeLocalStorage("categories");
+      this.$auth.$storage.removeLocalStorage("customers");
       this.$auth.$storage.removeLocalStorage("orders");
       this.$auth.$storage.removeLocalStorage("lastOrder");
+      this.$auth.$storage.removeLocalStorage("services");
     }
   },
   created() {

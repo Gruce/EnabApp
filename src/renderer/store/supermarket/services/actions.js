@@ -35,7 +35,7 @@ export default {
 
     },
 
-    async serviceState({ state, commit }, id) {
+    serviceState({ state, commit }, id) {
         let service = state.services.find(x => x.id == id)
         if (service)
             return (service.state && service.owned)
@@ -55,7 +55,7 @@ export default {
                 this.$axios.post(
                     '/api/supermarket/services/purchase', { service_id: id }, { withCredentials: true }
                 ).then((response) => {
-                    dispatch('fetchServices')
+                    dispatch('fetchServices', true)
                     this.$auth.fetchUser()
                     this.$toast.success("تم شراء الخدمة !")
                 }).catch((error) => {

@@ -26,13 +26,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(product, i) in showProducts" :key="product.id">
+          <tr v-for="(s, i) in showProducts" :key="s.product.id">
             <th scope="row">{{ ++i }}</th>
-            <td>{{ product.name }}</td>
-            <td>{{ categories.find(x => x.id == product.category_id).name }}</td>
-            <td>{{ product.barcode }}</td>
-            <td>{{ product.price }}</td>
-            <td>{{ product.count }}</td>
+            <td>{{ s.product.name }}</td>
+            <td>{{ categories.find(x => x.id == s.product.category_id).name }}</td>
+            <td>{{ s.product.barcode }}</td>
+            <td>{{ s.product.price }}</td>
+            <td>{{ s.inCount }}</td>
           </tr>
         </tbody>
       </table>
@@ -61,7 +61,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(order, i) in orders" :key="order.id" class="table-divider hover-translate-y-n3 pointer" @click="getProducts(products), $bvModal.show('bv-show-products')">
+              <tr v-for="(order, i) in orders" :key="order.id" class="table-divider hover-translate-y-n3 pointer" @click="getProducts(order.products), $bvModal.show('bv-show-products')">
                 <td scope="row">{{ i + 1 }}</td>
                 <td>{{ (order.customer_id ? order.customer_id : 'لايوجد') }}</td>
                 <td>{{ order.order_number }}</td>
@@ -111,8 +111,8 @@ export default {
       return price;
     },
     getProducts: function (products) {
-      this.showProducts = products;
-      console.log(products);
+      let fullProducts = products.map(x => {return {product: this.products.find(y => y.id == x.id), inCount: x.pivot.count} })
+      this.showProducts = fullProducts;
     },
   },
   watch: {

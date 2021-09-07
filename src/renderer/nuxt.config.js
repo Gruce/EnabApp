@@ -81,10 +81,10 @@ module.exports = {
     'vue-swatches/nuxt'
   ],
 
-  bootstrapVue: {
-    bootstrapCSS: false, // Or `css: false`
-    bootstrapVueCSS: false // Or `bvCSS: false`
-  },
+  // bootstrapVue: {
+  //   bootstrapCSS: false, // Or `css: false`
+  //   bootstrapVueCSS: false // Or `bvCSS: false`
+  // },
 
   toast: {
     position: 'top-left',
@@ -125,10 +125,10 @@ module.exports = {
         },
         token: {
           property: 'access_token',
-          maxAge: 60 * 60 * 24 * 7
+          maxAge: 1800
         },
         refreshToken: {
-          maxAge: 20160 * 60 * 24 * 7
+          maxAge: 60 * 60 * 24 * 30
         },
       },
     }

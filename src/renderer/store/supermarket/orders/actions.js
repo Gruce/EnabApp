@@ -129,10 +129,11 @@ export default {
             products.push({ id: x.id, count: x.inCount })
         })
 
+        let customer_id = state.ordersList[state.selectedOrderNumber].customer_id
         //############### Send Order to API ##################
         this.$axios
             .post(
-                '/api/supermarket/orders/end-order', { products: products, customer_id: null }, { withCredentials: true }
+                '/api/supermarket/orders/end-order', { products: products, customer_id: customer_id }, { withCredentials: true }
             ).then((response) => {
                 // Reset added products
             }).catch(function (error) {
@@ -170,6 +171,8 @@ export default {
 
 
         // Empty This order products
+        await commit('emptyProducts')
+        await commit('unselectCustomer')
         commit('removeOrder')
 
 

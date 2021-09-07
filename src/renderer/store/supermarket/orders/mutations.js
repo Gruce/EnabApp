@@ -2,7 +2,7 @@ export default {
     newOrder(state) {
         if (state.ordersList.length < 8) {
             state.ordersList.forEach(x => x.enabled = false)
-            state.ordersList.push({ enabled: true })
+            state.ordersList.push({ enabled: true, customer_id: null })
             state.products.splice(state.ordersList.length - 1, 0, []);
             state.selectedOrderNumber = state.ordersList.length - 1
         } else {
@@ -10,13 +10,19 @@ export default {
         }
     },
     removeOrder(state) {
+        if (state.ordersList.length <= 1) return false
+
         state.ordersList = state.ordersList.filter((x, key) => key !== state.selectedOrderNumber)
+        state.products = state.products.filter((x,key) => key !== state.selectedOrderNumber);
+
+        console.log(state.products)
         if (state.ordersList.length > 0){
             state.ordersList[state.ordersList.length-1].enabled = true
             state.selectedOrderNumber = state.ordersList.length - 1
         }
         
     },
+
     add(state, product) {
         state.products[state.selectedOrderNumber].push({ ...product, inCount: 1 })
     },
@@ -36,7 +42,7 @@ export default {
     },
 
     emptyProducts(state) {
-        state.products[state.selectedOrderNumber].splice(0, 0, []);
+        state.products[state.selectedOrderNumber].splice(0);
     },
 
     lastOrder(state, order) {
@@ -69,4 +75,12 @@ export default {
         );
         state.selectedOrderNumber = i
     },
+
+    selectCustomer(state, id){
+        state.ordersList[state.selectedOrderNumber].customer_id = id
+    },
+
+    unselectCustomer(state){
+        state.ordersList[state.selectedOrderNumber].customer_id = null
+    }
 }

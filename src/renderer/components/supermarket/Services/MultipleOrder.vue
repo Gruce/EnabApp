@@ -1,4 +1,5 @@
 <template>
+  <!-- Service ID = 2 -->
   <div v-if="service">
     <ul class="nav nav-pills p-0 mb-2">
       <li @click="selectOrder(i)" class="nav-item" v-for="(order, i) in ordersList" :key="i">

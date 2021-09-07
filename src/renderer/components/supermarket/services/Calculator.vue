@@ -1,9 +1,10 @@
 <template>
+  <!-- Service ID = 1 -->
   <div v-click-outside="outsideClick" v-if="service" class="main">
       <div @click="outsideClick">
         <UtilitiesClose class="float-left" />
       </div>
-    <div class="row p-6 d-flex justify-content-center">
+    <div class="row p-3 d-flex justify-content-center">
       <div class="col-xl-8 col-sm-12">
         <div class="t-1 b-1 p-4 r-2 h-100 d-flex flex-column">
           <div class="row">

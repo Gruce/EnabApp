@@ -62,11 +62,15 @@
             <div class="row mx-0">
               <div class="col-6 p-0">
                 <h3 class="fw-bold text-light">
-                  الطلب الحالي <small v-if="lastOrder.order_number">#{{ lastOrder.order_number+orderIndex+1 }}</small> <small v-else>#1</small>
+                  الطلب الحالي 
+                  <small v-if="lastOrder.order_number">#{{ lastOrder.order_number+orderIndex+1 }}</small>
+                  <small v-else>#{{ orderIndex+1 }}</small>
                 </h3>
               </div>
               <div class="col-6 text-left p-0">
                 <div>
+                  <SupermarketServicesCustomerAssign :orderIndex="orderIndex" :productsAdded="productsAdded" service_id="3" />
+
                   <button @click="emptyProducts()" :class="[productsAdded.length > 0 ? '' : 'disabled']" type="button" class="btn btn-danger">
                     حذف الكل
                   </button>
@@ -178,8 +182,14 @@ export default {
   },
   created() {
     this.products_loading = false;
+    if (this.productsAdded)
+      this.totalPriceCalculation(this.productsAdded)
   },
   methods: {
+    totalPriceCalculation(products){
+      this.totalPrice = 0;
+      products.forEach((x) => (this.totalPrice += x.price * x.inCount));
+    },
     ...mapMutations({
       onlyProducts: "supermarket/orders/onlyProducts",
     }),
@@ -194,8 +204,7 @@ export default {
     productsAdded: {
       deep: true,
       async handler(newVal) {
-        // this.totalPrice = 0;
-        // newVal.forEach((x) => (this.totalPrice += x.price * x.inCount));
+        this.totalPriceCalculation(newVal)
       },
     },
     ...mapActions({

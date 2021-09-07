@@ -1,0 +1,169 @@
+<template>
+  <!-- Service ID = 3 -->
+  <div v-if="service" class="d-inline-block position-relative">
+    <button @click="toggleModal" type="button" :class="[productsAdded.length > 0 ? '' : 'disabled']" class="btn tb-2 text-light btn-icon-label">
+      <span class="btn-inner--icon">
+        <i class="fas fa-user"></i>
+      </span>
+      <span class="btn-inner--text">
+        <span v-if="orderList.customer_id">
+          {{ selectedCustomer }}
+        </span>
+        <span v-else>
+          تعيين زبون
+        </span>
+      </span>
+    </button>
+
+    <div v-if="showCustomers" class="main">
+      <div class="container">
+        <h1 class="text-center text-light mt-3">تعيين زبون</h1>
+        <div class="position-absolute top-0 start-0 pointer my-3 ml-4">
+          <span @click="toggleModal">
+            <UtilitiesClose />
+          </span>
+        </div>
+        <div class="row mt-3">
+          <div class="col-6">
+            <button @click="newCustomer = false" class="btn btn-block py-3 fs-5 r-2" :class="newCustomer ? 'btn-secondary' : 'btn-light'">
+              تعيين زبون
+            </button>
+          </div>
+          <div class="col-6">
+            <button @click="newCustomer = true" class="btn btn-block py-3 fs-5 r-2" :class="newCustomer ? 'btn-light ' : 'btn-secondary'">
+              التحكم بالزبائن
+            </button>
+          </div>
+        </div>
+        <div class="row mt-3 t-1 b-1 m-1 r-2 p-2 content show-scroll">
+          <div v-if="newCustomer" class="text-right">
+            <SupermarketControlCustomers />
+          </div>
+          <div v-else>
+            <input class="form-control mt-3 t-1 text-dark" v-model="search" placeholder="بحث" type="text">
+
+            <div class="row mt-3">
+              <div class="col-4" v-for="customer in customers" :key="customer.id">
+                <div class="t-3 b-1 r-2 p-3 pointer customer text-center" @click="chooseCustomer(customer.id)">
+                  <div class="fs-3">{{ customer.name }}</div>
+                  <div class="text-dark">الدين : {{ $n(customer.debt, 'currency') }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
+
+export default {
+  props: ["service_id", "productsAdded", "orderIndex"],
+
+  computed: {
+    service() {
+      if (this.$store.state.supermarket.services.services)
+        return this.$store.state.supermarket.services.services.find(
+          (x) => x.id == this.service_id && x.state == true
+        );
+    },
+    customers() {
+      if (this.$store.state.supermarket.customers.customers) {
+        if (this.search !== "")
+          return this.$store.state.supermarket.customers.customers.filter((x) =>
+            x.name.includes(this.search)
+          );
+        else return this.$store.state.supermarket.customers.customers;
+      }
+    },
+    orderList() {
+      if (this.$store.state.supermarket.orders.ordersList[this.orderIndex])
+        return this.$store.state.supermarket.orders.ordersList[this.orderIndex];
+    },
+    selectedCustomer() {
+      if (this.customers && this.orderList) {
+        let customers = Object.assign([], this.customers);
+        return customers.find((x) => x.id == this.orderList.customer_id).name;
+      }
+    },
+  },
+  created() {
+    this.fetchCustomers();
+  },
+  data() {
+    return {
+      showCustomers: false,
+      newCustomer: false,
+      search: "",
+    };
+  },
+  methods: {
+    toggleModal() {
+      this.showCustomers = !this.showCustomers;
+    },
+    chooseCustomer(customer_id) {
+      this.toggleModal();
+      this.selectCustomer(customer_id);
+    },
+    ...mapActions({
+      fetchCustomers: "supermarket/customers/fetchCustomers",
+    }),
+    ...mapMutations({
+      selectCustomer: "supermarket/orders/selectCustomer",
+    }),
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.nav-pills {
+  .active {
+    background: $t-3;
+  }
+  .nav-link {
+    color: #fff;
+  }
+}
+
+.main {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95vw;
+  height: 95vh;
+  background: $tb-1;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  z-index: 999;
+  border-radius: $r-2;
+  padding: 1rem;
+
+  .content {
+    min-height: calc(95vh - 15rem) !important;
+    max-height: calc(95vh - 15rem) !important;
+
+    .customer {
+      transition: 0.2s ease-in-out;
+      color: #fff;
+      margin: 5px;
+      &:hover {
+        background: $t-2 !important;
+      }
+    }
+  }
+}
+
+.btn-secondary {
+  background: $t-1;
+  border: 1px solid $t-1;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background: $t-3;
+  }
+}
+</style>

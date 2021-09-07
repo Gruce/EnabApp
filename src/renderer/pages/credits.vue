@@ -1,23 +1,18 @@
 <template>
-  <div class="container mt-5 text-center">
-    <h1 class="mt-5 mb-3">
-      مرحباً، يا
-      {{ this.$auth.user.name }}
-    </h1>
-
-    <span class="fs-3 text-white"> شحن رصيد الى حسابك </span>
-    <div class="row mx-lg-n1 d-flex justify-content-center mt-4">
+  <div class="container mt-0 text-center">
+    <span class="fs-2 text-white"> شحن رصيد الحساب </span>
+    <div class="row mx-lg-n1 d-flex justify-content-center mt-3">
       <div class="col-md-12 px-xl-9">
         <div class="card t-1 b-1 r-2 p-5">
           <!-- Payment Methods -->
 
-          <div class="row mt-3 d-flex">
+          <div class="row d-flex">
             <div class="col-4 payment-method" v-for="payment in payments" :key="payment.name">
               <button :disabled="payment.statue ? false : true" @click="changePayment(payment.name)" class="btn btn-block py-3 fs-5 r-2" :class="payment.enabled ? 'btn-light selected' : 'btn-secondary'">
                 <div>
                   <img class="icon icon-shape r-2" width="100%" :src="require(`~/assets/imgs/${payment.icon}.png`)" :alt="payment.name">
                 </div>
-                <div class="mt-3">
+                <div class="mt-1">
                   {{ payment.name }}
                 </div>
               </button>
