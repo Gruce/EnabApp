@@ -15,7 +15,6 @@ export default {
         state.ordersList = state.ordersList.filter((x, key) => key !== state.selectedOrderNumber)
         state.products = state.products.filter((x,key) => key !== state.selectedOrderNumber);
 
-        console.log(state.products)
         if (state.ordersList.length > 0){
             state.ordersList[state.ordersList.length-1].enabled = true
             state.selectedOrderNumber = state.ordersList.length - 1
@@ -78,10 +77,15 @@ export default {
     },
 
     selectCustomer(state, id){
+        this.$toast.success('تم تعيين الزبون')
         state.ordersList[state.selectedOrderNumber].customer_id = id
     },
 
-    unselectCustomer(state, customer_id){
-        state.ordersList[state.selectedOrderNumber].customer_id = null
+    unselectCustomer(state){
+        let customer_id = state.ordersList[state.selectedOrderNumber].customer_id
+
+        if (customer_id !== null)
+            this.$toast.success('تم الغاء تعيين الزبون')
+        customer_id = null
     }
 }

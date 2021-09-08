@@ -87,7 +87,7 @@ module.exports = {
   // },
 
   toast: {
-    position: 'top-left',
+    position: 'top-center',
     duration: 2500
   },
 

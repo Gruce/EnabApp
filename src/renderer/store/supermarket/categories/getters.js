@@ -1,5 +1,5 @@
 export default {
-    categories (state) {
-        return state.category
+    categories: state => {
+        return state.categories
     }
 }

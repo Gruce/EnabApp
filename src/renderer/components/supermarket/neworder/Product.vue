@@ -1,11 +1,11 @@
 <template>
   <div class="py-1 mb-2 r-2 position-relative product" @click="addProduct(product.id)" @click.right="removeProduct(product.id)">
-    <span class="position-absolute badge badge-light border-white text-dark count" v-if="inCount > 0">
-      {{ inCount }}
+    <span class="position-absolute badge badge-light border-white text-dark count" v-if="productInCount(product.id)">
+      {{ productInCount(product.id) }}
     </span>
     <!-- <span class="position-absolute badge badge-light border-white text-dark left">
-            المتبقي : {{ count }}
-        </span>  -->
+        المتبقي : {{ product.count - productInCount(product.id) }}
+    </span>  -->
     <div class="card-body pb-2 text-center">
       <div class="row"><span class="h5 text-light mb-1">
           {{ product.name }}
@@ -25,42 +25,17 @@ import { mapMutations, mapGetters, mapActions } from "vuex";
 
 export default {
   props: ["product", "orderIndex"],
-  data() {
-    return {
-      inCount: 0,
-    };
-  },
-  mounted() {
-    this.inCountCheck();
-  },
   computed: {
-    productsAdded() {
-      let products =
-        this.$store.state.supermarket.orders.products[this.orderIndex];
-      return products;
-    },
+    ...mapGetters({
+      productsAdded: "supermarket/orders/productsAdded",
+      productInCount: "supermarket/orders/productInCount",
+    }),
   },
   methods: {
     ...mapActions({
       addProduct: "supermarket/orders/addProduct",
       removeProduct: "supermarket/orders/removeProduct",
     }),
-    inCountCheck() {
-      let productAdded = this.productsAdded.find(
-        (x) => x.id == this.product.id
-      );
-      if (productAdded !== undefined) {
-        this.inCount = productAdded.inCount;
-      } else this.inCount = 0;
-    },
-  },
-  watch: {
-    productsAdded: {
-      deep: true,
-      handler(newVal) {
-        this.inCountCheck();
-      },
-    },
   },
 };
 </script>

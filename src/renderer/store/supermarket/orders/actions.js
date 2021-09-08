@@ -120,7 +120,7 @@ export default {
     },
 
     async endOrder({ state, commit, dispatch }) {
-        let calculatorService = await this.dispatch('supermarket/services/serviceState', 1)
+        let calculatorService = await this.getters['supermarket/services/calculator']
         if (calculatorService && state.calculator == false) {
             commit('calculator')
             return true
@@ -190,11 +190,6 @@ export default {
     selectCategory({ commit }, id) {
         commit('selectCategory', id)
     },
-
-    hideCategories({ commit }) {
-        commit('hideCategories')
-    },
-
 
     async invoice({ state }) {
         let products = []

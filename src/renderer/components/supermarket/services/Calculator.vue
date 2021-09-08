@@ -1,9 +1,9 @@
 <template>
   <!-- Service ID = 1 -->
-  <div v-click-outside="outsideClick" v-if="service" class="main">
-      <div @click="outsideClick">
-        <UtilitiesClose class="float-left" />
-      </div>
+  <div v-click-outside="outsideClick" class="main">
+    <div @click="outsideClick">
+      <UtilitiesClose class="float-left" />
+    </div>
     <div class="row p-3 d-flex justify-content-center">
       <div class="col-xl-8 col-sm-12">
         <div class="t-1 b-1 p-4 r-2 h-100 d-flex flex-column">
@@ -57,9 +57,9 @@
         <div class="row tb-2 text-light r-2 p-4 m-0">
           <div class="col-6 text-right">
             <h3 class="text-light d-inline-block">
-                المتبقي
-            <span class="badge badge-info r-1" v-if="final - totalPrice > 0">الى الزبون</span>
-            <span class="badge badge-danger r-1" v-else-if="final - totalPrice < 0">الى المحاسب</span>
+              المتبقي
+              <span class="badge badge-info r-1" v-if="final - totalPrice > 0">الى الزبون</span>
+              <span class="badge badge-danger r-1" v-else-if="final - totalPrice < 0">الى المحاسب</span>
             </h3>
           </div>
           <div class="col-6 text-left">
@@ -82,16 +82,6 @@ import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   props: ["service_id", "totalPrice"],
-  computed: {
-    calculator() {
-      return this.$store.state.supermarket.orders.calculator;
-    },
-    service() {
-      return this.$store.state.supermarket.services.services.find(
-        (x) => x.id == this.service_id && x.state == true
-      );
-    },
-  },
   created() {
     this.createSuggestions();
   },

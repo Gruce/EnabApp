@@ -1,9 +1,7 @@
 <template>
   <!-- eslint-disable -->
   <div class="container-fluid">
-    <div v-if="calculator">
-      <SupermarketServicesCalculator service_id="1" :totalPrice="totalPrice" />
-    </div>
+    <SupermarketServicesCalculator v-if="calculator && calculatorState" :totalPrice="totalPrice" />
 
     <div class="row main-height">
       <div class="col-5">
@@ -62,14 +60,14 @@
             <div class="row mx-0">
               <div class="col-6 p-0">
                 <h3 class="fw-bold text-light">
-                  الطلب الحالي 
+                  الطلب الحالي
                   <small v-if="lastOrder.order_number">#{{ lastOrder.order_number+orderIndex+1 }}</small>
                   <small v-else>#{{ orderIndex+1 }}</small>
                 </h3>
               </div>
               <div class="col-6 text-left p-0">
                 <div>
-                  <SupermarketServicesCustomerAssign :orderIndex="orderIndex" :productsAdded="productsAdded" service_id="3" />
+                  <SupermarketServicesCustomerAssign v-if="customerAssign" :orderIndex="orderIndex" :productsAdded="productsAdded" />
 
                   <button @click="emptyProducts()" :class="[productsAdded.length > 0 ? '' : 'disabled']" type="button" class="btn btn-danger">
                     حذف الكل
@@ -150,63 +148,44 @@ export default {
   },
   props: ["orderIndex"],
   computed: {
-    products() {
-      return this.$store.state.supermarket.products.products;
-    },
-    categories() {
-      return this.$store.state.supermarket.categories.categories;
-    },
-    productsAdded() {
-      return this.$store.state.supermarket.orders.products[this.orderIndex];
-    },
-    lastOrder() {
-      return this.$store.state.supermarket.orders.lastOrder;
-    },
-    calculator() {
-      return this.$store.state.supermarket.orders.calculator;
-    },
-    selectedCategory() {
-      return this.$store.state.supermarket.orders.selectedCategory;
-    },
-    hideCategoriesValue() {
-      return this.$store.state.supermarket.orders.hideCategories;
-    },
+    ...mapGetters({
+      categories: "supermarket/categories/categories",
+      products: "supermarket/products/products",
+      productsAdded: "supermarket/orders/productsAdded",
+      lastOrder: "supermarket/orders/lastOrder",
+      selectedCategory: "supermarket/orders/selectedCategory",
+      hideCategoriesValue: "supermarket/orders/hideCategoriesValue",
+      totalPrice: "supermarket/orders/totalPrice",
+
+      // Services Properties
+      calculatorState: "supermarket/orders/calculator",
+
+      // Services
+      customerAssign: "supermarket/services/customerAssign",
+      calculator: "supermarket/services/calculator",
+    }),
   },
-  async mounted() {},
   data() {
     return {
       products_loading: true,
-      totalPrice: 0,
       search: "",
     };
   },
   created() {
     this.products_loading = false;
-    if (this.productsAdded)
-      this.totalPriceCalculation(this.productsAdded)
   },
   methods: {
-    totalPriceCalculation(products){
-      this.totalPrice = 0;
-      products.forEach((x) => (this.totalPrice += x.price * x.inCount));
-    },
     ...mapMutations({
       onlyProducts: "supermarket/orders/onlyProducts",
+      hideCategories: "supermarket/orders/hideCategories",
     }),
     ...mapActions({
       emptyProducts: "supermarket/orders/emptyProducts",
       endOrder: "supermarket/orders/endOrder",
-      hideCategories: "supermarket/orders/hideCategories",
     }),
   },
 
   watch: {
-    productsAdded: {
-      deep: true,
-      async handler(newVal) {
-        this.totalPriceCalculation(newVal)
-      },
-    },
     ...mapActions({
       search: "supermarket/orders/searchItems",
     }),

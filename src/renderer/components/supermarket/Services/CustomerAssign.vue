@@ -1,6 +1,6 @@
 <template>
   <!-- Service ID = 3 -->
-  <div v-if="service" class="d-inline-block position-relative">
+  <div class="d-inline-block position-relative">
     <button @click="toggleModal" type="button" :class="[productsAdded.length > 0 ? '' : 'disabled']" class="btn tb-2 text-light btn-icon-label">
       <span class="btn-inner--icon">
         <i class="fas fa-user"></i>
@@ -75,15 +75,9 @@
 import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
-  props: ["service_id", "productsAdded", "orderIndex"],
+  props: ["productsAdded", "orderIndex"],
 
   computed: {
-    service() {
-      if (this.$store.state.supermarket.services.services)
-        return this.$store.state.supermarket.services.services.find(
-          (x) => x.id == this.service_id && x.state == true
-        );
-    },
     customers() {
       if (this.$store.state.supermarket.customers.customers) {
         if (this.search !== "")

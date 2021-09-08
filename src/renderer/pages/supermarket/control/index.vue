@@ -17,7 +17,7 @@
               <button :class="getOpen('products')" @click="open='products'" class="btn btn-secondary btn-icon btn-block py-3 r-2">
                 <span class="btn-inner--text fs-5">منتجات</span>
               </button>
-              <button v-if="serviceState(3)" :class="getOpen('customers')" @click="open='customers'" class="btn btn-secondary btn-icon btn-block py-3 r-2">
+              <button v-if="customerAssign" :class="getOpen('customers')" @click="open='customers'" class="btn btn-secondary btn-icon btn-block py-3 r-2">
                 <span class="btn-inner--text fs-5">الزبائن</span>
               </button>
               <button :class="getOpen('services')" @click="open='services'" class="btn btn-secondary btn-icon btn-block py-3 r-2">
@@ -53,21 +53,19 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   layout: "supermarket",
   head: {
     title: "Manage",
   },
-  mounted() {},
   computed: {
-    services() {
-      let services = this.$store.state.supermarket.services.services;
-      if (this.$store.state.supermarket.services.onlyOwned)
-        services = services.filter((x) => x.owned == false);
-      return services;
-    },
+    ...mapGetters({
+      
+      // Services
+      customerAssign: "supermarket/services/customerAssign",
+    }),
   },
   created() {
     this.fetchOrders(true);
@@ -82,19 +80,13 @@ export default {
     };
   },
   methods: {
-    serviceState(id) {
-      if (this.services.length > 0) {
-        let service = this.services.find((x) => x.state == true && x.id == id);
-        if (service) return service.state;
-        else false;
-      } else return false;
-    },
     ...mapActions({
       fetchCategories: "supermarket/categories/fetchCategories",
       fetchOrders: "supermarket/orders/fetchOrders",
       fetchProducts: "supermarket/products/fetchProducts",
       fetchServices: "supermarket/services/fetchServices",
       fetchCustomers: "supermarket/customers/fetchCustomers",
+      
     }),
     getOpen: function (opened) {
       return this.open == opened ? "active" : "";

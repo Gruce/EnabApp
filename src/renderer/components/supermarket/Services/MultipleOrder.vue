@@ -1,6 +1,6 @@
 <template>
   <!-- Service ID = 2 -->
-  <div v-if="service">
+  <div>
     <ul class="nav nav-pills p-0 mb-2">
       <li @click="selectOrder(i)" class="nav-item" v-for="(order, i) in ordersList" :key="i">
         <a class="nav-link r-2" :class="order.enabled ? 'active' : ''" href="#">الطلب {{ i+1 }}</a>

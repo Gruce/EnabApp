@@ -3,10 +3,10 @@
     <!-- Components Container -->
     <div class="container">
 
-      <div class="row mx-0 mb-5">
+      <div class="row mx-0 mb-3">
         <div class="col-6 p-0">
           <div class="text-light">
-            <div class="display-3">
+            <div class="display-4">
               {{ time }}
             </div>
             <span>
@@ -16,7 +16,7 @@
         </div>
         <div class="col-6 p-0">
           <div class="text-light text-left">
-            <a @click="color == '#070d1d' ? color = '#4776E6' : color = '#070d1d'" href="#" class="display-4 text-light">
+            <a @click="color == '#070d1d' ? color = '#4776E6' : color = '#070d1d'" href="#" class="display-5 text-light">
               <i v-if="day" class="fas fa-sun"></i>
               <i v-else class="fas fa-moon"></i>
             </a>
@@ -149,18 +149,13 @@ import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 const { remote, ipcRenderer } = require("electron");
 export default {
   computed: {
-    updateProgress() {
-      return this.$store.state.update.progress;
-    },
-    backgroundColor() {
-      return this.$store.state.supermarket.utilities.color;
-    },
-    printState() {
-      return this.$store.state.supermarket.utilities.printState;
-    },
-    defaultPrinter() {
-      return this.$store.state.supermarket.utilities.defaultPrinter;
-    },
+    ...mapGetters({
+      updateProgress: "update/progress",
+
+      backgroundColor: "supermarket/utilities/backgroundColor",
+      printState: "supermarket/utilities/printState",
+      defaultPrinter: "supermarket/utilities/defaultPrinter",
+    }),
   },
   async mounted() {
     try {

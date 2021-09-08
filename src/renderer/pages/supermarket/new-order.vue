@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SupermarketServicesMultipleOrder service_id="2" />
+    <SupermarketServicesMultipleOrder v-if="multipleOrder" />
 
     <div v-for="(order, i) in ordersList" :key="i">
       <SupermarketNeworderOrder v-if="order.enabled" :orderIndex="i" />
@@ -17,25 +17,20 @@ export default {
     title: "New Order",
   },
   computed: {
-    lastOrder() {
-      return this.$store.state.supermarket.orders.lastOrder;
-    },
-    ordersList() {
-      return this.$store.state.supermarket.orders.ordersList;
-    },
+    ...mapGetters({
+      lastOrder: "supermarket/orders/lastOrder",
+      ordersList: "supermarket/orders/ordersList",
+
+      // Services
+      multipleOrder: "supermarket/services/multipleOrder",
+    }),
   },
   created() {
     this.fetchProducts();
     this.fetchCategories();
     this.fetchLastOrder();
     // Initiate Order
-    if (this.ordersList.length <= 0)
-      this.newOrder();
-  },
-  data() {
-    return {
-      
-    };
+    if (this.ordersList.length <= 0) this.newOrder();
   },
   methods: {
     ...mapActions({
@@ -52,5 +47,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>
