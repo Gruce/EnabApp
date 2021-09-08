@@ -15,7 +15,6 @@ export default {
         }
 
         else {
-            
             //########### SEND TO API ###########//.
             await this.$axios
                 .post('/api/supermarket/products/insert', product, { withCredentials: true })
@@ -29,7 +28,6 @@ export default {
                 .catch((error) => {
                     console.log(error)
                 })
-
             this.$toast.success('تم اضافة المنتج بنجاح!')
         }
     },

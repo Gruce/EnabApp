@@ -81,7 +81,7 @@ export default {
         state.ordersList[state.selectedOrderNumber].customer_id = id
     },
 
-    unselectCustomer(state){
+    unselectCustomer(state, customer_id){
         state.ordersList[state.selectedOrderNumber].customer_id = null
     }
 }

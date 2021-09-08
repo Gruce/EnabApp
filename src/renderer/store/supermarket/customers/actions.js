@@ -5,7 +5,6 @@ export default {
     },
 
     async addCustomer({ state, commit, dispatch }, customer) {
-        console.log(customer, state.customers)
         if (state.customers.find(x => x.name == customer.name))
             this.$toast.error("هذا الزبون موجودة بالفعل !")
         else {
@@ -13,8 +12,9 @@ export default {
             await this.$axios
                 .post('/api/supermarket/customers/insert', customer, { withCredentials: true })
                 .then((response) => {
-                    console.log(response)
-                    commit('add', customer)
+                    const newId = response.data.id
+                    const sendCustomer = {id: newId, ...customer}
+                    commit('add', sendCustomer)
                     dispatch('syncLocalStorage')
                 })
                 .catch((error) => {

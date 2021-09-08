@@ -40,13 +40,27 @@
             <SupermarketControlCustomers />
           </div>
           <div v-else>
-            <input class="form-control mt-3 t-1 text-dark" v-model="search" placeholder="بحث" type="text">
+            <div class="row mt-3">
+              <div class="col">
+                <input class="form-control t-1 text-dark" v-model="search" placeholder="بحث" type="text">
+              </div>
+              <div v-if="orderList.customer_id" class="col-auto">
+                <button @click="toggleModal" type="button" class="btn btn-danger btn-lg r-2 text-light btn-icon-label">
+                  <span class="btn-inner--icon">
+                    <i class="fas fa-times"></i>
+                  </span>
+                  <span @click="unselectCustomer()" class="btn-inner--text">
+                      الغاء التعيين
+                  </span>
+                </button>
+              </div>
+            </div>
 
             <div class="row mt-3">
               <div class="col-4" v-for="customer in customers" :key="customer.id">
-                <div class="t-3 b-1 r-2 p-3 pointer customer text-center" @click="chooseCustomer(customer.id)">
-                  <div class="fs-3">{{ customer.name }}</div>
-                  <div class="text-dark">الدين : {{ $n(customer.debt, 'currency') }}</div>
+                <div class="tb-2 b-1 r-2 p-3 pointer customer text-center" @click="chooseCustomer(customer.id)">
+                  <div class="fs-5">{{ customer.name }}</div>
+                  <small class="text-light">الدين : {{ $n(customer.debt, 'currency') }}</small>
                 </div>
               </div>
             </div>
@@ -90,14 +104,15 @@ export default {
       }
     },
   },
-  created() {
-    this.fetchCustomers();
+  async created() {
+    await this.fetchCustomers();
   },
   data() {
     return {
       showCustomers: false,
       newCustomer: false,
       search: "",
+      loading: true
     };
   },
   methods: {
@@ -113,6 +128,7 @@ export default {
     }),
     ...mapMutations({
       selectCustomer: "supermarket/orders/selectCustomer",
+      unselectCustomer: "supermarket/orders/unselectCustomer",
     }),
   },
 };
@@ -151,7 +167,7 @@ export default {
       color: #fff;
       margin: 5px;
       &:hover {
-        background: $t-2 !important;
+        background: $tb-3 !important;
       }
     }
   }

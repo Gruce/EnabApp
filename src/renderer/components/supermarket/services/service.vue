@@ -15,6 +15,14 @@
             <i class="fas fa-question text-light position-absolute top-0 start-100 translate-middle"></i>
           </a>
         </div>
+        <div class="expire position-relative" v-if="service.expiry_date">
+          <div class="text-light position-absolute top-0 start-0 translate-middle">
+             <div :class="$moment().isBefore(service.expiry_date) ? 'text-light' : 'text-danger'" v-b-tooltip.hover.top title="تاريخ الانتهاء">
+              <span>{{ service.expiry_date }}</span>
+              <i class="fas fa-history"></i>
+             </div>
+          </div>
+        </div>
 
         <!-- App logo + status -->
         <div class="row d-flex justify-content-between align-items-center">
@@ -139,6 +147,14 @@ export default {
     }
   }
 
+  .expire{
+      div{
+        opacity: 0;
+        transition: 0.3s ease-in-out;
+        margin-left: 30px;
+      }
+    }
+
   .subtitle {
     color: #fff;
     opacity: 0;
@@ -180,6 +196,12 @@ export default {
 
     .faq{
       i {
+        opacity: 1;
+      }
+    }
+
+    .expire{
+      div{
         opacity: 1;
       }
     }
