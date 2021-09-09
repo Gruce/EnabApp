@@ -73,6 +73,8 @@ module.exports = {
 
     '@nuxtjs/toast',
 
+    '@nuxtjs/laravel-echo',
+
     // https://go.nuxtjs.dev/pwa
     // '@nuxtjs/pwa',
 
@@ -80,6 +82,18 @@ module.exports = {
 
     'vue-swatches/nuxt'
   ],
+
+
+
+  echo: {
+    authModule: true,
+    connectOnLogin: true,
+    disconnectOnLogout: true,
+    broadcaster: 'pusher',
+    plugins: [ '~/plugins/notifications.js' ],
+    key: 'bf094a27da89f0a0c206',
+    cluster: "ap2"
+  },
 
   // bootstrapVue: {
   //   bootstrapCSS: false, // Or `css: false`

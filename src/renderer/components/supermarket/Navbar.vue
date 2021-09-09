@@ -43,12 +43,24 @@
                 <!-- <div class="mr-1">
                   <div class="fs-5 px-3">{{ datetime }}</div>
                 </div> -->
-                
+
                 <div class="mr-1">
-                  <small v-if="$nuxt.isOnline" class="badge text-success p-2 px-3" v-b-tooltip.hover.right title="متصل">
+
+                  <!-- Is Updating -->
+                  <small v-if="updateProgress.percent && updateProgress.percent !== 100" class="badge text-info py-2 px-3" v-b-tooltip.hover.right title="جاري التحديث">
+                    <i class="fas fa-circle-notch"></i>
+                  </small>
+
+                  <!-- Is Complete Updating -->
+                  <div @click="updateCompleted" v-else-if="updateProgress.percent == 100" class="badge badge-success py-2 px-3 pointer">تم التحديث</div>
+
+                  <!-- Is Online -->
+                  <small v-else-if="$nuxt.isOnline" class="badge text-success p-2 px-3" v-b-tooltip.hover.right title="متصل">
                     <i class="fas fa-circle"></i>
                   </small>
-                  <small v-else class="badge text-danger p-2 px-3" v-b-tooltip.hover.right title="غير متصل">
+
+                  <!-- Is Offline -->
+                  <small v-if="$nuxt.isOffline" class="badge text-danger p-2 px-3" v-b-tooltip.hover.right title="غير متصل">
                     <i class="fas fa-circle"></i>
                   </small>
                 </div>
@@ -64,11 +76,6 @@
                       </span>
                     </div>
                   </nuxt-link>
-                </div>
-
-                <div class="mr-1">
-                  <div v-if="updateProgress.percent && updateProgress.percent !== 100" class="badge badge-info py-2 px-3">جاري التحديث</div>
-                  <div @click="updateCompleted" v-if="updateProgress.percent == 100" class="badge badge-success py-2 px-3 pointer">تم التحديث</div>
                 </div>
 
                 <div class="mr-1">

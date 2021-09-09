@@ -28,7 +28,7 @@
                   <button class="btn t-1 b-1 r-2" @click="creditChange(true)">
                     <i class="fas fa-arrow-up fa-2x text-light"></i>
                   </button>
-                  <span class="mx-3">{{ credit }}$</span>
+                  <span class="mx-3">{{ credit }}</span>
                   <button class="btn t-1 b-1 r-2" @click="creditChange(false)">
                     <i class="fas fa-arrow-down fa-2x text-light"></i>
                   </button>
@@ -78,7 +78,7 @@ export default {
           statue: false,
         },
       ],
-      credit: 5,
+      credit: 5000,
       points: 2500,
       card_number: "",
       submitRequest: false,
@@ -93,8 +93,8 @@ export default {
     },
 
     creditChange(type) {
-      if (type) this.credit += 5;
-      else this.credit = this.credit > 5 ? this.credit - 5 : 5;
+      if (type) this.credit += 5000;
+      else this.credit = this.credit > 5000 ? this.credit - 5000 : 5000;
     },
 
     request() {
@@ -112,7 +112,7 @@ export default {
   },
   watch: {
     credit() {
-      this.points = this.credit * 500;
+      this.points = this.credit * 0.5;
     },
   },
 };

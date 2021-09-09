@@ -1,6 +1,6 @@
 export default {
     setColor(state, data) {
-        state.color = data
+        state.backgroundColor = data
     },
 
     setPrinters(state, data) {

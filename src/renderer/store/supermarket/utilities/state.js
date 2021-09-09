@@ -1,5 +1,5 @@
 export default () => ({
-    color: "",
+    backgroundColor: "",
     printState: false,
     printers: {},
     defaultPrinter: ""

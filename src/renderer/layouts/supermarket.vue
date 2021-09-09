@@ -20,9 +20,9 @@ export default {
     showMenu() {
       return this.$store.state.supermarket.showMenu;
     },
-    backgroundColor() {
-      return this.$store.state.supermarket.utilities.color;
-    },
+    ...mapGetters({
+      backgroundColor: "supermarket/utilities/backgroundColor",
+    }),
   },
   beforeCreate() {
     if ($nuxt.isOnline) {

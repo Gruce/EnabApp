@@ -7,13 +7,6 @@
     <div class="row p-3 d-flex justify-content-center">
       <div class="col-xl-8 col-sm-12">
         <div class="t-1 b-1 p-4 r-2 h-100 d-flex flex-column">
-          <div class="row">
-            <div class="received_title mb-3">
-              <h5 class="text-center text-light">
-                <b>المبلغ المستلم</b>
-              </h5>
-            </div>
-          </div>
 
           <div class="row">
             <div class="position-relative">
@@ -32,7 +25,7 @@
               </button>
             </div>
 
-            <div class="col-12 mt-3"></div>
+            <div class="col-12 mt-2"></div>
 
             <!-- Numbers -->
             <div v-for="number in numbers" :key="number" class="col-4">
@@ -41,7 +34,7 @@
               </button>
             </div>
 
-            <div class="col-12 mt-3"></div>
+            <div class="col-12 mt-2"></div>
 
             <!-- Thousands -->
             <div v-for="thousand in thousnads" :key="thousand" class="col-4">
@@ -54,7 +47,7 @@
         </div>
       </div>
       <div class="col-xl-8 col-sm-12 mt-3">
-        <div class="row tb-2 text-light r-2 p-4 m-0">
+        <div class="row tb-2 text-light r-2 p-3 m-0">
           <div class="col-6 text-right">
             <h3 class="text-light d-inline-block">
               المتبقي
@@ -68,7 +61,7 @@
         </div>
       </div>
       <div class="col-xl-8 col-sm-12 mt-3">
-        <button @click="endOrder" type="button" class="btn btn-block btn-light py-3 fs-3 r-2">
+        <button @click="endOrder" type="button" class="btn btn-block btn-light py-2 fs-3 r-2">
           إنهاء الطلب
         </button>
       </div>

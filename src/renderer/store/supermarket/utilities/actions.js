@@ -1,10 +1,6 @@
 const { ipcRenderer } = require('electron');
 
 export default {
-    changeColor({ commit }, data) {
-        commit('setColor', data)
-    },
-
     getColor({ commit }) {
         let color = this.$auth.$storage.getLocalStorage('background-color')
         if (color)
