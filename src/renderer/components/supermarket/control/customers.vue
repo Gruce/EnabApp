@@ -2,62 +2,65 @@
   <div class="mt-3">
     <div class="r-2 border-0 shadow-none">
       <div class="row">
-        <div class="col-8 d-flex">
-          <h1 class="text-light">الزبائن</h1>
-          <span class="mx-2">-</span>
-          <b-button v-if="$nuxt.isOnline" @click="editState=false,thisCustomer = {}" class="t-1 r-2 px-4 border-0 text-light" v-b-toggle.add-edit>
-            إضافة زبون
-          </b-button>
-          <b-button v-if="$nuxt.isOffline" disabled class="t-1 r-2 px-4 border-0 text-light">
-            إضافة زبون
-          </b-button>
+        <div class="col-xl-12 col-md-12 d-flex">
+          <c-heading as="h1" fontSize="4xl" ml="4" color="white">الزبائن</c-heading>
+
+          <c-button v-if="$nuxt.isOnline" px="6" height="100%" class="t-1 b-1 r-2 text-light me-auto" variant="ghost" @click="show = !show,editState=false,thisData = {}">
+            إضافة فئة
+          </c-button>
         </div>
-        <div class="col-4">
-          <div class="form-group">
-            <input v-model="search" type="text" class="form-control r-2" placeholder="بحث" />
-          </div>
+        <div class="col-xl-12 col-md-12">
+          <c-input-group mt=1>
+            <c-input-left-element>
+              <i class="fas fa-search"></i>
+            </c-input-left-element>
+            <c-input py=5 v-model="search" type="text" placeholder="بحث" />
+          </c-input-group>
         </div>
       </div>
       <div class="mt-3">
         <!-- ADD / EDIT -->
-        <b-collapse id="add-edit">
+        <c-collapse :is-open="show">
           <h3 class="text-center text-light tb-2 r-2 p-3 my-2" v-if="$nuxt.isOffline && !editState">لايوجد اتصال بالانترنت</h3>
-          <b-card class="t-3 r-2" v-else>
-            <b-form class="p-4" @submit.prevent="submit">
-              <h2 v-if="editState">تعديل الزبون</h2>
-              <h2 v-else>إضافة زبون</h2>
-              <div class="row">
-                <b-form-group id="input-group-1" label="أسم الزبون" label-for="customer_name_input">
-                  <b-form-input v-model="thisCustomer.name" id="customer_name_input" type="text" required></b-form-input>
-                </b-form-group>
-              </div>
-              <div class="row mt-3">
-                <div class="col-6">
-                  <b-form-group id="input-group-2" label="الدين" label-for="customer_debt_input">
-                    <b-form-input v-model="thisCustomer.debt" id="customer_debt_input" type="text"></b-form-input>
-                  </b-form-group>
-                </div>
-                <div class="col-6">
-                  <b-form-group id="input-group-3" label="رقم الهاتف" label-for="customer_phonenumber_input">
-                    <b-form-input v-model="thisCustomer.phonenumber" id="customer_phonenumber_input" type="number"></b-form-input>
-                  </b-form-group>
-                </div>
-              </div>
-              <div class="row mt-3">
-                <b-form-group id="input-group-3" label="عنوان السكن" label-for="customer_location_input">
-                  <b-form-input v-model="thisCustomer.location" id="customer_location_input" type="text"></b-form-input>
-                </b-form-group>
-              </div>
-              <b-button v-if="editState" type="submit" class="tb-2 border-0 fs-5 btn-block py-2 mt-3">تعديل</b-button>
-              <b-button v-else type="submit" class="tb-2 border-0 fs-5 btn-block py-2 mt-3">أضف</b-button>
-            </b-form>
-          </b-card>
-        </b-collapse>
+          <c-box class="t-1 r-2 b-1" p="6" v-else>
+            <form @submit.prevent="submit">
 
-        <div class="table-responsive">
-          <!-- <h4 class="text-center text-light" v-if="customers.length <= 0">
-            لاتوجد منتجات
-          </h4> -->
+              <c-grid templateColumns="repeat(4, 1fr)" gap=4>
+                <c-grid-item col-span=2>
+                  <c-form-control is-required>
+                    <c-form-label for="name">أسم الزبون</c-form-label>
+                    <c-input size="lg" v-model="thisData.name" id="name" placeholder="أسم الزبون" />
+                  </c-form-control>
+                </c-grid-item>
+                <c-grid-item col-span=2>
+                  <c-form-control>
+                    <c-form-label for="debt">الدين</c-form-label>
+                    <c-input size="lg" v-model="thisData.debt" id="debt" placeholder="الدين" />
+                  </c-form-control>
+                </c-grid-item>
+                <c-grid-item col-span=2>
+                  <c-form-control>
+                    <c-form-label for="phonenumber">رقم الهاتف</c-form-label>
+                    <c-input size="lg" v-model="thisData.phonenumber" id="phonenumber" placeholder="رقم الهاتف" />
+                  </c-form-control>
+                </c-grid-item>
+                <c-grid-item col-span=2>
+                  <c-form-control>
+                    <c-form-label for="location">عنوان السكن</c-form-label>
+                    <c-input size="lg" v-model="thisData.location" id="location" placeholder="عنوان السكن" />
+                  </c-form-control>
+                </c-grid-item>
+              </c-grid>
+
+              <c-button mt="4" :isLoading="loading" type="submit" class="t-1 r-2" size="lg" border="2px" border-color="primary.1">
+                <span v-if="editState">تعديل</span>
+                <span v-else>إضافة</span>
+              </c-button>
+            </form>
+          </c-box>
+        </c-collapse>
+
+        <div class="table-responsive" v-if="customers.length > 0">
           <table class="table table-cards text-right">
             <thead>
               <tr class="text-light">
@@ -71,22 +74,33 @@
             </thead>
             <tbody>
               <tr v-for="(customer, i) in customers" :key="customer.id" class="table-divider">
-                <td scope="row">{{ i + 1 }}</td>
-                <td>{{ customer.name }}</td>
-                <td>{{ customer.debt }}</td>
-                <td>{{ customer.phonenumber }}</td>
-                <td>{{ customer.location }}</td>
+                <td class="align-middle" scope="row">{{ i + 1 }}</td>
+                <td class="align-middle">{{ customer.name }}</td>
+                <td class="align-middle">{{ customer.debt }}</td>
+                <td class="align-middle">{{ customer.phonenumber }}</td>
+                <td class="align-middle">{{ customer.location }}</td>
                 <td class="text-center">
-                  <a v-if="customer.id !== 0" href="#" @click="$store.commit('supermarket/customers/setCustomer', customer.id), editState = true" v-b-toggle.add-edit class="action-item text-primary">
+                  <c-button v-if="customer.id !== 0" variant-color="blue" size="xs" @click="thisData = getCustomer(customer.id), editState = true, show = true" variant="ghost">
                     <i class="fas fa-pen"></i>
-                  </a>
-                  <a v-if="customer.id !== 0" @click="removeCustomer(customer.id)" href="#" class="action-item text-danger">
+                  </c-button>
+                  <c-button v-if="customer.id !== 0" variant-color="red" size="xs" @click="removeCustomer(customer.id)" variant="ghost">
                     <i class="fas fa-times"></i>
-                  </a>
+                  </c-button>
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <div v-else>
+          <c-alert class="bg-none b-1 r-2 mt-3" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
+            <c-alert-icon color="gray.250" name="warning" size="40px" :mr="0" />
+            <c-alert-title :mt="4" :mb="1" fontSize="xl">
+              لايوجد زبائن
+            </c-alert-title>
+            <c-alert-description maxWidth="sm">
+              يمكن إضافة زبائن من خلال (إضافة زبون)
+            </c-alert-description>
+          </c-alert>
         </div>
       </div>
     </div>
@@ -98,34 +112,37 @@ import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   computed: {
-    customers() {
-      return this.$store.state.supermarket.customers.customers;
-    },
-    customer() {
-      return this.$store.state.supermarket.customers.customer;
-    },
+    ...mapGetters({
+      customers: "supermarket/customers/customers",
+      getCustomer: "supermarket/customers/customer",
+    }),
   },
   data() {
     return {
+      show: false,
       search: "",
-      thisCustomer: {},
+      thisData: {},
       editState: "",
+      loading: false,
     };
   },
-  async mounted() {},
   methods: {
-    submit: function () {
+    async submit() {
       if (this.editState) {
-        this.$store.dispatch(
+        this.loading = true;
+        await this.$store.dispatch(
           "supermarket/customers/editCustomer",
-          this.thisCustomer
+          this.thisData
         );
+        this.loading = false;
       } else {
-        this.$store.dispatch(
+        this.loading = true;
+        await this.$store.dispatch(
           "supermarket/customers/addCustomer",
-          this.thisCustomer
+          this.thisData
         );
-        this.thisCustomer = {};
+        this.thisData = {};
+        this.loading = false;
       }
     },
 
@@ -137,9 +154,6 @@ export default {
     ...mapActions({
       search: "supermarket/customers/search",
     }),
-    customer(x) {
-      this.thisCustomer = { ...x };
-    },
   },
 };
 </script>

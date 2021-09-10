@@ -82,10 +82,11 @@ export default {
     },
 
     unselectCustomer(state){
-        let customer_id = state.ordersList[state.selectedOrderNumber].customer_id
+        const customer_id = state.ordersList[state.selectedOrderNumber].customer_id
 
         if (customer_id !== null)
             this.$toast.success('تم الغاء تعيين الزبون')
-        customer_id = null
+
+        state.ordersList[state.selectedOrderNumber].customer_id = null
     }
 }

@@ -3,12 +3,12 @@ export default {
         return state.products
     },
 
-    productsAdded: state => {
-        return state.products[state.selectedOrderNumber]
+    productsAdded: (state, getters) => {
+        return getters.products[state.selectedOrderNumber]
     },
 
-    productInCount: state => id => {
-        let product = state.products[state.selectedOrderNumber].find(x => x.id == id)
+    productInCount: (state, getters) => id => {
+        let product = getters.products[state.selectedOrderNumber].find(x => x.id == id)
         if (product)
             return product.inCount
         else
@@ -17,6 +17,10 @@ export default {
 
     ordersList: state => {
         return state.ordersList
+    },
+
+    orderList: (state, getters) => {
+        return getters.ordersList[state.selectedOrderNumber]
     },
 
     totalPrice: (state, getters) => {
@@ -40,6 +44,12 @@ export default {
     hideCategoriesValue: state => {
         return state.hideCategories
     },
+
+    orders: state => {
+        return state.orders
+    },
+
+
 
 
 }

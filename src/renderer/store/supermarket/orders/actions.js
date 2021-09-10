@@ -119,15 +119,35 @@ export default {
         return await this.$auth.$storage.getLocalStorage('lastOrder')
     },
 
+    async checkPrint({ dispatch }) {
+        // Print Order
+        if (this.state.supermarket.utilities.printState == true) {
+            if (this.state.supermarket.utilities.defaultPrinter == "") {
+                this.$toast.info('يرجى تحديد طابعة لإجراء عملية الطباعة')
+                return false
+            } else {
+                await dispatch('invoice')
+                return true
+            }
+        }
+        return true
+    },
+
+
     async endOrder({ state, commit, dispatch }) {
+        //Calculator Service
         let calculatorService = await this.getters['supermarket/services/calculator']
         if (calculatorService && state.calculator == false) {
             commit('calculator')
-            return true
+            return false
         }
 
+        // Print Order
+        if (!await dispatch('checkPrint')) return false
 
+        // Preparing
         let products = []
+
         state.products[state.selectedOrderNumber].forEach(x => {
             products.push({ id: x.id, count: x.inCount })
         })
@@ -143,15 +163,8 @@ export default {
                 console.log(error)
             })
 
-        // Print Order
-        if (this.state.supermarket.utilities.printState == true) {
-            if (this.state.supermarket.utilities.defaultPrinter == "") {
-                this.$toast.info('يرجى تحديد طابعة لإجراء عملية الطباعة')
-            } else {
-                await dispatch('invoice')
-            }
-        }
 
+        
         // Last Order
         let lastOrder = { ...await dispatch('fetchLastOrder') }
         lastOrder.id++
@@ -163,8 +176,9 @@ export default {
             this.commit('supermarket/products/changeCount', { id: x.id, count: x.inCount * -1 })
         })
 
-        // Insert Order to Database
-        // commit('insert_order', { products: products, customer_id: null })
+        // Add Debt
+        this.dispatch('supermarket/customers/debt', { id: customer_id, debt: lastOrder.order_price })
+
 
         // Sync Order Data
         await this.dispatch('supermarket/products/syncLocalStorage')

@@ -2,73 +2,73 @@
   <div class="mt-3">
     <div class="r-2 border-0 shadow-none">
       <div class="row">
-        <div class="col-8 d-flex">
-          <h1 class="text-light">المنتجات</h1>
-          <span class="mx-2">-</span>
-          <b-button v-if="$nuxt.isOnline" @click="editState=false,thisProduct = {}" class="t-1 r-2 px-4 border-0 text-light" v-b-toggle.add-edit>
+        <div class="col-xl-12 col-md-12 d-flex">
+          <c-heading as="h1" fontSize="4xl" ml="4" color="white">المنتجات</c-heading>
+      
+          <c-button v-if="$nuxt.isOnline" px="6" height="100%" class="t-1 b-1 r-2 text-light me-auto" variant="ghost" @click="show = !show,editState=false,thisData = {}">
             إضافة منتج
-          </b-button>
-          <b-button v-if="$nuxt.isOffline" disabled class="t-1 r-1 px-4 border-0 text-light">
-            إضافة منتج
-          </b-button>
+          </c-button>
         </div>
-        <div class="col-4">
-          <div class="form-group">
-            <input v-model="search" type="text" class="form-control r-2" placeholder="بحث" />
-          </div>
+        <div class="col-xl-12 col-md-12">
+            <c-input-group mt=1>
+              <c-input-left-element>
+                <i class="fas fa-search"></i>
+              </c-input-left-element>
+              <c-input py=5 v-model="search" type="text" placeholder="بحث بحسب رقم الطلب" />
+            </c-input-group>
         </div>
       </div>
       <div class="mt-3">
         <!-- ADD / EDIT -->
-        <b-collapse id="add-edit">
+        <c-collapse :is-open="show">
           <h3 class="text-center text-light tb-2 r-2 p-3 my-2" v-if="$nuxt.isOffline && !editState">لايوجد اتصال بالانترنت</h3>
-          <b-card class="t-3 r-2" v-else>
-            <b-form class="p-4" @submit.prevent="submit">
-              <h2 v-if="editState">تعديل المنتج</h2>
-              <h2 v-else>إضافة منتج</h2>
+          <c-box class="t-1 r-2 b-1" p="6" v-else>
+            <form @submit.prevent="submit">
 
-              <div class="row mt-2">
-                <div class="col-6">
-                  <b-form-group id="input-group-1" label="أسم المنتج" label-for="product_name_input">
-                    <b-form-input v-model="thisProduct.name" id="product_name_input" type="text" required></b-form-input>
-                  </b-form-group>
-                </div>
-                <div class="col-6">
-                  <b-form-group id="input-group-1" label="فئة المنتج" label-for="product_category_input">
-                    <v-select v-model="thisProduct.category_id" :options="categories" label="name" :reduce="name => name.id"></v-select>
-                  </b-form-group>
-                </div>
-              </div>
-              <div class="row mt-2">
-                <div class="col-4">
-                  <b-form-group id="input-group-1" label="الباركود" label-for="product_barcode_input">
-                    <b-form-input v-model="thisProduct.barcode" id="product_barcode_input" type="text" required></b-form-input>
-                  </b-form-group>
-                </div>
-                <div class="col-2">
-                  <b-form-group class="text-dark" label="النوع">
-                    <b-form-radio-group v-model="thisProduct.type" dir="ltr" id="btn-radios-1" :options="types" button-variant="outline-light" size="lg" buttons></b-form-radio-group>
-                  </b-form-group>
-                </div>
-                <div class="col-3">
-                  <b-form-group id="input-group-1" label="العدد" label-for="product_count_input">
-                    <b-form-input v-model="thisProduct.count" id="product_count_input" type="number" required></b-form-input>
-                  </b-form-group>
-                </div>
-                <div class="col-3">
-                  <b-form-group id="input-group-1" label="السعر" label-for="product_price_input">
-                    <b-form-input v-model="thisProduct.price" id="product_price_input" type="number" required></b-form-input>
-                  </b-form-group>
-                </div>
-              </div>
+              <c-grid templateColumns="repeat(4, 1fr)" gap=4>
+                <c-grid-item col-span=2>
+                  <c-form-control is-required>
+                    <c-form-label for="name">أسم المنتج</c-form-label>
+                    <c-input size="lg" v-model="thisData.name" id="name" placeholder="أسم المنتج" />
+                  </c-form-control>
+                </c-grid-item>
 
-              <b-button v-if="editState" type="submit" class="tb-2 border-0 fs-5 btn-block py-2 mt-3">تعديل</b-button>
-              <b-button v-else type="submit" class="tb-2 border-0 fs-5 btn-block py-2 mt-3">أضف</b-button>
-            </b-form>
-          </b-card>
-        </b-collapse>
+                <c-grid-item col-span=2>
+                  <c-form-control is-required>
+                    <c-form-label for="category">فئة المنتج</c-form-label>
+                    <v-select v-model="thisData.category_id" :options="categories" label="name" :reduce="name => name.id"></v-select>
+                  </c-form-control>
+                </c-grid-item>
 
-        <div class="table-responsive">
+                <c-grid-item col-span=2>
+                  <c-form-control>
+                    <c-form-label for="barcode">الباركود</c-form-label>
+                    <c-input size="lg" v-model="thisData.barcode" id="barcode" placeholder="الباركود" />
+                  </c-form-control>
+                </c-grid-item>
+                <c-grid-item col-span=1>
+                  <c-form-control is-required>
+                    <c-form-label for="count">العدد</c-form-label>
+                    <c-input size="lg" v-model="thisData.count" id="count" placeholder="العدد" />
+                  </c-form-control>
+                </c-grid-item>
+                <c-grid-item col-span=1>
+                  <c-form-control is-required>
+                    <c-form-label for="price">السعر</c-form-label>
+                    <c-input size="lg" v-model="thisData.price" id="price" placeholder="السعر" />
+                  </c-form-control>
+                </c-grid-item>
+              </c-grid>
+
+              <c-button mt="4" :isLoading="loading" type="submit" class="t-1 r-2" size="lg" border="2px" border-color="primary.1">
+                <span v-if="editState">تعديل</span>
+                <span v-else>إضافة</span>
+              </c-button>
+            </form>
+          </c-box>
+        </c-collapse>
+
+        <div class="table-responsive" v-if="products.length > 0">
           <table class="table table-cards text-right">
             <thead>
               <tr class="text-light">
@@ -82,22 +82,33 @@
             </thead>
             <tbody>
               <tr v-for="(product, i) in products" :key="product.id" class="table-divider">
-                <td scope="row">{{ i + 1 }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ categories.find(x => x.id == product.category_id).name }}</td>
-                <td>{{ product.count }}</td>
-                <td>{{ $n(product.price, 'currency') }}</td>
+                <td class="align-middle" scope="row">{{ i + 1 }}</td>
+                <td class="align-middle">{{ product.name }}</td>
+                <td class="align-middle">{{ categories.find(x => x.id == product.category_id).name }}</td>
+                <td class="align-middle">{{ product.count }}</td>
+                <td class="align-middle">{{ $n(product.price, 'currency') }}</td>
                 <td class="text-center">
-                  <a v-if="product.id !== 0" href="#" @click="$store.commit('supermarket/products/setProduct', product.id), editState = true" v-b-toggle.add-edit class="action-item text-primary">
+                  <c-button v-if="product.id !== 0" variant-color="blue" size="xs" @click="thisData = getProduct(product.id), editState = true, show = true" variant="ghost">
                     <i class="fas fa-pen"></i>
-                  </a>
-                  <a v-if="product.id !== 0" @click="removeProduct(product.id)" href="#" class="action-item text-danger">
+                  </c-button>
+                  <c-button v-if="product.id !== 0" variant-color="red" size="xs" @click="removeProduct(product.id)" variant="ghost">
                     <i class="fas fa-times"></i>
-                  </a>
+                  </c-button>
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <div v-else>
+          <c-alert class="bg-none b-1 r-2 mt-3" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
+            <c-alert-icon color="gray.250" name="warning" size="40px" :mr="0" />
+            <c-alert-title :mt="4" :mb="1" fontSize="xl">
+              لايوجد منتجات
+            </c-alert-title>
+            <c-alert-description maxWidth="sm">
+              يمكن إضافة منتجات من خلال (إضافة منتج)
+            </c-alert-description>
+          </c-alert>
         </div>
       </div>
     </div>
@@ -109,25 +120,18 @@ import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   computed: {
-    categories() {
-      let categories =
-        this.$store.state.supermarket.categories.categories.filter(
-          (x) => x.id !== 0
-        );
-      return categories;
-    },
-    products() {
-      return this.$store.state.supermarket.products.products;
-    },
-    product() {
-      return this.$store.state.supermarket.products.product;
-    },
+    ...mapGetters({
+      categories: "supermarket/categories/categories",
+      products: "supermarket/products/products",
+      getProduct: "supermarket/products/product",
+    }),
   },
   data() {
     return {
-      products_loading: true,
+      show: false,
+      loading: false,
       search: "",
-      thisProduct: { type: 0 },
+      thisData: { type: 0 },
       editState: "",
       types: [
         // {text: 'وزني', value: 1},
@@ -138,21 +142,22 @@ export default {
   methods: {
     async submit() {
       if (this.editState) {
-        this.$store.dispatch(
+        this.loading = true;
+        await this.$store.dispatch(
           "supermarket/products/editProduct",
-          this.thisProduct
+          this.thisData
         );
-        this.$root.$emit("bv::toggle::collapse", "add-edit");
+        this.loading = false;
+        this.show = false;
       } else {
-        if (
-          await this.$store.dispatch(
-            "supermarket/products/addProduct",
-            this.thisProduct
-          )
-        ) {
-          let categoryId = this.thisProduct.category_id;
-          this.thisProduct = { category_id: categoryId, type: 0 };
-        }
+        this.loading = true;
+        await this.$store.dispatch(
+          "supermarket/products/addProduct",
+          this.thisData
+        );
+        let categoryId = this.thisData.category_id;
+        this.thisData = { category_id: categoryId, type: 0 };
+        this.loading = false;
       }
     },
 
@@ -164,9 +169,6 @@ export default {
     ...mapActions({
       search: "supermarket/products/search",
     }),
-    product(x) {
-      this.thisProduct = { ...x };
-    },
   },
 };
 </script>

@@ -21,4 +21,9 @@ export default {
             state.customers = state.customers.filter(x => x.id !== id);
     },
 
+    set_debt(state, {id, debt}){
+        state.customers.find(x => x.id == id).debt += debt
+
+    }
+
 }

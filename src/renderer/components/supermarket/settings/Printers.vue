@@ -2,22 +2,22 @@
   <div class="mt-3">
     <div class="r-2 border-0 shadow-none">
       <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-9 d-flex">
-          <h1 class="text-light">الطابعات</h1>
+        <div class="col-6 d-flex">
+          <c-heading as="h1" fontSize="4xl" ml="4" color="white">
+            الطابعات
+          </c-heading>
         </div>
-        <div class="col-3">
+        <div class="col-6">
           <div class="form-group text-left mb-2">
-            <div class="form-check form-switch">
-              <label for="onlySearchProducts" class="form-check-label text-light">
+              <label for="onlySearchProducts" class="text-light">
                 <small>تفعيل الطباعة</small>
               </label>
-              <input :value="printState" :checked="printState" @change="setPrintState()" type="checkbox" class="form-check-input mr-2" />
-            </div>
+              <c-switch :isChecked="printState" @change="setPrintState()" mt=3 mr=3 size="md" />
           </div>
         </div>
       </div>
 
-      <br /> 
+      <br />
 
       <div class="row mt-4">
         <div class="col-6" v-for="(printer, i) in printers" :key="i" @click="setDefaultPrinter(printer.name)">

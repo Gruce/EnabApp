@@ -17,13 +17,13 @@
 
     <div v-if="showCustomers" class="main">
       <div class="container">
-        <h1 class="text-center text-light mt-3">تعيين زبون</h1>
+        <c-heading class="text-center" as="h1" fontSize="4xl" mt="3" ml="4" color="white">تعيين الزبون</c-heading>
         <div class="position-absolute top-0 start-0 pointer my-3 ml-4">
           <span @click="toggleModal">
             <UtilitiesClose />
           </span>
         </div>
-        <div class="row mt-3">
+        <div class="row mt-5">
           <div class="col-6">
             <button @click="newCustomer = false" class="btn btn-block py-3 fs-5 r-2" :class="newCustomer ? 'btn-secondary' : 'btn-light'">
               تعيين زبون
@@ -35,34 +35,52 @@
             </button>
           </div>
         </div>
-        <div class="row mt-3 t-1 b-1 m-1 r-2 p-2 content show-scroll">
+        <div class="row mt-3 bg-none b-1 m-1 r-2 p-2 content show-scroll">
           <div v-if="newCustomer" class="text-right">
             <SupermarketControlCustomers />
           </div>
           <div v-else>
             <div class="row mt-3">
               <div class="col">
-                <input class="form-control t-1 text-dark" v-model="search" placeholder="بحث" type="text">
+                <c-input-group mt=1>
+                  <c-input-left-element>
+                    <i class="fas fa-search"></i>
+                  </c-input-left-element>
+                  <c-input py=5 v-model="search" type="text" placeholder="بحث" />
+                </c-input-group>
               </div>
               <div v-if="orderList.customer_id" class="col-auto">
-                <button @click="toggleModal" type="button" class="btn btn-danger btn-lg r-2 text-light btn-icon-label">
+                <button @click="toggleModal(), unselectCustomer()" type="button" class="btn btn-danger btn-lg r-2 text-light btn-icon-label">
                   <span class="btn-inner--icon">
                     <i class="fas fa-times"></i>
                   </span>
-                  <span @click="unselectCustomer()" class="btn-inner--text">
-                      الغاء التعيين
+                  <span class="btn-inner--text">
+                    الغاء التعيين
                   </span>
                 </button>
               </div>
             </div>
 
-            <div class="row mt-3">
-              <div class="col-4" v-for="customer in customers" :key="customer.id">
-                <div class="tb-2 b-1 r-2 p-3 pointer customer text-center" @click="chooseCustomer(customer.id)">
-                  <div class="fs-5">{{ customer.name }}</div>
-                  <small class="text-light">الدين : {{ $n(customer.debt, 'currency') }}</small>
+            <c-grid class="mt-3" template-columns="repeat(3, 1fr)" gap="2" v-if="customers.length > 0">
+              <c-box w="100%" v-for="customer in customers" :key="customer.id">
+                <div class="t-1 b-2 r-2 p-3 pointer customer text-center" @click="chooseCustomer(customer.id)">
+                  <div class="fs-4 mb-2">{{ customer.name }}</div>
+                  <c-badge mx="2" variant="solid" class="t-3 p-1 px-3 r-2 fs-6">
+                    الدين : {{ $n(customer.debt, 'currency') }}
+                  </c-badge>
                 </div>
-              </div>
+              </c-box>
+            </c-grid>
+            <div v-else>
+              <c-alert class="bg-none b-1 r-2 mt-3" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
+                <c-alert-icon color="gray.250" name="warning" size="40px" :mr="0" />
+                <c-alert-title :mt="4" :mb="1" fontSize="xl">
+                  لايوجد زبائن
+                </c-alert-title>
+                <c-alert-description maxWidth="sm">
+                  يمكن إضافة زبائن من خلال (إضافة زبون)
+                </c-alert-description>
+              </c-alert>
             </div>
           </div>
         </div>
@@ -78,13 +96,14 @@ export default {
   props: ["productsAdded", "orderIndex"],
 
   computed: {
+    ...mapGetters({
+      c: "supermarket/customers/customers",
+    }),
     customers() {
-      if (this.$store.state.supermarket.customers.customers) {
+      if (this.c) {
         if (this.search !== "")
-          return this.$store.state.supermarket.customers.customers.filter((x) =>
-            x.name.includes(this.search)
-          );
-        else return this.$store.state.supermarket.customers.customers;
+          return this.c.filter((x) => x.name.includes(this.search));
+        else return this.c;
       }
     },
     orderList() {
@@ -106,7 +125,7 @@ export default {
       showCustomers: false,
       newCustomer: false,
       search: "",
-      loading: true
+      loading: true,
     };
   },
   methods: {
@@ -143,25 +162,26 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 95vw;
-  height: 95vh;
-  background: $tb-1;
+  width: 97vw;
+  height: 97vh;
+  background: #ffffff00;
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   z-index: 999;
   border-radius: $r-2;
   padding: 1rem;
+  border: 2px solid $t-3;
 
   .content {
     min-height: calc(95vh - 15rem) !important;
     max-height: calc(95vh - 15rem) !important;
 
     .customer {
-      transition: 0.2s ease-in-out;
+      transition: 0.3s ease-in-out;
       color: #fff;
       margin: 5px;
       &:hover {
-        background: $tb-3 !important;
+        background: $t-3 !important;
       }
     }
   }

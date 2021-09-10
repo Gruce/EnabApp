@@ -1,7 +1,7 @@
 <template>
   <div class="p-3">
     <h4 class="text-light">الإشعارات</h4>
-    <div class="list-group r-2 show-scroll max-height pl-1">
+    <div class="list-group r-2 show-scroll max-height pl-1 mt-3">
       <div class="list-group-item d-flex w-100 justify-content-between" v-for="num in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]" :key="num">
         <div>
           <h6 class="font-weight-light mb-1 text-light">A product from wishlist is on sale</h6>

@@ -1,13 +1,10 @@
 <template>
   <div class="mt-3">
     <div class="r-2 border-0 shadow-none">
-      <div class="row d-flex justify-content-between">
-        <div class="col-auto">
-          <h1 class="text-right text-light">
-            متجر الخدمات
-          </h1>
-        </div>
-      </div>
+      <c-heading as="h1" fontSize="4xl" ml="4" color="white">
+        متجر الخدمات
+      </c-heading>
+
       <div class="r-2 p-3 b-1 show-scroll mt-4">
         <div class="row mx-3 mt-3">
           <div class="col-6">
@@ -17,12 +14,10 @@
           </div>
           <div class="col-6">
             <div class="form-group text-left">
-              <div class="form-check form-switch">
-                <label class="form-check-label text-light" for="onlySearchProducts">
-                  <small>الخدمات التي لا املكها</small>
-                </label>
-                <input @change="onlyOwned" class="form-check-input mr-2" type="checkbox">
-              </div>
+              <label class="form-check-label text-light" for="onlySearchProducts">
+                <small>الخدمات التي لا املكها</small>
+              </label>
+              <c-switch @change="onlyOwned" mt=3 ml=6 size="md" />
             </div>
           </div>
         </div>

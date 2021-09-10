@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <CThemeProvider>
+    <CReset />
     <div class="main-container">
       <SupermarketNavbar />
       <client-only>
@@ -9,13 +10,16 @@
       </client-only>
       <nuxt />
     </div>
-  </div>
+  </CThemeProvider>
 </template>
 
 <script>
+import { CThemeProvider, CReset } from '@chakra-ui/vue'
 import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
+  components: {CThemeProvider},
+
   computed: {
     showMenu() {
       return this.$store.state.supermarket.showMenu;

@@ -3,6 +3,10 @@ export default {
         return state.services
     },
 
+    owned: state => {
+        return state.services.filter(x => x.owned == true)
+    },
+
     calculator: (state, getters) => {
         // ID = 1
         return getters.services.find(x => x.id == 1 && x.state == true)

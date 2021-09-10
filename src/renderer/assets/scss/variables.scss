@@ -10,6 +10,7 @@ $tb-0: #00000011;
 $tb-1: #00000024;
 $tb-2: #00000080;
 $tb-3: #000000b0;
+$tb-4: #000000cc;
 $t-2: #fcfcfc90;
 $t-3: #eaecf340;
 .t-1{background: $t-1 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
@@ -17,6 +18,7 @@ $t-3: #eaecf340;
 .tb-1{background: $tb-1 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
 .tb-2{background: $tb-2 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
 .tb-3{background: $tb-3 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
+.tb-4{background: $tb-4 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
 .t-2{background: $t-2 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
 .t-3{background: $t-3 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
 .t-1 label, .t-2 label, .t-3 label{
@@ -32,7 +34,7 @@ $r-2: $r-1*2;
 
 $b-1: $t-3;
 .b-1{border: 1px solid $b-1}
-
+.b-2{border: 2px solid $b-1}
 
 $input-border-radius: $r-2;
 

@@ -3,7 +3,7 @@
     <div class="position-absolute" style="top: 0px; left: 0%; width: 100%;z-index:1">
       <div class="tb-2 p-2">
         <div class="row">
-          <div class="col-6">
+          <div class="col-6 d-flex align-items-center">
             <ul class="nav nav-pills mr-5">
               <li class="nav-item">
                 <nuxt-link to="/supermarket" :class="{ 'active' : $nuxt.$route.path === '/supermarket'}" class="nav-link py-1 px-3">

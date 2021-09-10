@@ -18,7 +18,7 @@ export default {
     
     set_products_count(state, {id, count}){
         let category = state.categories.find(x => x.id == id)
-        category.productsCount = count
+        category.productsCount = id == 0 ? this.state.supermarket.products.products.length : count
     },
 
     remove(state, id) {

@@ -4,6 +4,7 @@
  * @link {https://nuxtjs.org/guide/configuration/}
  */
 const { resolve } = require('path')
+const customTheme = require('./plugins/theme')
 
 
 module.exports = {
@@ -78,11 +79,31 @@ module.exports = {
     // https://go.nuxtjs.dev/pwa
     // '@nuxtjs/pwa',
 
+    '@nuxtjs/recaptcha',
+
     'cookie-universal-nuxt',
 
-    'vue-swatches/nuxt'
+    'vue-swatches/nuxt',
+
+    // Chakra UI
+    '@chakra-ui/nuxt',
+    '@nuxtjs/emotion'
   ],
 
+  recaptcha: {
+    hideBadge: true, // Hide badge element (v3 & v2 via size=invisible)
+    siteKey: "6LfXpFccAAAAAH-n8RhwUl9SHVjF7kmF8ZnCw4hF",    // Site key for requests
+    version: 3,     // Version
+    size: "invisible"        // Size: 'compact', 'normal', 'invisible' (v2)
+  },
+
+
+  chakra: {
+    extendTheme: customTheme,
+    config: {
+      autoImport: true
+    }
+  },
 
 
   echo: {
@@ -90,7 +111,7 @@ module.exports = {
     connectOnLogin: true,
     disconnectOnLogout: true,
     broadcaster: 'pusher',
-    plugins: [ '~/plugins/notifications.js' ],
+    plugins: ['~/plugins/notifications.js'],
     key: 'bf094a27da89f0a0c206',
     cluster: "ap2"
   },

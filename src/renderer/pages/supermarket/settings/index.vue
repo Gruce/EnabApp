@@ -5,7 +5,9 @@
       <div class="col-4">
         <div class="show-scroll p-2">
           <div class="h-items-height">
-            <h1 class="text-right text-light">إعدادات</h1>
+            <c-heading as="h1" fontSize="4xl" ml="4" color="white">
+              الإعدادات
+            </c-heading>
             <br />
             <div class="nav flex-column nav-pills nav-customized" id="v-pills-tab" role="tablist" aria-orientation="vertical">
               <button :class="getOpen('personal_information')" @click="open='personal_information'" class="btn btn-secondary btn-icon btn-block py-3 r-2">

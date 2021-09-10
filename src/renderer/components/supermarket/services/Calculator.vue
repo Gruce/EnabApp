@@ -49,14 +49,14 @@
       <div class="col-xl-8 col-sm-12 mt-3">
         <div class="row tb-2 text-light r-2 p-3 m-0">
           <div class="col-6 text-right">
-            <h3 class="text-light d-inline-block">
+            <div class="text-light d-inline-block fs-5">
               المتبقي
               <span class="badge badge-info r-1" v-if="final - totalPrice > 0">الى الزبون</span>
               <span class="badge badge-danger r-1" v-else-if="final - totalPrice < 0">الى المحاسب</span>
-            </h3>
+            </div>
           </div>
           <div class="col-6 text-left">
-            <h3 class="text-light" dir="ltr">{{ $n(final - totalPrice, 'currency') }}</h3>
+            <div class="text-light fs-5" dir="ltr">{{ $n(final - totalPrice, 'currency') }}</div>
           </div>
         </div>
       </div>
@@ -175,5 +175,9 @@ export default {
 .received_title {
   top: -27.5px;
   width: 100%;
+}
+
+button{
+  color: $tb-3;
 }
 </style>

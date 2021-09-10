@@ -1,6 +1,6 @@
 
 export default {
-    async syncLocalStorage({ state }, dispatch) {
+    async syncLocalStorage({ state }) {
         this.$auth.$storage.setLocalStorage('customers', state.customers)
     },
 
@@ -78,12 +78,28 @@ export default {
                 })
         else
             commit('set_all', customers); // Send to Mutations
-
     },
 
     async search({ state, commit, dispatch }, name) {
         let customers = await this.$auth.$storage.getLocalStorage('customers')
         commit('set_all', customers.filter(x => x.name.includes(name)));
     },
+
+    async debt({state, commit}, {id, debt}){
+        if (id == null) return false
+        let customer = {...state.customers.find(x => x.id == id)}
+        customer.debt += debt
+
+        await this.$axios
+            .post('/api/supermarket/customers/update', {...customer}, { withCredentials: true })
+            .then(async (response) => {
+                await commit('set_debt', {id: id, debt})
+                dispatch('syncLocalStorage')
+                this.$toast.success('تم إضافة الدين الى الزبون')
+            }).catch(error => {
+                throw new Error(`${error}`);
+            })
+            
+    }
 
 }

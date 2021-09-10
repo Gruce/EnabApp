@@ -9,7 +9,7 @@
           <div class="h-items-height">
             <div class="row">
               <div class="col-1 px-0">
-                <button @click="hideCategories" type="button" class="btn btn-xs btn-block t-1 r-2">
+                <button @click="hideCategories" type="button" class="btn btn-xs btn-block t-1 b-2 r-2">
                   <span class="btn-inner--icon">
                     <i v-if="!hideCategoriesValue" class="fas fa-arrow-right text-light"></i>
                     <i v-else="hideCategoriesValue" class="fas fa-arrow-left text-light"></i>
@@ -17,12 +17,20 @@
                 </button>
               </div>
               <div class="col-11">
-                <div id="top-right" class="form-group position-relative">
-                  <input v-model="search" type="text" class="form-control form-control-sm r-2" placeholder="بحث">
+                <div id="top-right" class="form-group">
+                  <c-input-group>
+                    <c-input-left-element>
+                      <c-tooltip label="فقط منتجات">
+                        <c-switch :isChecked="true" @change="onlyProducts" mt=3 ml=6 size="md" />
+                      </c-tooltip>
+                    </c-input-left-element>
+                    <c-input v-model="search" type="text" placeholder="بحث" />
+                  </c-input-group>
+                  <!-- <input v-model="search" type="text" class="form-control form-control-sm r-2" placeholder="بحث">
                   <div class="form-check form-switch position-absolute search-only-products">
                     <label class="form-check-label" for="onlySearchProducts"><small>فقط منتجات</small></label>
                     <input checked @change="onlyProducts" class="form-check-input mr-1" type="checkbox" id="onlySearchProducts">
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -59,19 +67,19 @@
           <div class="text-right">
             <div class="row mx-0">
               <div class="col-6 p-0">
-                <h3 class="fw-bold text-light">
-                  الطلب الحالي
+                <c-text fontSize="3xl">
+                  <span>الطلب الحالي </span>
                   <small v-if="lastOrder.order_number">#{{ lastOrder.order_number+orderIndex+1 }}</small>
                   <small v-else>#{{ orderIndex+1 }}</small>
-                </h3>
+                </c-text>
               </div>
               <div class="col-6 text-left p-0">
                 <div>
                   <SupermarketServicesCustomerAssign v-if="customerAssign" :orderIndex="orderIndex" :productsAdded="productsAdded" />
 
-                  <button @click="emptyProducts()" :class="[productsAdded.length > 0 ? '' : 'disabled']" type="button" class="btn btn-danger">
+                  <c-button :isDisabled="productsAdded.length <= 0" @click="emptyProducts()" variant-color="red" class="r-2" variant="solid">
                     حذف الكل
-                  </button>
+                  </c-button>
                 </div>
               </div>
             </div>
@@ -149,7 +157,7 @@ export default {
   props: ["orderIndex"],
   computed: {
     ...mapGetters({
-      categories: "supermarket/categories/categories",
+      categories: "supermarket/categories/categories_all",
       products: "supermarket/products/products",
       productsAdded: "supermarket/orders/productsAdded",
       lastOrder: "supermarket/orders/lastOrder",
@@ -211,12 +219,12 @@ export default {
   max-height: calc(100vh - 28rem) !important;
 }
 .products-list .list-group-item:first-child {
-  border-top-left-radius: 0.375rem !important;
-  border-top-right-radius: 0.375rem !important;
+  border-top-left-radius: $r-2 !important;
+  border-top-right-radius: $r-2 !important;
 }
 .products-list .list-group-item:last-child {
-  border-bottom-right-radius: 0.375rem !important;
-  border-bottom-left-radius: 0.375rem !important;
+  border-bottom-right-radius: $r-2 !important;
+  border-bottom-left-radius: $r-2 !important;
 }
 .search-only-products {
   left: 20px;

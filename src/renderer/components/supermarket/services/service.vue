@@ -12,15 +12,25 @@
 
         <div class="faq position-relative">
           <a :href="service.faq_url" target="_blank" rel="noopener noreferrer">
-            <i class="fas fa-question text-light position-absolute top-0 start-100 translate-middle"></i>
+            <c-tooltip label="شرح الإستخدام">
+              <c-stack is-inline class="position-absolute top-0 start-100 translate-middle">
+                <c-badge px=3 py=1 class="r-2 t-2">
+                  <i class="fas fa-question"></i>
+                </c-badge>
+              </c-stack>
+            </c-tooltip>
           </a>
         </div>
         <div class="expire position-relative" v-if="service.expiry_date">
           <div class="text-light position-absolute top-0 start-0 translate-middle">
-             <div :class="$moment().isBefore(service.expiry_date) ? 'text-light' : 'text-danger'" v-b-tooltip.hover.top title="تاريخ الانتهاء">
-              <span>{{ service.expiry_date }}</span>
-              <i class="fas fa-history"></i>
-             </div>
+            <c-tooltip label="تاريخ الإنتهاء">
+              <c-stack is-inline>
+                <c-badge px=3 py=1 class="r-2 t-2">
+                  {{ service.expiry_date }}
+                  <i class="fas fa-history mr-2"></i>
+                </c-badge>
+              </c-stack>
+            </c-tooltip>
           </div>
         </div>
 
@@ -140,20 +150,20 @@ export default {
     }
   }
 
-  .faq{
-    i {
+  .faq {
+    a {
       opacity: 0;
       transition: 0.3s ease-in-out;
     }
   }
 
-  .expire{
-      div{
-        opacity: 0;
-        transition: 0.3s ease-in-out;
-        margin-left: 30px;
-      }
+  .expire {
+    div {
+      opacity: 0;
+      transition: 0.3s ease-in-out;
+      margin-left: 30px;
     }
+  }
 
   .subtitle {
     color: #fff;
@@ -194,14 +204,14 @@ export default {
       opacity: 1;
     }
 
-    .faq{
-      i {
+    .faq {
+      a {
         opacity: 1;
       }
     }
 
-    .expire{
-      div{
+    .expire {
+      div {
         opacity: 1;
       }
     }
