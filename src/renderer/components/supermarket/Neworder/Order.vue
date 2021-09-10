@@ -26,11 +26,6 @@
                     </c-input-left-element>
                     <c-input v-model="search" type="text" placeholder="بحث" />
                   </c-input-group>
-                  <!-- <input v-model="search" type="text" class="form-control form-control-sm r-2" placeholder="بحث">
-                  <div class="form-check form-switch position-absolute search-only-products">
-                    <label class="form-check-label" for="onlySearchProducts"><small>فقط منتجات</small></label>
-                    <input checked @change="onlyProducts" class="form-check-input mr-1" type="checkbox" id="onlySearchProducts">
-                  </div> -->
                 </div>
               </div>
             </div>

@@ -2,7 +2,7 @@
   <div class="content">
     <div class="mt-5 text-center">
       <div class="img-fluid mb-1">
-        <img class="w-50 r-2 me-auto" :src="$auth.user.profile_photo_url" alt="Image placeholder" />
+        <img class="w-50 r-2 mx-auto" :src="$auth.user.profile_photo_url" alt="Image placeholder" />
       </div>
       <h3 class="text-light mb-0">{{$auth.user.name}}</h3>
       <h6 class="text-light mt-0">( {{$auth.user.supermarket.name}} )</h6>

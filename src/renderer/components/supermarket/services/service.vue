@@ -21,7 +21,7 @@
             </c-tooltip>
           </a>
         </div>
-        <div class="expire position-relative" v-if="service.expiry_date">
+        <div class="expire position-relative" v-if="service.expiry_date && service.points > 0">
           <div class="text-light position-absolute top-0 start-0 translate-middle">
             <c-tooltip label="تاريخ الإنتهاء">
               <c-stack is-inline>
