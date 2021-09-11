@@ -15,7 +15,7 @@
           <div class="col-6">
             <div class="form-group text-left">
               <label class="form-check-label text-light" for="onlySearchProducts">
-                <small>الخدمات التي لا املكها</small>
+                <small>الخدمات غير المشترك بها</small>
               </label>
               <c-switch @change="onlyOwned" mt=3 ml=6 size="md" />
             </div>

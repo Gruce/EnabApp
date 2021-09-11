@@ -24,7 +24,7 @@
           <div class="row d-flex align-items-stretch">
             <div class="col-6">
               <div class="t-1 r-2 py-3 h-100 d-flex align-items-center justify-content-center px-2">
-                <h3 class="text-light mb-0">
+                <div class="text-light mb-0 fs-3">
                   <button class="btn t-1 b-1 r-2" @click="creditChange(true)">
                     <i class="fas fa-arrow-up fa-2x text-light"></i>
                   </button>
@@ -32,14 +32,14 @@
                   <button class="btn t-1 b-1 r-2" @click="creditChange(false)">
                     <i class="fas fa-arrow-down fa-2x text-light"></i>
                   </button>
-                </h3>
+                </div>
               </div>
             </div>
             <div class="col-6">
               <div class="t-1 r-2 py-3">
-                <h2 class="text-light mb-0">
+                <div class="text-light mb-0 fs-3">
                   {{ points }}
-                </h2>
+                </div>
                 <small>النقاط المستحصلة</small>
               </div>
             </div>

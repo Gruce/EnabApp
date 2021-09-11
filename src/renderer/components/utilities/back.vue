@@ -22,7 +22,7 @@ i.fas {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 60px;
   box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.3);
-  padding: 0.5em 0.7em;
+  padding: 0.3em 0.5em;
   transition: 0.15s ease-in-out;
 
   &:hover {

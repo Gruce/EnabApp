@@ -1,13 +1,46 @@
 <template>
-  <div class="container mt-5 text-center">
-    <h1 class="mt-5 mb-3">
-      مرحباً، يا
-      {{ this.$auth.user.name }}
-    </h1>
+  <div class="container mt-3">
+    <div class="row t-1 r-2 b-1 py-3">
+      <div class="col-6">
+        <div class="row align-items-center">
+          <div class="col-auto">
+            <img alt="Image placeholder" :src="$auth.user.profile_photo_url" class="avatar avatar-xl r-2 mr-3">
+          </div>
+          <div class="col ml-n3 ml-md-n2">
+            <span class="fs-4 text-light">
+              {{ $auth.user.name }}
+            </span>
+            <span class="d-block">
+              {{ $auth.user.email }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row align-items-center">
+          <div class="col ml-n3 ml-md-n2 text-left">
+            <span class="fs-4 text-light">
+              رصيد نقاطك
+            </span>
+            <span class="d-block">
+              {{ $auth.user.points }}
+            </span>
+          </div>
+          <div class="col-auto">
+            <div class="avatar avatar-xl bg-light r-2 ml-3">
+              <i class="fas fa-credit-card fa-2x text-dark"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <span class="fs-5 text-white"> الخدمات المجانية المتوفرة لك 😉 </span>
-
-    <div class="row mx-lg-n1 d-flex justify-content-center mt-5">
+    <div class="row d-flex justify-content-center mt-3 b-1 r-2 p-4 show-scroll businesses">
+      <!-- <div class="col-12 px-lg-4 mb-3 text-center py-1">
+        <span class="fs-3 text-white">
+          <b>جميع الخدمات مجانية </b> 
+        </span>
+      </div> -->
       <div class="col-md-4 px-lg-4">
         <Businesses link="/supermarket" title="سوبرماركت" sub_title="إدارة السوبرماركت" :new_service="true" />
       </div>
@@ -25,5 +58,9 @@ export default {
 <style lang="scss" scoped>
 h1 {
   font-weight: 600;
+}
+.businesses {
+  min-height: calc(100vh - 21rem) !important;
+  max-height: calc(100vh - 21rem) !important;
 }
 </style>

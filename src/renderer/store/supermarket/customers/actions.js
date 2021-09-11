@@ -85,15 +85,15 @@ export default {
         commit('set_all', customers.filter(x => x.name.includes(name)));
     },
 
-    async debt({state, commit}, {id, debt}){
+    async debt({state, commit, dispatch}, {id, debt}){
         if (id == null) return false
         let customer = {...state.customers.find(x => x.id == id)}
-        customer.debt += debt
+        customer.debt = parseInt(customer.debt) + parseInt(debt)
 
         await this.$axios
             .post('/api/supermarket/customers/update', {...customer}, { withCredentials: true })
             .then(async (response) => {
-                await commit('set_debt', {id: id, debt})
+                await commit('set_debt', {id: id, debt:customer.debt})
                 dispatch('syncLocalStorage')
                 this.$toast.success('تم إضافة الدين الى الزبون')
             }).catch(error => {

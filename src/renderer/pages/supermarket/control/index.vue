@@ -14,10 +14,10 @@
                 <span class="btn-inner--text fs-5">الطلبات</span>
               </button>
               <button :class="getOpen('categories')" @click="open='categories'" class="btn btn-secondary btn-icon btn-block py-3 r-2">
-                <span class="btn-inner--text fs-5">فئات</span>
+                <span class="btn-inner--text fs-5">الفئات</span>
               </button>
               <button :class="getOpen('products')" @click="open='products'" class="btn btn-secondary btn-icon btn-block py-3 r-2">
-                <span class="btn-inner--text fs-5">منتجات</span>
+                <span class="btn-inner--text fs-5">المنتجات</span>
               </button>
               <button v-if="customerAssign" :class="getOpen('customers')" @click="open='customers'" class="btn btn-secondary btn-icon btn-block py-3 r-2">
                 <span class="btn-inner--text fs-5">الزبائن</span>

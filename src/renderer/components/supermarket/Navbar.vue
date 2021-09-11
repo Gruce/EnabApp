@@ -89,6 +89,12 @@
                   </div>
                 </div>
 
+                <div class="mr-1">
+                   <nuxt-link to="/" v-b-tooltip.hover.right title="الذهاب الى الخدمات" class="badge py-2 px-3 pointer btn-icon-label text-light">
+                      <i class="fas fa-arrow-left"></i>
+                  </nuxt-link>
+                </div>
+
               </div>
             </div>
           </div>
