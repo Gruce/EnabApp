@@ -89,6 +89,15 @@
                   </div>
                 </div>
 
+<<<<<<< Updated upstream
+=======
+                <div class="mr-1">
+                   <nuxt-link to="/" v-b-tooltip.hover.bottom title="الذهاب الى الخدمات" class="badge py-2 px-3 pointer btn-icon-label text-light">
+                      <i class="fas fa-arrow-left"></i>
+                  </nuxt-link>
+                </div>
+
+>>>>>>> Stashed changes
               </div>
             </div>
           </div>

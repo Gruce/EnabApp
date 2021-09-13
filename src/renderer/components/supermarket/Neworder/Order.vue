@@ -80,8 +80,8 @@
             </div>
             <div class="show-scroll mt-3">
               <div class="h-list-height">
-                <ul class="list-group products-list list-group-flush ml-1 p-0">
-                  <li class="list-group-item" v-for="productAdded in productsAdded" :key="'added'+productAdded.id">
+                <ul class="list-group products-list ml-1 p-0">
+                  <li class="list-group-item b-1" v-for="productAdded in productsAdded" :key="'added'+productAdded.id">
                     <SupermarketNeworderAddedProduct :orderIndex="orderIndex" :product="productAdded" />
                   </li>
                 </ul>
@@ -153,7 +153,7 @@ export default {
   computed: {
     ...mapGetters({
       categories: "supermarket/categories/categories_all",
-      products: "supermarket/products/products",
+      products: "supermarket/products/productsPartial",
       productsAdded: "supermarket/orders/productsAdded",
       lastOrder: "supermarket/orders/lastOrder",
       selectedCategory: "supermarket/orders/selectedCategory",
@@ -212,6 +212,9 @@ export default {
 .h-list-height {
   min-height: calc(100vh - 28rem) !important;
   max-height: calc(100vh - 28rem) !important;
+}
+.products-list .list-group-item{
+  background: $t-1;
 }
 .products-list .list-group-item:first-child {
   border-top-left-radius: $r-2 !important;

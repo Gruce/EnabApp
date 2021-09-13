@@ -9,6 +9,7 @@
         <SupermarketMenu v-if="showMenu"></SupermarketMenu>
       </client-only>
       <nuxt />
+      <SupermarketFooter />
     </div>
   </CThemeProvider>
 </template>

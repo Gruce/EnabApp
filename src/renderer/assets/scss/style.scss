@@ -8,7 +8,6 @@ body{
     // background: linear-gradient(to right, #5688ff, #4776E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 
-
     height: 100vh;
     margin: 0.1px !important;
     font-family: "Tajawal", sans-serif !important;
@@ -31,6 +30,10 @@ body{
 .show-scroll {
     overflow-y: scroll !important;
     overflow-x: hidden !important;
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    // transform: translateZ(0);
+    // -webkit-transform: translateZ(0);
 }
 
 .show-scroll::-webkit-scrollbar {

@@ -27,7 +27,7 @@ export default {
     },
     remove(state, id) {
         let productIndex = state.products[state.selectedOrderNumber].findIndex(x => x.id == id)
-        state.products[state.selectedOrderNumber].splice(productIndex);
+        state.products[state.selectedOrderNumber].splice(productIndex, 1);
     },
     count(state, id) {
         state.products[state.selectedOrderNumber].find(x => x.id == id).inCount++

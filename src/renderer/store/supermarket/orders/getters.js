@@ -4,7 +4,7 @@ export default {
     },
 
     productsAdded: (state, getters) => {
-        return getters.products[state.selectedOrderNumber]
+        return [...getters.products[state.selectedOrderNumber]].reverse()
     },
 
     productInCount: (state, getters) => id => {

@@ -61,16 +61,16 @@
               </div>
             </div>
 
-            <c-grid class="mt-3" template-columns="repeat(3, 1fr)" gap="2" v-if="customers.length > 0">
-              <c-box w="100%" v-for="customer in customers" :key="customer.id">
+            <div class="row mt-3" v-if="customers.length > 0">
+              <div class="col-4" v-for="customer in customers" :key="customer.id">
                 <div class="t-1 b-2 r-2 p-3 pointer customer text-center" @click="chooseCustomer(customer.id)">
                   <div class="fs-4 mb-2">{{ customer.name }}</div>
-                  <c-badge mx="2" variant="solid" class="t-3 p-1 px-3 r-2 fs-6">
+                  <div class="badge mx-2 t-3 p-1 px-3 r-2 fs-6">
                     الدين : {{ $n(customer.debt, 'currency') }}
-                  </c-badge>
+                  </div>
                 </div>
-              </c-box>
-            </c-grid>
+              </div>
+            </div>
             <div v-else>
               <c-alert class="bg-none b-1 r-2 mt-3" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
                 <c-alert-icon color="gray.250" name="warning" size="40px" :mr="0" />

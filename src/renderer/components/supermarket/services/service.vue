@@ -38,7 +38,8 @@
         <div class="row d-flex justify-content-between align-items-center">
           <div class="text-center">
             <span class="img">
-              <i :class="service.icon" class="fa-3x"></i>
+              <UtilitiesLoading v-if="loading_state" size=4 />
+              <i v-else :class="service.icon" class="fa-3x"></i>
             </span>
           </div>
         </div>
@@ -60,10 +61,7 @@
           <div class="col-5 statueColumn">
             <div class="text-right d-flex flex-column">
               <button v-if="service.owned" @click="toggleService(service.id), loading_state=true" type="button" class="btn bg-none btn-icon text-dark">
-                <div v-if="loading_state">
-                  <UtilitiesLoading />
-                </div>
-                <div v-else class="text-light">
+                <div class="text-light">
                   <div v-if="service.state">
                     <span class="btn-inner--icon"><i class="fas fa-thumbs-down mx-1"></i></span>
                     <span class="btn-inner--text ml-1">الغاء التفعيل</span>
@@ -121,6 +119,7 @@ export default {
   },
   methods: {
     async toggleService(id) {
+      this.loading_state = true;
       await this.$store.dispatch("supermarket/services/toggleService", id);
       this.loading_state = false;
     },
