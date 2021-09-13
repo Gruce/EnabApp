@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <div class="row d-flex justify-content-center mt-6">
-      <div class="col-6 text-white">
-        <h1 class="fw-bold text-center text-white">تسجيل الدخول</h1>
+      <div class="col-6 text-white text-center">
+        <c-heading as="h1" fontSize="4xl" ml="4" color="white">تسجيل الدخول</c-heading>
+
         <br />
         <form @submit.prevent="userLogin" class="text-right">
           <p class="text-center">

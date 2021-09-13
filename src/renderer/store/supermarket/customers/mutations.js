@@ -22,8 +22,8 @@ export default {
     },
 
     set_debt(state, {id, debt}){
-        state.customers.find(x => x.id == id).debt += debt
-
+        let customer = state.customers.find(x => x.id == id)
+        customer.debt = debt
     }
 
 }

@@ -6,9 +6,9 @@
           <div class="icon icon-xl icon-shape rounded-circle t-3">
             <i class="fas fa-shopping-cart fa-5x text-light"></i>
           </div>
-          <h4 class="mt-4 text-light mb-0">{{ title }}</h4>
+          <div class="mt-4 fw-bold fs-4 text-light mb-0">{{ title }}</div>
           <hr class="divider divider-fade my-3">
-          <h6 class="h6 mb-0 text-muted">{{ sub_title }}</h6>
+          <div class="fs-6 mb-0 text-muted">{{ sub_title }}</div>
         </div>
       </div>
     </nuxt-link>

@@ -4,8 +4,8 @@
       <div class="img-fluid mb-1">
         <img class="w-50 r-2 mx-auto" :src="$auth.user.profile_photo_url" alt="Image placeholder" />
       </div>
-      <h3 class="text-light mb-0">{{$auth.user.name}}</h3>
-      <h6 class="text-light mt-0">( {{$auth.user.supermarket.name}} )</h6>
+      <div class="text-light fs-4 fw-bold mb-0">{{$auth.user.name}}</div>
+      <div class="text-light fs-6 mt-0">( {{$auth.user.supermarket.name}} )</div>
       <div class="mt-4">
         <ul class="list-group p-0">
           <li class=" list-group-item custom d-flex justify-content-between align-items-center fs-6">

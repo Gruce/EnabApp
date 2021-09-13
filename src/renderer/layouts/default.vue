@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <CThemeProvider>
+    <CReset />
     <div class="main-container position-relative">
       <nuxt-child />
       <div class="position-absolute top-0 start-0 pointer my-3 ml-4">
@@ -13,13 +14,17 @@
         </span>
       </div>
     </div>
-  </div>
+  </CThemeProvider>
 </template>
 
 <script>
+import { CThemeProvider, CReset } from '@chakra-ui/vue'
+
 const { remote } = require("electron");
 
 export default {
+  components: {CThemeProvider},
+
   methods: {
     exit() {
       this.$dialog
