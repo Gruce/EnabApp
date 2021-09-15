@@ -1,20 +1,52 @@
 <template>
   <div class="beta">
-    <span class="badge t-3 text-dark">
-      النسخة التجريبية
+    <span class="badge tb-2 text-light">
+      BETA
+    </span>
+
+    <!-- Printer -->
+    <span @click="setPrintState" class="badge text-dark pointer" :class="printState ? 'badge-success' : 't-3'" v-b-tooltip.hover.top :title="printState ? 'الطابعة مفعلة' : 'الطابعة غير مفعلة'">
+      <i class="fas fa-print"></i>
+    </span>
+
+    <!-- Is Online -->
+    <span class="badge badge-success text-dark" v-if="$nuxt.isOnline">
+      متصل
+    </span>
+    <!-- Is Offline -->
+    <span class="badge badge-danger text-dark" v-if="$nuxt.isOffline">
+      غير متصل
     </span>
   </div>
 </template>
 
 <script>
-export default {};
+import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
+
+export default {
+  computed: {
+    ...mapGetters({
+        // Printer
+      printState: "supermarket/utilities/printState",
+      defaultPrinter: "supermarket/utilities/defaultPrinter",
+    }),
+  },
+  methods: {
+    ...mapActions({
+        // Printer
+      setPrintState: "supermarket/utilities/setPrintState",
+    }),
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .beta {
+  width: 100%;
+  direction: ltr;
   position: absolute;
-  bottom: 1.625rem;
-  left: 6rem;
-  transform: translate(-50%, -50%);
+  bottom: 0.25rem;
+  left: 2.25rem;
+  //   transform: translate(-50%, -50%);
 }
 </style>

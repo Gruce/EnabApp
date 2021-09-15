@@ -126,6 +126,9 @@ export default {
       loading: false,
     };
   },
+  created(){
+    this.fetchCustomers();
+  },
   methods: {
     async submit() {
       if (this.editState) {
@@ -148,6 +151,8 @@ export default {
 
     ...mapActions({
       removeCustomer: "supermarket/customers/removeCustomer",
+      fetchCustomers: "supermarket/customers/fetchCustomers",
+
     }),
   },
   watch: {

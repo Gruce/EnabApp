@@ -64,17 +64,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      
       // Services
       customerAssign: "supermarket/services/customerAssign",
     }),
-  },
-  created() {
-    this.fetchOrders(true);
-    this.fetchProducts();
-    this.fetchCategories();
-    this.fetchCustomers();
-    this.fetchServices();
   },
   data() {
     return {
@@ -82,14 +74,6 @@ export default {
     };
   },
   methods: {
-    ...mapActions({
-      fetchCategories: "supermarket/categories/fetchCategories",
-      fetchOrders: "supermarket/orders/fetchOrders",
-      fetchProducts: "supermarket/products/fetchProducts",
-      fetchServices: "supermarket/services/fetchServices",
-      fetchCustomers: "supermarket/customers/fetchCustomers",
-      
-    }),
     getOpen: function (opened) {
       return this.open == opened ? "active" : "";
     },

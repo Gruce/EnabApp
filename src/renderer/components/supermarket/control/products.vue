@@ -81,7 +81,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(product, i) in products" :key="product.id" class="table-divider">
+              <tr v-for="(product, i) in paginatedData" :key="product.id" class="table-divider">
                 <td class="align-middle" scope="row">{{ i + 1 }}</td>
                 <td class="align-middle">{{ product.name }}</td>
                 <td class="align-middle">{{ categories.find(x => x.id == product.category_id).name }}</td>
@@ -98,6 +98,7 @@
               </tr>
             </tbody>
           </table>
+          <UtilitiesLoadMore @data="paginatedData = $event" :data="products" perPage="10" />
         </div>
         <div v-else>
           <c-alert class="bg-none b-1 r-2 mt-3" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
@@ -122,9 +123,12 @@ export default {
   computed: {
     ...mapGetters({
       categories: "supermarket/categories/categories",
-      products: "supermarket/products/products",
       getProduct: "supermarket/products/product",
     }),
+
+    products(){
+      return this.$store.getters['supermarket/products/products']
+    }
   },
   data() {
     return {
@@ -137,7 +141,13 @@ export default {
         // {text: 'وزني', value: 1},
         { text: "عددي", value: 0 },
       ],
+
+      // Pagination
+      paginatedData: [],
     };
+  },
+  created(){
+    this.fetchProducts();
   },
   methods: {
     async submit() {
@@ -163,6 +173,7 @@ export default {
 
     ...mapActions({
       removeProduct: "supermarket/products/removeProduct",
+      fetchProducts: "supermarket/products/fetchProducts",
     }),
   },
   watch: {

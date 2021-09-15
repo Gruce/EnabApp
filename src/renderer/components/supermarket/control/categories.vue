@@ -39,6 +39,7 @@
         </c-collapse>
 
         <div class="table-responsive" v-if="categories.length > 0">
+
           <table class="table table-cards text-right">
             <thead>
               <tr class="text-light">
@@ -49,8 +50,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(category, i) in categories" :key="category.id" class="table-divider">
-                <td class="align-middle" scope="row">{{ i + 1 }}</td>
+              <tr v-for="(category, i) in paginatedData" :key="category.id" class="table-divider">
+                <td class="align-middle" scope="row">{{ i+1 }}</td>
                 <td class="align-middle">{{ category.name }}</td>
                 <td class="align-middle">{{ category.productsCount }}</td>
                 <td class="text-center">
@@ -64,6 +65,8 @@
               </tr>
             </tbody>
           </table>
+          <UtilitiesLoadMore @data="paginatedData = $event" :data="categories" perPage="10" />
+
         </div>
         <div v-else>
           <c-alert class="bg-none b-1 r-2" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
@@ -87,10 +90,13 @@ import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      categories: "supermarket/categories/categories_all",
       getCategory: "supermarket/categories/category",
       products: "supermarket/products/products",
     }),
+
+    categories(){
+      return this.$store.getters['supermarket/categories/categories_all']
+    }
   },
   data() {
     return {
@@ -99,7 +105,13 @@ export default {
       thisData: {},
       editState: "",
       loading: false,
+
+      // Pagination
+      paginatedData: [],
     };
+  },
+  created(){
+    this.fetchCategories();
   },
   async mounted() {
     // Set each category products count
@@ -111,6 +123,7 @@ export default {
       });
     });
   },
+
   methods: {
     async submit() {
       if (this.editState) {
@@ -134,6 +147,7 @@ export default {
 
     ...mapActions({
       removeCategory: "supermarket/categories/removeCategory",
+      fetchCategories: "supermarket/categories/fetchCategories",
     }),
   },
   watch: {

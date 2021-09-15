@@ -3,9 +3,9 @@ export default {
         return state.products
     },
 
-    productsPartial (state) {
-        let products = [...state.products]
-        products = products.splice(0, 27)
+    productsPartial (state, getters) {
+        let products = [...getters.products]
+        // products = products.splice(0, 27)
         return products
     },
 

@@ -59,7 +59,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(order, i) in orders" :key="order.id" class="table-divider hover-translate-y-n3 pointer" @click="getProducts(order.products), show = true">
+              <tr v-for="(order, i) in paginatedData" :key="order.id" class="table-divider hover-translate-y-n3 pointer" @click="getProducts(order.products), show = true">
                 <td class="align-middle" scope="row">{{ i + 1 }}</td>
                 <td class="align-middle">{{ (order.customer_id ? order.customer_id : 'لايوجد') }}</td>
                 <td class="align-middle">{{ order.order_number }}</td>
@@ -67,6 +67,8 @@
               </tr>
             </tbody>
           </table>
+          <UtilitiesLoadMore @data="paginatedData = $event" :data="orders" perPage="10" />
+
         </div>
         <div v-else>
           <c-alert class="bg-none b-1 r-2" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
@@ -91,19 +93,25 @@ import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      c: "supermarket/categories/categories",
+      categories: "supermarket/categories/categories",
       products: "supermarket/products/products",
-      orders: "supermarket/orders/orders",
     }),
-    categories() {
-      return this.c.filter((x) => x.id !== 0);
-    },
+
+    orders(){
+      return this.$store.getters['supermarket/orders/orders']
+    }
+  },
+  created(){
+    this.fetchOrders(true);
   },
   data() {
     return {
       show: false,
       search: "",
       showProducts: [],
+
+      // Pagination
+      paginatedData: [],
     };
   },
   methods: {
@@ -128,6 +136,9 @@ export default {
       });
       this.showProducts = fullProducts;
     },
+    ...mapActions({
+      fetchOrders: "supermarket/orders/fetchOrders",
+    }),
   },
   watch: {
     ...mapActions({

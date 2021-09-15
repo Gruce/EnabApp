@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="position-absolute" style="top: 0px; left: 0%; width: 100%;z-index:1">
-      <div class="tb-2 p-2">
-        <div class="row">
+      <div class="navbar p-2">
+        <div class="row w-100">
           <div class="col-6 d-flex align-items-center">
             <ul class="nav nav-pills mr-5">
               <li class="nav-item">
@@ -38,7 +38,7 @@
             </ul>
           </div>
           <div class="col-6">
-            <div dir="ltr" class="text-white ml-5 d-flex align-items-center">
+            <div dir="ltr" class="text-white ml-3 d-flex align-items-center">
               <div dir="rtl" class="d-flex">
                 <!-- <div class="mr-1">
                   <div class="fs-5 px-3">{{ datetime }}</div>
@@ -54,15 +54,6 @@
                   <!-- Is Complete Updating -->
                   <div @click="updateCompleted" v-else-if="updateProgress.percent == 100" class="badge badge-success py-2 px-3 pointer">تم التحديث</div>
 
-                  <!-- Is Online -->
-                  <small v-else-if="$nuxt.isOnline" class="badge text-success p-2 px-3" v-b-tooltip.hover.right title="متصل">
-                    <i class="fas fa-circle"></i>
-                  </small>
-
-                  <!-- Is Offline -->
-                  <small v-if="$nuxt.isOffline" class="badge text-danger p-2 px-3" v-b-tooltip.hover.right title="غير متصل">
-                    <i class="fas fa-circle"></i>
-                  </small>
                 </div>
 
                 <div class="mr-1">
@@ -90,8 +81,8 @@
                 </div>
 
                 <div class="mr-1">
-                   <nuxt-link to="/" v-b-tooltip.hover.right title="الذهاب الى الخدمات" class="badge py-2 px-3 pointer btn-icon-label text-light">
-                      <i class="fas fa-arrow-left"></i>
+                  <nuxt-link to="/" v-b-tooltip.hover.bottom title="الذهاب الى الخدمات" class="badge py-2 px-3 pointer btn-icon-label text-light">
+                    <i class="fas fa-arrow-left"></i>
                   </nuxt-link>
                 </div>
               </div>
@@ -150,11 +141,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.navbar {
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    43deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.35) 50%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+}
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   background-color: $tb-1;
-  border-radius: 0.2rem;
+  border-radius: 0.3rem;
   color: #ffffff;
+
 }
 
 .nav-pills .nav-link,
