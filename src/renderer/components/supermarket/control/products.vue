@@ -87,7 +87,7 @@
                 <td class="align-middle">{{ categories.find(x => x.id == product.category_id).name }}</td>
                 <td class="align-middle">{{ product.count }}</td>
                 <td class="align-middle">{{ $n(product.price, 'currency') }}</td>
-                <td class="text-center">
+                <td class="align-middle">
                   <c-button v-if="product.id !== 0" variant-color="blue" size="xs" @click="thisData = getProduct(product.id), editState = true, show = true" variant="ghost">
                     <i class="fas fa-pen"></i>
                   </c-button>

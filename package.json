@@ -1,6 +1,6 @@
 {
   "name": "enab",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Enab System",
   "main": "./dist/main/index.js",
   "scripts": {

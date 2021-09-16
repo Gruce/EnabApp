@@ -8,10 +8,17 @@
 export default {
   mounted() {
     this.$refs.console.focus();
-    this.$toast.info("Congratulations! You have just found the magical genie! 🧞‍♂️");
+    this.$toast({
+      title: "Congratulations!",
+      description: "You have just found the magical genie! 🧞‍♂️",
+      status: "info",
+    });
   },
   beforeDestroy() {
-    this.$toast.info("At your service! 🧞‍♂️");
+    this.$toast({
+      title: "At your service! 🧞‍♂️",
+      status: "info",
+    });
   },
   data() {
     return {
@@ -25,7 +32,11 @@ export default {
       switch (t) {
         case "reset":
           this.resetStorage();
-          this.$toast.success("Reseted!");
+          this.$toast({
+            title: "Reseted!",
+            status: "success",
+            duration: 3000
+          });
           break;
       }
       this.magicalText = "";

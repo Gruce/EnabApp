@@ -54,7 +54,7 @@
                 <td class="align-middle" scope="row">{{ i+1 }}</td>
                 <td class="align-middle">{{ category.name }}</td>
                 <td class="align-middle">{{ category.productsCount }}</td>
-                <td class="text-center">
+                <td class="align-middle">
                   <c-button v-if="category.id !== 0" variant-color="blue" size="sm" @click="thisData = getCategory(category.id), editState = true, show = true" variant="ghost">
                     <i class="fas fa-pen"></i>
                   </c-button>

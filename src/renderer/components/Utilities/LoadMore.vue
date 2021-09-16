@@ -1,26 +1,29 @@
 <template>
   <div>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        <li class="page-item arrow" :class="currentPage <= 1 ? 'disabled' : ''">
-          <a @click="paginate(currentPage-1)" class="page-link" href="#" tabindex="-1" :aria-disabled="currentPage <= 1 ? 'true' : 'false'">
-            <i class="fas fa-arrow-right"></i>
-          </a>
-        </li>
+    <nav class="d-flex justify-content-center align-items-center">
+      <button v-if="currentPage > 1" @click="paginate(currentPage-1)" class="arrow page-item">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+      <button v-else class="arrow page-item">
+        <i class="fas fa-arrow-right"></i>
+      </button>
 
-        <li v-for="i in pagesCount" :key="i" :class="i == currentPage ? 'disabled activated' : ''" class="page-item">
+      <ul class="pagination justify-content-center">
+        <li v-for="i in pagesCount" :key="i" :class="i == currentPage ? 'disabled activated' : ''" class="page-number">
           <a @click="paginate(i)" class="page-link" href="#" :aria-disabled="i == currentPage ? 'true' : 'false'">
             {{ i }}
           </a>
         </li>
-
-        <li class="page-item arrow" :class="currentPage >= lastPage ? 'disabled' : ''">
-          <a @click="paginate(currentPage+1)" class="page-link" href="#" :aria-disabled="currentPage >= data.length ? 'true' : 'false'">
-            <i class="fas fa-arrow-left"></i>
-          </a>
-        </li>
-
       </ul>
+
+      <input v-if="lastPage > 4" @change="paginate($event.target.value)" class="form-control form-control-sm mr-1 text-center text-light tb-1" style="width: 75px" type="number" :placeholder="lastPage">
+
+      <button v-if="currentPage < lastPage" @click="paginate(currentPage+1)" class="arrow page-item">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <button v-else class="arrow page-item">
+        <i class="fas fa-arrow-left"></i>
+      </button>
     </nav>
   </div>
 </template>
@@ -51,6 +54,15 @@ export default {
   },
   methods: {
     paginate(page) {
+      if (page > this.lastPage || page < 0) {
+        this.$toast({
+          title: "لايمكن الانتقال الى الصفحة",
+          description: "اخر صفحة هي رقم " + this.lastPage,
+          status: "error",
+          duration: 3000
+        });
+        return false;
+      }
       this.currentPage = page;
       this.sendData();
     },
@@ -74,8 +86,8 @@ export default {
   watch: {
     data: {
       handler(val) {
-        this.data = val
-        this.sendData()
+        this.data = val;
+        this.sendData();
       },
       deep: true,
     },
@@ -84,53 +96,68 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pagination {
-  background: $t-1;
-  border-radius: $r-2;
-  padding: 10px;
-
-  .arrow {
-    a {
-      background: $tb-2;
-      border-radius: $r-2;
-      transition: 0.15s ease-out;
-      color: #fff !important;
-
-      &:hover {
-        background: $tb-3;
-      }
-    }
-  }
-  .arrow.disabled {
-    a {
-      background: $tb-3;
-    }
-  }
-}
-.page-item {
-  a {
-    background: #ffffff00;
-    border: 0;
-    color: #fff;
-  }
-  &:first-child {
-    margin-left: 35px;
-  }
-  &:last-child {
-    margin-right: 35px;
-  }
-}
-
-.page-item.activated {
-  a {
-    border-radius: $r-2;
-    background: $t-2 !important;
-    color: black;
-  }
-}
-
 .page-item .page-link,
 .page-item > span {
   box-shadow: none !important;
+  font-size: auto;
 }
+
+.arrow {
+  margin: 0 25px;
+  border-radius: 10rem;
+  background: $t-1;
+  padding: 5px 10px;
+  border: 2px solid $t-3;
+
+  transition: 0.2s ease-out;
+  &:hover {
+    background: $t-3;
+    a {
+      color: #fff;
+    }
+  }
+}
+
+.page-number {
+  background: $t-1;
+  padding: 0px 5px;
+  transition: 0.2s ease-out;
+
+  border-top: 2px solid $t-3;
+  border-bottom: 2px solid $t-3;
+
+  &:first-child {
+    border: 2px solid $t-3;
+    border-left: 0px solid $t-3;
+    border-top-right-radius: $r-2;
+    border-bottom-right-radius: $r-2;
+  }
+
+  &:last-child {
+    border: 2px solid $t-3;
+    border-right: 0px solid $t-3;
+    border-top-left-radius: $r-2;
+    border-bottom-left-radius: $r-2;
+  }
+
+  &:hover {
+    background: $t-3;
+  }
+
+  a {
+    background: #ffffff00;
+    border: 1px solid #ffffff00;
+    color: #fff;
+  }
+}
+.page-number.disabled {
+  background: $t-3 !important;
+  border: 1px solid $t-1;
+}
+// .disabled:hover {
+//   cursor: default;
+//   a {
+//     cursor: default;
+//   }
+// }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-3">
+  <div class="container mt-6">
     <div class="row t-1 r-2 b-1 py-3">
       <div class="col-6">
         <div class="row align-items-center">
@@ -41,8 +41,8 @@
           <b>جميع الخدمات مجانية </b> 
         </span>
       </div> -->
-      <div class="col-md-4 px-lg-4">
-        <Businesses link="/supermarket" title="سوبرماركت" sub_title="إدارة السوبرماركت" :new_service="true" />
+      <div v-for="business in $auth.user.businesses" :key="business.name" class="col-md-4 px-lg-4">
+        <Business :link="'/'+business.name" :name="business.name" :title="business.title" :sub_title="business.subtitle" :icon="business.icon" :new_service="true" />
       </div>
     </div>
   </div>
@@ -51,7 +51,15 @@
 <script>
 export default {
   created() {},
-  methods: {},
+  methods: {
+    signout() {
+      this.$auth.logout();
+      this.$router.push("/");
+    },
+    test() {
+      console.log(this.$auth.user["test"]);
+    },
+  },
 };
 </script>
 

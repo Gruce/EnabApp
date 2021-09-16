@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="row d-flex justify-content-center mt-6">
-      <div class="col-6 text-white text-center">
+    <div class="row d-flex justify-content-center align-items-center vh-100">
+      <div class="col-6 text-white text-center t-1 p-5 r-2">
         <c-heading as="h1" fontSize="4xl" ml="4" color="white">تسجيل الدخول</c-heading>
 
         <br />
@@ -27,8 +27,8 @@
           <nuxt-link to="/forgetpassword" class="text-light">
             هل نسيت كلمة السر؟
           </nuxt-link>
-
-          <button type="submit" class="btn btn-block btn-lg r-2 btn-light py-3 mt-3">تسجيل الدخول</button>
+          
+          <button type="submit" class="btn btn-block btn-lg r-2 btn-light py-3 mt-5">تسجيل الدخول</button>
         </form>
       </div>
     </div>
@@ -95,5 +95,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-//
+
 </style>

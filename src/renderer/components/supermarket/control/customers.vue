@@ -79,7 +79,7 @@
                 <td class="align-middle">{{ customer.debt }}</td>
                 <td class="align-middle">{{ customer.phonenumber }}</td>
                 <td class="align-middle">{{ customer.location }}</td>
-                <td class="text-center">
+                <td class="align-middle">
                   <c-button v-if="customer.id !== 0" variant-color="blue" size="xs" @click="thisData = getCustomer(customer.id), editState = true, show = true" variant="ghost">
                     <i class="fas fa-pen"></i>
                   </c-button>

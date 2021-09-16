@@ -24,7 +24,6 @@ export default {
         this.$axios.post(
             '/api/recharge/request', data, { withCredentials: true }
         ).then((response) => {
-            console.log(response)
             this.$toast.success("تم الارسال")
         }).catch((error) => {
             this.$toast.error("يوجد مشكلة")

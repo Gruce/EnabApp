@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="container">
-      <div class="row d-flex justify-content-center mt-6">
-        <div class="col-6 text-white text-center">
+      <div class="row d-flex justify-content-center align-items-center vh-100">
+        <div class="col-6 text-white text-center t-1 p-5 r-2">
           <c-heading as="h1" fontSize="4xl" ml="4" color="white">إستعادة كلمة المرور</c-heading>
 
           <br /><br />
