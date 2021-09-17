@@ -305,3 +305,10 @@ input[type=checkbox]:checked+[data-chakra-component="CControlBox"]>*, input[type
     -ms-transform: translateX(calc(1rem - 1.875rem)) !important;
     transform: translateX(calc(1rem - 1.875rem)) !important;
 }
+
+[data-chakra-component="CPopper"]{
+    border: $tb-3 1px solid !important;
+    [data-chakra-component="CMenuItem"]:focus{
+        background: $tb-3 !important;
+    }
+}
