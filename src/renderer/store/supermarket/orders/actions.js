@@ -46,7 +46,7 @@ export default {
     },
 
     async search({ state, commit, dispatch }, id) {
-        let orders = await this.$auth.$storage.getLocalStorage('orders')
+        let orders = await this.$auth.$storage.getLocalStorage('supermarket.orders')
         if (id == '')
             commit('set_all', orders);
         else
@@ -64,7 +64,7 @@ export default {
     },
 
     async fetchOrders({ commit, dispatch }, force = false) {
-        var orders = await this.$auth.$storage.getLocalStorage('orders')
+        var orders = await this.$auth.$storage.getLocalStorage('supermarket.orders')
         if (orders === null || force) // If not set on the storage Or forced
             await this.$axios
                 .get('/api/supermarket/orders', { withCredentials: true })
@@ -72,7 +72,7 @@ export default {
                     // Send to Mutations
                     await commit('set_all', response.data);
                     //Save To Storage
-                    await this.$auth.$storage.setLocalStorage('orders', response.data)
+                    await this.$auth.$storage.setLocalStorage('supermarket.orders', response.data)
                 }).catch(error => {
                     throw new Error(`${error}`);
                 })
@@ -100,23 +100,23 @@ export default {
     },
 
     async fetchLastOrder({ commit }) {
-        if (this.$auth.$storage.getLocalStorage('lastOrder'))
-            commit('lastOrder', await this.$auth.$storage.getLocalStorage('lastOrder'))
+        if (this.$auth.$storage.getLocalStorage('supermarket.lastOrder'))
+            commit('lastOrder', await this.$auth.$storage.getLocalStorage('supermarket.lastOrder'))
         else
             this.$axios.get(
                 '/api/supermarket/orders/last-order', { withCredentials: true }
             ).then((response) => {
                 if (response.data.order_number) {
                     commit('lastOrder', response.data)
-                    this.$auth.$storage.setLocalStorage('lastOrder', response.data)
+                    this.$auth.$storage.setLocalStorage('supermarket.lastOrder', response.data)
                 }
                 else {
                     commit('lastOrder', { order_number: 0 })
-                    this.$auth.$storage.setLocalStorage('lastOrder', { order_number: 0 })
+                    this.$auth.$storage.setLocalStorage('supermarket.lastOrder', { order_number: 0 })
                 }
             })
 
-        return await this.$auth.$storage.getLocalStorage('lastOrder')
+        return await this.$auth.$storage.getLocalStorage('supermarket.lastOrder')
     },
 
     async checkPrint({ dispatch }) {
@@ -152,11 +152,13 @@ export default {
             products.push({ id: x.id, count: x.inCount })
         })
 
-        let customer_id = state.ordersList[state.selectedOrderNumber].customer_id
+        let customer_id = state.ordersList[state.selectedOrderNumber].customer_id // Customer ID
+        let debt_state = (customer_id == null) ? false : state.ordersList[state.selectedOrderNumber].debt // Debt State
+
         //############### Send Order to API ##################
         this.$axios
             .post(
-                '/api/supermarket/orders/end-order', { products: products, customer_id: customer_id }, { withCredentials: true }
+                '/api/supermarket/orders/end-order', { products: products, customer_id: customer_id, debt: debt_state }, { withCredentials: true }
             ).then((response) => {
                 // Reset added products
             }).catch(function (error) {
@@ -175,16 +177,17 @@ export default {
             lastOrder.order_price += x.inCount * x.price
             this.commit('supermarket/products/changeCount', { id: x.id, count: x.inCount * -1 })
         })
+        
+        // Refresh Local Customer Debt
+        if (debt_state) this.dispatch('supermarket/customers/debt', { id: customer_id, debt: lastOrder.order_price })
 
-        // Add Debt
-        this.dispatch('supermarket/customers/debt', { id: customer_id, debt: lastOrder.order_price })
 
 
         // Sync Order Data
         await this.dispatch('supermarket/products/syncLocalStorage')
 
         commit('lastOrder', lastOrder)
-        this.$auth.$storage.setLocalStorage('lastOrder', lastOrder)
+        this.$auth.$storage.setLocalStorage('supermarket.lastOrder', lastOrder)
 
 
         // Empty This order products

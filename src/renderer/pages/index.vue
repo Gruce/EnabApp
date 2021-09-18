@@ -49,8 +49,12 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
+
 export default {
-  created() {},
+  created() {
+    this.selectBusinesses(this.$auth.user.businesses)
+  },
   methods: {
     signout() {
       this.$auth.logout();
@@ -59,6 +63,12 @@ export default {
     test() {
       console.log(this.$auth.user["test"]);
     },
+    ...mapMutations({
+      selectBusinesses: 'business/selectBusinesses'
+    }),
+    ...mapActions({
+      getBusiness: 'business/getBusiness'
+    })
   },
 };
 </script>

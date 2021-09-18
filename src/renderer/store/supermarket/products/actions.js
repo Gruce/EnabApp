@@ -1,6 +1,6 @@
 export default {
     async syncLocalStorage({ state }, dispatch) {
-        this.$auth.$storage.setLocalStorage('products', state.products)
+        this.$auth.$storage.setLocalStorage('supermarket.products', state.products)
     },
 
     async addProduct({ state, commit, dispatch }, product) {
@@ -70,25 +70,25 @@ export default {
     },
 
     async getProduct({ commit, dispatch }, id) {
-        var products = await this.$auth.$storage.getLocalStorage('products')
+        var products = await this.$auth.$storage.getLocalStorage('supermarket.products')
         return products.find(x => x.id == id)
     },
 
     async getProductByBarcode({ commit, dispatch }, barcode) {
-        var products = await this.$auth.$storage.getLocalStorage('products')
+        var products = await this.$auth.$storage.getLocalStorage('supermarket.products')
         return products.find(x => x.barcode == barcode)
     },
 
     async getProducts({ state, dispatch }) {
-        let products = await this.$auth.$storage.getLocalStorage('products')
+        let products = await this.$auth.$storage.getLocalStorage('supermarket.products')
         if (products == null)
             await dispatch('fetchProducts')
-        products = await this.$auth.$storage.getLocalStorage('products')
+        products = await this.$auth.$storage.getLocalStorage('supermarket.products')
         return products
     },
 
     async fetchProducts({ commit, dispatch }) {
-        var products = await this.$auth.$storage.getLocalStorage('products')
+        var products = await this.$auth.$storage.getLocalStorage('supermarket.products')
         if (products === null) // If not set on the storage
             await this.$axios
                 .get('/api/supermarket/products', { withCredentials: true })
@@ -103,7 +103,7 @@ export default {
     },
 
     async search({ state, commit, dispatch }, name) {
-        let products = await this.$auth.$storage.getLocalStorage('products')
+        let products = await this.$auth.$storage.getLocalStorage('supermarket.products')
         commit('set_all', products.filter(x => x.name.includes(name)));
     },
 

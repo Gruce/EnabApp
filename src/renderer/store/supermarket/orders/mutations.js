@@ -2,7 +2,7 @@ export default {
     newOrder(state) {
         if (state.ordersList.length < 8) {
             state.ordersList.forEach(x => x.enabled = false)
-            state.ordersList.push({ enabled: true, customer_id: null })
+            state.ordersList.push({ enabled: true, customer_id: null, debt: false })
             state.products.splice(state.ordersList.length - 1, 0, []);
             state.selectedOrderNumber = state.ordersList.length - 1
         } else {
@@ -88,5 +88,10 @@ export default {
             this.$toast.success('تم الغاء تعيين الزبون')
 
         state.ordersList[state.selectedOrderNumber].customer_id = null
+    },
+
+    toggleDebt(state){
+        const order = state.ordersList[state.selectedOrderNumber]
+        order.debt = !order.debt
     }
 }

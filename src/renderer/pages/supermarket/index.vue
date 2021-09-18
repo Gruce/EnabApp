@@ -5,17 +5,7 @@
         <SupermarketHomeWelcome />
       </div>
       <div class="col-4">
-        <div class="card tb-2 rounded-lg border-0">
-          <div class="card-body text-center">
-            <div class="row py-4">
-              <div class="col-8">
-                <h1 class="text-white text-right fs-1">
-                  ليلة سعيدة !
-                </h1>
-              </div>
-            </div>
-          </div>
-        </div>
+        <SupermarketHomePerformance />
       </div>
     </div>
   </div>
@@ -38,5 +28,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-//
 </style>

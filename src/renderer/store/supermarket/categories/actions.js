@@ -1,7 +1,7 @@
 
 export default {
     async syncLocalStorage({state}, dispatch){
-        this.$auth.$storage.setLocalStorage('categories', state.categories)
+        this.$auth.$storage.setLocalStorage('supermarket.categories', state.categories)
     },
 
     async addCategory({state, commit, dispatch}, category){
@@ -52,20 +52,20 @@ export default {
     },
 
     async getCategory({commit, dispatch}, id){
-        var categories = await this.$auth.$storage.getLocalStorage('categories')
+        var categories = await this.$auth.$storage.getLocalStorage('supermarket.categories')
         return categories.find(x => x.id == id)
     },
 
     async getCategories({state, dispatch}){
-        let categories = await this.$auth.$storage.getLocalStorage('categories')
+        let categories = await this.$auth.$storage.getLocalStorage('supermarket.categories')
         if (categories == null)
             await dispatch('fetchCategories')
-        categories = await this.$auth.$storage.getLocalStorage('categories')
+        categories = await this.$auth.$storage.getLocalStorage('supermarket.categories')
         return categories
     },
 
     async fetchCategories({commit, dispatch}) {
-        var categories = await this.$auth.$storage.getLocalStorage('categories')
+        var categories = await this.$auth.$storage.getLocalStorage('supermarket.categories')
         if (categories === null) // If not set on the storage
             await this.$axios
                 .get('/api/supermarket/categories', { withCredentials: true })
@@ -81,7 +81,7 @@ export default {
                     })
 
                     //Save To Storage
-                    this.$auth.$storage.setLocalStorage('categories', response.data)
+                    this.$auth.$storage.setLocalStorage('supermarket.categories', response.data)
                 }).catch(error => {
                     throw new Error(`${error}`);
                 })
@@ -91,7 +91,7 @@ export default {
     },
 
     async search({state, commit, dispatch}, name){
-        let categories = await this.$auth.$storage.getLocalStorage('categories')
+        let categories = await this.$auth.$storage.getLocalStorage('supermarket.categories')
         commit('set_all', categories.filter(x => x.name.includes(name)));
     },
 

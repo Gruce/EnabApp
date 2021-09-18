@@ -4,6 +4,10 @@
       BETA
     </span>
 
+    <span class="badge tb-2 text-light" v-b-tooltip.hover.top title="السوبرماركت">
+      {{ $auth.user.supermarket.name }}
+    </span>
+
     <!-- Printer -->
     <span @click="setPrintState" class="badge text-dark pointer" :class="printState ? 'badge-success' : 't-3'" v-b-tooltip.hover.top :title="printState ? 'الطابعة مفعلة' : 'الطابعة غير مفعلة'">
       <i class="fas fa-print"></i>

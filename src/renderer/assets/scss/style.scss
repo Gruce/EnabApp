@@ -187,6 +187,24 @@ input.vs__search {
 .vs__dropdown-menu{
     z-index: 999 !important;
     position: relative !important;
+    text-align: right !important;
+    background-color: $t-2 !important;
+    border-radius: $r-1 !important;
+    box-shadow: none !important;
+    border: 2px solid $t-1 !important;
+}
+.vs__dropdown-menu::-webkit-scrollbar {
+	width: 10px;
+}
+.vs__dropdown-menu::-webkit-scrollbar-track {
+	border-radius: 10px;
+}
+.vs__dropdown-menu::-webkit-scrollbar-thumb {
+	background: $tb-1;
+	border-radius: 10px;
+}
+.vs__dropdown-menu::-webkit-scrollbar-thumb:hover {
+	background: $tb-2;
 }
 
 .btn-check:checked + button, .btn-check:active + button, button:active, button.active, .show > button.dropdown-toggle{
@@ -292,9 +310,14 @@ input.vs__search {
 
 [data-chakra-component="CToast"]{
     direction: ltr;
+    border-radius: $r-2 !important;
     
     [data-chakra-component="CBox"]{
         text-align: right !important;
+    }
+
+    [data-chakra-component="CCloseButton"]{
+        display: none;
     }
 }
 

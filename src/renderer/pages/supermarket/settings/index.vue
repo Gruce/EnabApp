@@ -11,7 +11,7 @@
             <br />
             <div class="nav flex-column nav-pills nav-customized" id="v-pills-tab" role="tablist" aria-orientation="vertical">
               <button :class="getOpen('personal_information')" @click="open='personal_information'" class="btn btn-secondary btn-icon btn-block py-3 r-2">
-                <span class="btn-inner--text fs-5">المعلومات الشخصية</span>
+                <span class="btn-inner--text fs-5">معلومات السوبرماركت</span>
               </button>
               <button :class="getOpen('printers')" @click="open='printers'" class="btn btn-secondary btn-icon btn-block py-3 r-2">
                 <span class="btn-inner--text fs-5">إعدادات الطابعة</span>
@@ -24,7 +24,7 @@
         <div class="card-fluid p-5 h-items-height">
           <div class="text-right">
             <div v-if="open=='personal_information'">
-              Peronsal Information
+              <SupermarketSettingsInformation />
             </div>
             <div v-if="open=='printers'">
               <SupermarketSettingsPrinters />

@@ -40,17 +40,28 @@
             <SupermarketControlCustomers />
           </div>
           <div v-else>
-            <div class="row mt-3">
+            <div class="row mt-3 d-flex justify-content-center align-items-center">
               <div class="col">
-                <c-input-group mt=1>
+                <c-input-group>
                   <c-input-left-element>
                     <i class="fas fa-search"></i>
                   </c-input-left-element>
                   <c-input py=5 v-model="search" type="text" placeholder="بحث" />
                 </c-input-group>
               </div>
+              <div class="col-auto r-2 t-1 pt-2 pb-1 b-2">
+                <div class="custom-control custom-switch">
+                  <input @change="toggleDebt()" type="checkbox" class="custom-control-input" id="billing_notification" :checked="orderList.debt">
+                  <label class="custom-control-label" for="billing_notification">
+                    دين؟
+                  </label>
+                </div>
+              </div>
+              <div class="col-auto">
+                <UtilitiesLoadMore @data="paginatedData = $event" :data="customers" perPage="15" />
+              </div>
               <div v-if="orderList.customer_id" class="col-auto">
-                <button @click="toggleModal(), unselectCustomer()" type="button" class="btn btn-danger btn-lg r-2 text-light btn-icon-label">
+                <button @click="toggleModal(), unselectCustomer()" type="button" class="btn btn-danger r-2 text-light btn-icon-label">
                   <span class="btn-inner--icon">
                     <i class="fas fa-times"></i>
                   </span>
@@ -62,7 +73,7 @@
             </div>
 
             <div class="row mt-3" v-if="customers.length > 0">
-              <div class="col-4" v-for="customer in customers" :key="customer.id">
+              <div class="col-4" v-for="customer in paginatedData" :key="customer.id">
                 <div class="t-1 b-2 r-2 p-3 pointer customer text-center" @click="chooseCustomer(customer.id)">
                   <div class="fs-4 mb-2">{{ customer.name }}</div>
                   <div class="badge mx-2 t-3 p-1 px-3 r-2 fs-6">
@@ -111,8 +122,8 @@ export default {
         return this.$store.state.supermarket.orders.ordersList[this.orderIndex];
     },
     selectedCustomer() {
-      if (this.customers && this.orderList) {
-        let customers = Object.assign([], this.customers);
+      if (this.c && this.orderList) {
+        let customers = Object.assign([], this.c);
         return customers.find((x) => x.id == this.orderList.customer_id).name;
       }
     },
@@ -126,6 +137,7 @@ export default {
       newCustomer: false,
       search: "",
       loading: true,
+      paginatedData: [],
     };
   },
   methods: {
@@ -142,6 +154,7 @@ export default {
     ...mapMutations({
       selectCustomer: "supermarket/orders/selectCustomer",
       unselectCustomer: "supermarket/orders/unselectCustomer",
+      toggleDebt: "supermarket/orders/toggleDebt"
     }),
   },
 };
@@ -173,8 +186,8 @@ export default {
   border: 2px solid $t-3;
 
   .content {
-    min-height: calc(95vh - 15rem) !important;
-    max-height: calc(95vh - 15rem) !important;
+    min-height: calc(95vh - 14rem) !important;
+    max-height: calc(95vh - 14rem) !important;
 
     .customer {
       transition: 0.3s ease-in-out;

@@ -1,26 +1,35 @@
 
 export default {
     async syncLocalStorage({ state }) {
-        this.$auth.$storage.setLocalStorage('supermarket.customers', state.customers)
+        this.$auth.$storage.setLocalStorage('staffs', state.staffs)
     },
 
-    async addCustomer({ state, commit, dispatch }, customer) {
-        if (state.customers.find(x => x.name == customer.name))
-            this.$toast.error("هذا الزبون موجودة بالفعل !")
-        else {
+    async addStaff({ state, commit, dispatch }, staff) {
+        if (this.$auth.user.points < 1000){
+            this.$toast.error("عدد النقاط غير كافي")
+            return false
+        }
+        let business_name = this.state.business.business.name
+        if (state.staffs.find(x => x.name == staff.name)){
+            this.$toast.error("هذا الموظف موجود بالفعل !")
+            return false 
+        } else {
             //########### SEND TO API ###########//.
-            await this.$axios
-                .post('/api/supermarket/customers/insert', customer, { withCredentials: true })
-                .then((response) => {
+            return await this.$axios
+                .post('/api/business/add-staff', {business: business_name, ...staff}, { withCredentials: true })
+                .then(async (response) => {
                     const newId = response.data.id
-                    const sendCustomer = {id: newId, ...customer}
-                    commit('add', sendCustomer)
+                    const sendStaff = { id: newId, ...staff }
+                    await commit('add', sendStaff)
                     dispatch('syncLocalStorage')
+                    this.$toast.success("تمت الإضافة بنجاح !")
+                    this.$auth.fetchUser()
+                    return true
                 })
                 .catch((error) => {
-                    console.log(error)
+                    this.$toast.error(error.response.data.message)
+                    return false
                 })
-            this.$toast.success("تمت الإضافة بنجاح !")
         }
     },
 
@@ -50,20 +59,20 @@ export default {
     },
 
     async getCustomer({ commit, dispatch }, id) {
-        var customers = await this.$auth.$storage.getLocalStorage('supermarket.customers')
+        var customers = await this.$auth.$storage.getLocalStorage('customers')
         return customers.find(x => x.id == id)
     },
 
     async getCustomers({ state, dispatch }) {
-        let customers = await this.$auth.$storage.getLocalStorage('supermarket.customers')
+        let customers = await this.$auth.$storage.getLocalStorage('customers')
         if (customers == null)
             await dispatch('fetchCustomers')
-        customers = await this.$auth.$storage.getLocalStorage('supermarket.customers')
+        customers = await this.$auth.$storage.getLocalStorage('customers')
         return customers
     },
 
     async fetchCustomers({ commit, dispatch }) {
-        var customers = await this.$auth.$storage.getLocalStorage('supermarket.customers')
+        var customers = await this.$auth.$storage.getLocalStorage('customers')
         if (customers === null) // If not set on the storage
             await this.$axios
                 .get('/api/supermarket/customers', { withCredentials: true })
@@ -81,18 +90,9 @@ export default {
     },
 
     async search({ state, commit, dispatch }, name) {
-        let customers = await this.$auth.$storage.getLocalStorage('supermarket.customers')
+        let customers = await this.$auth.$storage.getLocalStorage('customers')
         commit('set_all', customers.filter(x => x.name.includes(name)));
     },
 
-    async debt({state, commit, dispatch}, {id, debt}){
-        if (id == null) return false
-        let customer = {...state.customers.find(x => x.id == id)}
-        customer.debt = parseInt(customer.debt) + parseInt(debt)
-
-        await commit('set_debt', {id: id, debt:customer.debt})
-        dispatch('syncLocalStorage')
-        this.$toast.success('تم إضافة الدين الى الزبون')
-    }
 
 }

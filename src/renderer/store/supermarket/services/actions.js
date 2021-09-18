@@ -1,10 +1,10 @@
 export default {
     async syncLocalStorage({ state }, dispatch) {
-        this.$auth.$storage.setLocalStorage('services', state.services)
+        this.$auth.$storage.setLocalStorage('supermarket.services', state.services)
     },
 
     async fetchServices({ commit, state }, force = false) {
-        let services = this.$auth.$storage.getLocalStorage('services')
+        let services = this.$auth.$storage.getLocalStorage('supermarket.services')
 
         //############### Fetch from API ###########
         if (services === null || force) // If not set on the storage Or forced
@@ -13,7 +13,7 @@ export default {
             ).then((response) => {
                 services = response.data
                 commit('set_all', services)
-                this.$auth.$storage.setLocalStorage('services', services)
+                this.$auth.$storage.setLocalStorage('supermarket.services', services)
             })
         else
             await commit('set_all', services)
