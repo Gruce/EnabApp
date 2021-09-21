@@ -149,7 +149,7 @@ export default {
         let products = []
 
         state.products[state.selectedOrderNumber].forEach(x => {
-            products.push({ id: x.id, count: x.inCount })
+            products.push({ id: x.id, count: x.inCount, price: x.price })
         })
 
         let customer_id = state.ordersList[state.selectedOrderNumber].customer_id // Customer ID

@@ -2,8 +2,9 @@
   <div class="mt-3">
     <div class="r-2 border-0 shadow-none">
       <div class="row">
-        <div class="col-xl-12 col-md-12 d-flex">
+        <div class="col-xl-12 col-md-12 d-flex align-items-center">
           <c-heading as="h1" fontSize="4xl" ml="4" color="white">الزبائن</c-heading>
+          <span v-if="customers">(الإجمالي<span class="badge t-1 mx-1">{{ customers.length }}</span>)</span>
 
           <c-button v-if="$nuxt.isOnline" px="6" height="100%" class="t-1 b-1 r-2 text-light me-auto" variant="ghost" @click="show = !show,editState=false,thisData = {}">
             إضافة فئة
@@ -73,8 +74,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(customer, i) in customers" :key="customer.id" class="table-divider">
-                <td class="align-middle" scope="row">{{ i + 1 }}</td>
+              <tr v-for="(customer, i) in paginatedData" :key="customer.id" class="table-divider">
+                <td class="align-middle" scope="row">{{ paginatedCounter + i + 1 }}</td>
                 <td class="align-middle">{{ customer.name }}</td>
                 <td class="align-middle">{{ customer.debt }}</td>
                 <td class="align-middle">{{ customer.phonenumber }}</td>
@@ -90,6 +91,8 @@
               </tr>
             </tbody>
           </table>
+          <UtilitiesLoadMore @page="paginatedCounter = $event" @data="paginatedData = $event" :data="customers" perPage="10" />
+
         </div>
         <div v-else>
           <c-alert class="bg-none b-1 r-2 mt-3" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
@@ -113,9 +116,12 @@ import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      customers: "supermarket/customers/customers",
       getCustomer: "supermarket/customers/customer",
     }),
+
+    customers(){
+      return this.$store.getters['supermarket/customers/customers']
+    }
   },
   data() {
     return {
@@ -124,6 +130,10 @@ export default {
       thisData: {},
       editState: "",
       loading: false,
+
+      // Pagination
+      paginatedData: [],
+      paginatedCounter: 0
     };
   },
   created(){

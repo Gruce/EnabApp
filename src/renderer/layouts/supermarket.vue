@@ -29,6 +29,12 @@ export default {
       backgroundColor: "supermarket/utilities/backgroundColor",
     }),
   },
+  // mounted(){
+  //   console.log(this.$echo.channel(""))
+  //   this.$echo.channel("recharge").listen("RechargeRequestEvent", (e) => {
+  //     console.log(e);
+  //   });
+  // },
   created() {
     this.fetchServices();
     this.getColor();

@@ -49,6 +49,19 @@ export default {
         return state.orders
     },
 
+    // Analytics
+    sales: (state, getters) => {
+        let sales = 0
+
+        getters.orders.forEach(function (order) {
+            sales += order.products.reduce(function (res, product) {
+                return res + (product.pivot.count * product.pivot.price);
+            }, 0);
+        });
+
+        return sales
+    }
+
 
 
 

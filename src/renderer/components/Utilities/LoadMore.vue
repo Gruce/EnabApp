@@ -59,7 +59,7 @@ export default {
           title: "لايمكن الانتقال الى الصفحة",
           description: "اخر صفحة هي رقم " + this.lastPage,
           status: "error",
-          duration: 3000
+          duration: 3000,
         });
         return false;
       }
@@ -81,6 +81,7 @@ export default {
         this.currentPage
       );
       this.$emit("data", this.dataPaginated);
+      this.$emit("page", (this.currentPage - 1) * this.perPage);
     },
   },
   watch: {

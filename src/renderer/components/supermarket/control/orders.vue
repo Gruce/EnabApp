@@ -23,7 +23,7 @@
                 <td>{{ s.product.name }}</td>
                 <td>{{ categories.find(x => x.id == s.product.category_id).name }}</td>
                 <td>{{ s.product.barcode }}</td>
-                <td>{{ s.product.price }}</td>
+                <td>{{ s.price }}</td>
                 <td>{{ s.inCount }}</td>
               </tr>
             </tbody>
@@ -35,8 +35,9 @@
 
     <div class="r-2 border-0 shadow-none">
       <div class="row">
-        <div class="col-xl-12 col-md-12 d-flex">
+        <div class="col-xl-12 col-md-12 d-flex align-items-center">
           <c-heading as="h1" fontSize="4xl" ml="4" color="white">الطلبات</c-heading>
+          <span v-if="orders">(الإجمالي<span class="badge t-1 mx-1">{{ orders.length }}</span>)</span>
         </div>
         <div class="col-xl-12 col-md-12">
           <c-input-group mt=1>
@@ -60,14 +61,14 @@
             </thead>
             <tbody>
               <tr v-for="(order, i) in paginatedData" :key="order.id" class="table-divider hover-translate-y-n3 pointer" @click="getProducts(order.products), show = true">
-                <td class="align-middle" scope="row">{{ i + 1 }}</td>
+                <td class="align-middle" scope="row">{{ paginatedCounter + i + 1 }}</td>
                 <td class="align-middle">{{ (order.customer_id ? order.customer_id : 'لايوجد') }}</td>
                 <td class="align-middle">{{ order.order_number }}</td>
                 <td class="align-middle">{{ $n(totalPrice(order.products), 'currency') }}</td>
               </tr>
             </tbody>
           </table>
-          <UtilitiesLoadMore @data="paginatedData = $event" :data="orders" perPage="10" />
+          <UtilitiesLoadMore @page="paginatedCounter = $event" @data="paginatedData = $event" :data="orders" perPage="10" />
 
         </div>
         <div v-else>
@@ -97,11 +98,11 @@ export default {
       products: "supermarket/products/products",
     }),
 
-    orders(){
-      return this.$store.getters['supermarket/orders/orders']
-    }
+    orders() {
+      return this.$store.getters["supermarket/orders/orders"];
+    },
   },
-  created(){
+  created() {
     this.fetchOrders(true);
   },
   data() {
@@ -112,6 +113,7 @@ export default {
 
       // Pagination
       paginatedData: [],
+      paginatedCounter: 0,
     };
   },
   methods: {
@@ -119,12 +121,9 @@ export default {
       this.show = false;
     },
     totalPrice: function (products) {
+      if (this.products.length < 1) return false;
       let price = 0;
-      products.forEach(
-        (x) =>
-          (price +=
-            this.products.find((y) => y.id == x.id).price * x.pivot.count)
-      );
+      products.forEach((x) => (price += x.pivot.price * x.pivot.count));
       return price;
     },
     getProducts: function (products) {
@@ -132,6 +131,7 @@ export default {
         return {
           product: this.products.find((y) => y.id == x.id),
           inCount: x.pivot.count,
+          price: x.pivot.price,
         };
       });
       this.showProducts = fullProducts;

@@ -93,7 +93,7 @@ export default {
             await this.$axios
                 .get('/api/supermarket/products', { withCredentials: true })
                 .then((response) => {
-                    this.$auth.$storage.setLocalStorage('products', response.data) //Save To Storage
+                    this.$auth.$storage.setLocalStorage('supermarket.products', response.data) //Save To Storage
                     commit('set_all', response.data); // Send to Mutations
                 }).catch(error => {
                     throw new Error(`${error}`);

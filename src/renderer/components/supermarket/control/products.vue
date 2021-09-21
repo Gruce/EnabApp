@@ -2,9 +2,10 @@
   <div class="mt-3">
     <div class="r-2 border-0 shadow-none">
       <div class="row">
-        <div class="col-xl-12 col-md-12 d-flex">
+        <div class="col-xl-12 col-md-12 d-flex align-items-center">
           <c-heading as="h1" fontSize="4xl" ml="4" color="white">المنتجات</c-heading>
-      
+          <span v-if="products">(الإجمالي<span class="badge t-1 mx-1">{{ products.length }}</span>)</span>
+
           <c-button v-if="$nuxt.isOnline" px="6" height="100%" class="t-1 b-1 r-2 text-light me-auto" variant="ghost" @click="show = !show,editState=false,thisData = {}">
             إضافة منتج
           </c-button>
@@ -82,7 +83,7 @@
             </thead>
             <tbody>
               <tr v-for="(product, i) in paginatedData" :key="product.id" class="table-divider">
-                <td class="align-middle" scope="row">{{ i + 1 }}</td>
+                <td class="align-middle" scope="row">{{ paginatedCounter + i + 1 }}</td>
                 <td class="align-middle">{{ product.name }}</td>
                 <td class="align-middle">{{ categories.find(x => x.id == product.category_id).name }}</td>
                 <td class="align-middle">{{ product.count }}</td>
@@ -98,7 +99,7 @@
               </tr>
             </tbody>
           </table>
-          <UtilitiesLoadMore @data="paginatedData = $event" :data="products" perPage="10" />
+          <UtilitiesLoadMore @page="paginatedCounter = $event" @data="paginatedData = $event" :data="products" perPage="10" />
         </div>
         <div v-else>
           <c-alert class="bg-none b-1 r-2 mt-3" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
@@ -144,6 +145,8 @@ export default {
 
       // Pagination
       paginatedData: [],
+      paginatedCounter: 0
+
     };
   },
   created(){
