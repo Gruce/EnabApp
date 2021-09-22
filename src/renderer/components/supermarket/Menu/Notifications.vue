@@ -17,9 +17,7 @@
 <script>
 export default {
   mounted() {
-    this.$echo.channel("recharge").listen("RechargeRequestEvent", (e) => {
-      console.log(e);
-    });
+    
   },
 };
 </script>

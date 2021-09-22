@@ -55,17 +55,11 @@
                 </c-grid-item>
                 <c-grid-item col-span=2>
                   <c-form-control is-required>
-                    <c-form-label for="phonenumber">رقم الهاتف</c-form-label>
-                    <c-input size="lg" v-model="thisData.phone_number" id="phonenumber" placeholder="رقم الهاتف" />
+                    <c-form-label for="phone_number">رقم الهاتف</c-form-label>
+                    <c-input size="lg" v-model="thisData.phone_number" id="phone_number" placeholder="رقم الهاتف" />
                   </c-form-control>
                 </c-grid-item>
-                <c-grid-item col-span=2>
-                  <c-form-control is-required>
-                    <c-form-label for="password">كلمة المرور</c-form-label>
-                    <c-input size="lg" type="password" v-model="thisData.password" id="password" placeholder="كلمة المرور" />
-                  </c-form-control>
-                </c-grid-item>
-                <c-grid-item col-span=2>
+                <c-grid-item col-span=4>
                   <c-form-control is-required>
                     <c-form-label for="location">العنوان</c-form-label>
                     <c-input size="lg" v-model="thisData.location" id="location" placeholder="العنوان" />
@@ -79,41 +73,45 @@
               </c-button>
             </form>
             <small>* تكلفة الإضافة 1,000 نقطة</small>
+            <small class="d-block">* سيتم إرسال بريد الكتروني يحتوي على كلمة المرور</small>
           </c-box>
         </c-collapse>
 
-        <!-- <div class="table-responsive" v-if="customers.length > 0">
+        <div class="table-responsive" v-if="staffs.length > 0">
           <table class="table table-cards text-right">
             <thead>
               <tr class="text-light">
                 <th scope="col">#</th>
                 <th scope="col">الاسم</th>
-                <th scope="col">الدين</th>
+                <th scope="col">البريد الالكتروني</th>
                 <th scope="col">رقم الهاتف</th>
-                <th scope="col">العنوان</th>
+                <th scope="col">الصنف</th>
+                <th scope="col">الحالة</th>
                 <th scope="col">التحكم</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(customer, i) in customers" :key="customer.id" class="table-divider">
+              <tr v-for="(staff, i) in paginatedData" :key="staff.id" class="table-divider">
                 <td class="align-middle" scope="row">{{ i + 1 }}</td>
-                <td class="align-middle">{{ customer.name }}</td>
-                <td class="align-middle">{{ customer.debt }}</td>
-                <td class="align-middle">{{ customer.phonenumber }}</td>
-                <td class="align-middle">{{ customer.location }}</td>
+                <td class="align-middle">{{ staff.name }}</td>
+                <td class="align-middle">{{ staff.email }}</td>
+                <td class="align-middle">{{ staff.phone_number }}</td>
+                <td class="align-middle">{{ staff.pivot.user_type }}</td>
+                <td class="align-middle">{{ staff.state ? 'مفعل' : 'غير مفعل' }}</td>
                 <td class="align-middle">
-                  <c-button v-if="customer.id !== 0" variant-color="blue" size="xs" @click="thisData = getCustomer(customer.id), editState = true, show = true" variant="ghost">
+                  <c-button v-if="staff.id !== 0" variant-color="blue" size="xs" @click="thisData = getStaff(staff.id), editState = true, show = true" variant="ghost">
                     <i class="fas fa-pen"></i>
                   </c-button>
-                  <c-button v-if="customer.id !== 0" variant-color="red" size="xs" @click="removeCustomer(customer.id)" variant="ghost">
+                  <c-button v-if="staff.id !== 0" variant-color="red" size="xs" @click="removeStaff(staff.id)" variant="ghost">
                     <i class="fas fa-times"></i>
                   </c-button>
                 </td>
               </tr>
             </tbody>
           </table>
-        </div> -->
-        <!-- <div v-else>
+          <UtilitiesLoadMore @page="paginatedCounter = $event" @data="paginatedData = $event" :data="staffs" perPage="10" />
+        </div>
+        <div v-else>
           <c-alert class="bg-none b-1 r-2 mt-3" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
             <c-alert-icon color="gray.250" name="warning" size="40px" :mr="0" />
             <c-alert-title :mt="4" :mb="1" fontSize="xl">
@@ -123,26 +121,8 @@
               يمكن إضافة زبائن من خلال (إضافة زبون)
             </c-alert-description>
           </c-alert>
-        </div> -->
-      </div>
-
-      <!-- <div class="row mt-3" v-if="services.length > 0">
-        <div v-for="service in services" :key="service.id" class="col-6">
-          <Businessstaff :service="service" />
         </div>
-      </div> -->
-      <!-- <div v-else>
-        <c-alert class="bg-none b-1 r-2 mt-3" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
-          <c-alert-icon color="gray.250" name="warning" size="40px" :mr="0" />
-          <c-alert-title :mt="4" :mb="1" fontSize="xl">
-            لايوجد خدمات
-          </c-alert-title>
-          <c-alert-description maxWidth="sm">
-            يمكنك شراء خدمات من خلال
-            <nuxt-link to="/supermarket/services" class="fw-bold text-light"> متجر الخدمات </nuxt-link>
-          </c-alert-description>
-        </c-alert>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -153,8 +133,12 @@ import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      //   services: "supermarket/services/owned",
+        getStaff: "business/staff/staff",
     }),
+
+    staffs(){
+      return this.$store.getters['business/staff/staffs']
+    }
   },
   data() {
     return {
@@ -165,10 +149,14 @@ export default {
       },
       editState: "",
       loading: false,
+
+      // Pagination
+      paginatedData: [],
+      paginatedCounter: 0
     };
   },
   created() {
-    // this.fetchServices();
+    this.fetchStaffs();
   },
   methods: {
     async submit() {
@@ -192,12 +180,13 @@ export default {
       }
     },
     ...mapActions({
-      //   fetchServices: "supermarket/services/fetchServices",
+        removeStaff: "business/staff/removeStaff",
+        fetchStaffs: "business/staff/fetchStaffs",
     }),
   },
   watch: {
     ...mapActions({
-      //   search: "supermarket/customers/search",
+        search: "business/staff/search",
     }),
   },
 };

@@ -19,7 +19,7 @@
               <button :class="getOpen('products')" @click="open='products'" class="btn btn-secondary btn-icon btn-block py-3 r-2">
                 <span class="btn-inner--text fs-5">المنتجات</span>
               </button>
-              <button :class="getOpen('staff')" @click="open='staff'" class="btn btn-secondary btn-icon btn-block py-3 r-2">
+              <button v-if="$auth.user.supermarket.pivot.user_type == 'admin'" :class="getOpen('staff')" @click="open='staff'" class="btn btn-secondary btn-icon btn-block py-3 r-2">
                 <span class="btn-inner--text fs-5">طاقم العمل</span>
               </button>
               <button v-if="customerAssign" :class="getOpen('customers')" @click="open='customers'" class="btn btn-secondary btn-icon btn-block py-3 r-2">

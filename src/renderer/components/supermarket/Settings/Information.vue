@@ -15,10 +15,16 @@
             </c-form-control>
           </c-grid-item>
 
-          <c-grid-item col-span=3>
-            <c-form-control is-required>
+          <c-grid-item col-span=2>
+            <c-form-control>
               <c-form-label for="location">العنوان</c-form-label>
               <c-input size="lg" v-model="thisData.location" id="location" placeholder="العنوان" />
+            </c-form-control>
+          </c-grid-item>
+          <c-grid-item col-span=1>
+            <c-form-control>
+              <c-form-label for="instagram">انستكرام</c-form-label>
+              <c-input size="lg" v-model="thisData.instagram" id="instagram" placeholder="انستكرام" />
             </c-form-control>
           </c-grid-item>
           <c-grid-item col-span=1>
@@ -75,6 +81,29 @@ export default {
       instagram: supermarket.instagram,
       location: supermarket.location,
     };
+  },
+  methods: {
+    async submit() {
+      this.loading = true
+      await this.$axios
+        .post(
+          "/api/supermarket/update",
+          { ...this.thisData },
+          { withCredentials: true, }
+        )
+        .then(async (response) => {
+          this.$toast({
+            title: "تم التعديل بنجاح",
+            status: "success",
+            duration: 3000,
+          });
+          this.$auth.fetchUser();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      this.loading = false
+    },
   },
 };
 </script>

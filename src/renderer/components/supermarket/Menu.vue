@@ -62,7 +62,8 @@
     </div>
 
   </div>
-</template><script>
+</template>
+<script>
 import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 export default {
   mounted() {
@@ -110,14 +111,15 @@ export default {
   .content {
     height: 100%;
     padding: 10px;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid $t-3;
     border-radius: $r-2;
-    transition: 0.3s;
+    transition: 0.3s ease-out;
   }
 
   .pointer:hover {
     cursor: pointer;
-    background: rgba(0, 0, 0, 0.6) !important;
+    background: rgba(255, 255, 255, 0.2);
     &.bg-success {
       background: #146c43 !important;
     }
@@ -133,7 +135,7 @@ export default {
       transition: 0.3s;
       border-radius: $r-2;
       &:hover {
-        background: rgba(0, 0, 0, 0.6) !important;
+        background: rgba(255, 255, 255, 0.2) !important;
       }
     }
   }

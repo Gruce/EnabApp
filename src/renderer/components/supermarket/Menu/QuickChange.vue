@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="nav flex-column pr-0">
-      <li @click="setPrintState" class="nav-item pointer content text-center py-4 " :class="printState ? 'text-light' : 'text-secondary' " v-b-tooltip.hover.left title="تفعيل / تعطيل خاصية الطباعة">
+      <li @click="setPrintState" class="nav-item pointer content text-center py-4 " :class="printState ? 'text-light' : 'text-dark' " v-b-tooltip.hover.left title="تفعيل / تعطيل خاصية الطباعة">
         <i class="fas fa-print fa-3x"></i>
         <div class="mt-3">
           <span v-if="defaultPrinter">{{ defaultPrinter }}</span>

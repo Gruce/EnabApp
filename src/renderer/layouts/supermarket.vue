@@ -29,12 +29,17 @@ export default {
       backgroundColor: "supermarket/utilities/backgroundColor",
     }),
   },
-  // mounted(){
-  //   console.log(this.$echo.channel(""))
-  //   this.$echo.channel("recharge").listen("RechargeRequestEvent", (e) => {
-  //     console.log(e);
-  //   });
-  // },
+  mounted(){
+    // Recharge Notification
+    this.$echo.channel("recharge-" + this.$auth.user.id).listen("RechargeRequestEvent", (data) => {
+      this.$toast({
+        title: data.message,
+        status: "info",
+        duration: 10000,
+      });
+      this.$auth.fetchUser();
+    });
+  },
   created() {
     this.fetchServices();
     this.getColor();

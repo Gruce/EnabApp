@@ -181,8 +181,11 @@ export default {
       this.$dialog.confirm("هل انت متأكد من الإنسحاب؟").then(async () => {
         await this.$axios
           .post(
-            "/api/" + this.name + "/leave",
-            { id: business.id },
+            "/api/staff/leave",
+            {
+              id: business.id,
+              business: this.name
+            },
             {
               withCredentials: true,
             }
@@ -190,7 +193,7 @@ export default {
           .then(async (response) => {
             this.$auth.fetchUser();
             this.$toast({
-              title: "تم الإنسحاب بنجاح",
+              title: response.data.message,
               status: "success",
               duration: 3000,
             });

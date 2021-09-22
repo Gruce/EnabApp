@@ -3,5 +3,9 @@ export default {
         state.staffs.push(staff)
     },
 
+    set_all(state, staffs){
+        state.staffs = staffs
+    }
+
 
 }

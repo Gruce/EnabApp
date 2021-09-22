@@ -10,11 +10,11 @@
             </c-heading>
             <br />
             <div class="nav flex-column nav-pills nav-customized" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <button :class="getOpen('personal_information')" @click="open='personal_information'" class="btn btn-secondary btn-icon btn-block py-3 r-2">
-                <span class="btn-inner--text fs-5">معلومات السوبرماركت</span>
-              </button>
               <button :class="getOpen('printers')" @click="open='printers'" class="btn btn-secondary btn-icon btn-block py-3 r-2">
                 <span class="btn-inner--text fs-5">إعدادات الطابعة</span>
+              </button>
+              <button v-if="$auth.user.supermarket.pivot.user_type == 'admin'" :class="getOpen('personal_information')" @click="open='personal_information'" class="btn btn-secondary btn-icon btn-block py-3 r-2">
+                <span class="btn-inner--text fs-5">معلومات السوبرماركت</span>
               </button>
             </div>
           </div>
@@ -50,7 +50,7 @@ export default {
   created() {},
   data() {
     return {
-      open: "personal_information",
+      open: "printers",
     };
   },
   methods: {
