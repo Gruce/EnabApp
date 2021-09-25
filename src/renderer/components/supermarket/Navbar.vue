@@ -85,6 +85,12 @@
                     <i class="fas fa-arrow-left"></i>
                   </nuxt-link>
                 </div>
+                
+                <div class="mr-1">
+                  <span @click="exit" v-b-tooltip.hover.bottom title="الخروج من النظام" class="badge py-2 px-3 pointer btn-icon-label text-danger">
+                    <i class="fas fa-times"></i>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -114,6 +120,17 @@ export default {
     // setInterval(this.getNow, 1000);
   },
   methods: {
+    exit() {
+      this.$dialog
+        .confirm("هل انت متأكد من إغلاق النظام؟", {
+          okText: "متأكد",
+          cancelText: "الغاء",
+          reverse: false,
+        })
+        .then(() => {
+          remote.app.exit();
+        });
+    },
     updateCompleted() {
       ipcRenderer.send("restart_app");
     },

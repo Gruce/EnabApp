@@ -16,7 +16,7 @@
 
 <script>
 import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
-const { remote, ipcRenderer } = require("electron");
+const { remote } = require("electron");
 
 export default {
   methods: {

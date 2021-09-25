@@ -41,7 +41,8 @@ export default {
     async removeCategory({commit, dispatch}, id){
         await commit('remove', id)
         await this.dispatch('supermarket/products/removeProducts', id)
-        dispatch('syncLocalStorage')
+        await dispatch('syncLocalStorage')
+        await this.dispatch('supermarket/products/syncLocalStorage')
 
         //########### SEND TO API ###########//
         await this.$axios
