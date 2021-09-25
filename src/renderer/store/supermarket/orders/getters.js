@@ -46,7 +46,7 @@ export default {
     },
 
     orders: state => {
-        return state.orders
+        return [...state.orders].reverse()
     },
 
     // Analytics
