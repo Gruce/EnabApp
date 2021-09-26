@@ -6,7 +6,7 @@
           <div class="col-6 d-flex align-items-center">
             <ul class="nav nav-pills mr-5">
               <li class="nav-item">
-                <nuxt-link to="/supermarket" :class="{ 'active' : $nuxt.$route.path === '/supermarket'}" class="nav-link py-1 px-3">
+                <nuxt-link to="/supermarket" :class="{ 'active' : $nuxt.$route.path === '/supermarket'}" class="nav-link py-1 px-2">
                   <i class="fas fa-home"></i>
                 </nuxt-link>
               </li>

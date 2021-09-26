@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <div class="row d-flex justify-content-center align-items-center vh-100">
+    <img class="mx-auto mt-6 mb-5 logo-big" width="30%" src="../assets/imgs/enab-white-big.png" alt="">
+    <div class="row d-flex justify-content-center align-items-center">
       <div class="col-6 text-white text-center t-1 p-5 r-2">
         <c-heading as="h1" fontSize="4xl" ml="4" color="white">تسجيل الدخول</c-heading>
 
@@ -17,11 +18,11 @@
             </p>
           </div>
           <div class="mb-3">
-            <label for="inputEmail" class="form-label">البريد الالكتروني</label>
+            <label for="inputEmail" class="form-label text-light">البريد الالكتروني</label>
             <input v-model="login.email" placeholder="example@enab.com" type="email" class="form-control form-control-lg r-2" id="inputEmail">
           </div>
           <div class="mb-3">
-            <label for="inputPassword" class="form-label">كلمة المرور</label>
+            <label for="inputPassword" class="form-label text-light">كلمة المرور</label>
             <input v-model="login.password" placeholder="******" type="password" class="form-control form-control-lg r-2" id="inputPassword">
           </div>
           <nuxt-link to="/forgetpassword" class="text-light">
