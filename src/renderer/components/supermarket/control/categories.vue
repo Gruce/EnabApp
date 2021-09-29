@@ -30,6 +30,7 @@
               </div>
 
               <span class="badge t-1 b-1 mr-3 mt-2 r-1 text-dark px-3" v-if="$auth.user.supermarket.pivot.user_type !== 'admin'">
+                  يجب ان تكون مدير
               </span>
           </div>
         </div>
