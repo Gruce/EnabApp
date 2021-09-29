@@ -4,12 +4,6 @@
       <div class="row">
         <div class="col-xl-12 col-md-12 d-flex">
           <c-heading as="h1" fontSize="4xl" ml="4" color="white">المنتجات</c-heading>
-<<<<<<< Updated upstream
-      
-          <c-button v-if="$nuxt.isOnline" px="6" height="100%" class="t-1 b-1 r-2 text-light me-auto" variant="ghost" @click="show = !show,editState=false,thisData = {}">
-            إضافة منتج
-          </c-button>
-=======
           <span v-if="products">(الإجمالي<span class="badge t-1 mx-1">{{ products.length }}</span>)</span>
 
           <span class="me-auto text-left" v-if="$auth.user.supermarket.product_count <= products.length">
@@ -22,7 +16,6 @@
               إضافة منتج
             </c-button>
           </span>
->>>>>>> Stashed changes
         </div>
 
         <div v-if="$auth.user.supermarket.product_count <= products.length" class="col-12">

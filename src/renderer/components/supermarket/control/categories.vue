@@ -4,10 +4,6 @@
       <div class="row">
         <div class="col-xl-12 col-md-12 d-flex">
           <c-heading as="h1" fontSize="4xl" ml="4" color="white">الفئات</c-heading>
-<<<<<<< Updated upstream
-=======
-          <span v-if="categories">(الإجمالي<span class="badge t-1 mx-1">{{ categories.length }}</span>)</span>
-
           <span class="me-auto text-left" v-if="$auth.user.supermarket.category_count < categories.length">
             <c-button v-if="$nuxt.isOnline && $auth.user.supermarket.pivot.user_type == 'admin'" class="t-1 b-1 r-2 text-light" variant="ghost" @click="countUp()">
               تمديد
@@ -32,10 +28,8 @@
                 نقطة للحصول على
                 <span class="badge badge-success mr-1">200 اضافية</span>
               </div>
->>>>>>> Stashed changes
 
               <span class="badge t-1 b-1 mr-3 mt-2 r-1 text-dark px-3" v-if="$auth.user.supermarket.pivot.user_type !== 'admin'">
-                  يجب ان تكون مدير
               </span>
           </div>
         </div>
@@ -139,10 +133,7 @@ export default {
 
       // Pagination
       paginatedData: [],
-<<<<<<< Updated upstream
-=======
       paginatedCounter: 0,
->>>>>>> Stashed changes
     };
   },
   created() {
