@@ -2,6 +2,7 @@
   <CThemeProvider>
     <CReset />
     <div class="main-container">
+      <div class="bg" />
       <SupermarketNavbar />
       <client-only>
         <UtilitiesKeyup @keyup="keyboardEvent"></UtilitiesKeyup>
@@ -15,11 +16,11 @@
 </template>
 
 <script>
-import { CThemeProvider, CReset } from '@chakra-ui/vue'
+import { CThemeProvider, CReset } from "@chakra-ui/vue";
 import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
-  components: {CThemeProvider},
+  components: { CThemeProvider },
 
   computed: {
     showMenu() {
@@ -29,16 +30,18 @@ export default {
       backgroundColor: "supermarket/utilities/backgroundColor",
     }),
   },
-  mounted(){
+  mounted() {
     // Recharge Notification
-    this.$echo.channel("recharge-" + this.$auth.user.id).listen("RechargeRequestEvent", (data) => {
-      this.$toast({
-        title: data.message,
-        status: "info",
-        duration: 10000,
+    this.$echo
+      .channel("recharge-" + this.$auth.user.id)
+      .listen("RechargeRequestEvent", (data) => {
+        this.$toast({
+          title: data.message,
+          status: "info",
+          duration: 10000,
+        });
+        this.$auth.fetchUser();
       });
-      this.$auth.fetchUser();
-    });
   },
   created() {
     this.fetchServices();
@@ -111,5 +114,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-//
+.bg {
+  background: #5415e7;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #6A82FB, #5415e7);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #6A82FB, #5415e7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+
+
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  position: absolute;
+  opacity: 0.4;
+  // filter: blur(25px);
+  overflow: hidden;
+  z-index: -1;
+
+  background-size: 300% 100%;
+  animation: gradient 3s linear infinite;
+  animation-direction: alternate;
+}
+@keyframes gradient {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
+}
 </style>

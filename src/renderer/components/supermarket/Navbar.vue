@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="position-absolute" style="top: 0px; left: 0%; width: 100%;z-index:1">
+    <div class="position-absolute" style="top: 0%; left: 0%; width: 100%;z-index:1">
       <div class="navbar p-2">
         <div class="row w-100">
           <div class="col-6 d-flex align-items-center">
