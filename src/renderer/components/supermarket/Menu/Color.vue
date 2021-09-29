@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="content">
-      <div class="d-flex flex-column justify-content-center align-items-center text-center py-2" style="margin: 6px">
+      <div class="d-flex flex-column justify-content-center align-items-center text-center py-2" style="margin: 10px">
         <v-swatches v-model="color" :swatches="swatches" popover-x="left"></v-swatches>
         <h6 class="text-light mt-3">تغيير اللون</h6>
       </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="show-scroll">
+  <div class="show-scroll b-1 r-2 mt-3">
     <table class="table table-borderless table-hover text-light mt-4" v-if="requests.length > 0">
       <thead>
         <tr>

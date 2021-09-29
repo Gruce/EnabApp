@@ -8,6 +8,12 @@
           </span>
         </div>
 
+        <div v-if="new_service" class="position-absolute top-0 start-0">
+          <span class="badge badge-light text-dark ml-1 r-2">
+            جديد
+          </span>
+        </div>
+
         <div class="icon icon-xl icon-shape rounded-circle t-3">
           <UtilitiesLoading v-if="loading" />
           <i v-else class="fa-5x text-light" :class="icon ? 'fas fa-shopping-cart' : 'fas fa-briefcase'"></i>
