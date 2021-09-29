@@ -69,6 +69,26 @@ export default {
         //     })
     },
 
+    async countUp(){
+        if (this.$auth.user.point < 2000){
+            this.$toast.success('عدد النقاط غير كافي')
+            return false
+        }
+
+        this._vm.$dialog.confirm('هل انت متأكد؟').then(async () => {
+            //########### SEND TO API ###########//
+            await this.$axios
+                .post('/api/supermarket/products/update-product-count', { withCredentials: true })
+                .then((response) => {
+                    this.$toast.success('تم التمديد')
+                    this.$auth.fetchUser();
+                })
+                .catch((error) => {
+                    console.log(error.response.data.message)
+                })
+        })
+    },
+
     async getProduct({ commit, dispatch }, id) {
         var products = await this.$auth.$storage.getLocalStorage('supermarket.products')
         return products.find(x => x.id == id)

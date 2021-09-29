@@ -1,6 +1,6 @@
 export default {
     requests: state => {
-        return state.requests
+        return [...state.requests].reverse()
     },
 
 

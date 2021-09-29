@@ -17,6 +17,9 @@ export default {
   head: {
     title: "Supermarket",
   },
+  mounted(){
+    console.log(this.$business().name)
+  },
   methods: {
     // refreshAuth(){
     //   this.$auth.refreshTokens().then((x) => {

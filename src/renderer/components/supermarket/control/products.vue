@@ -6,16 +6,44 @@
           <c-heading as="h1" fontSize="4xl" ml="4" color="white">المنتجات</c-heading>
           <span v-if="products">(الإجمالي<span class="badge t-1 mx-1">{{ products.length }}</span>)</span>
 
-          <c-button v-if="$nuxt.isOnline" px="6" height="100%" class="t-1 b-1 r-2 text-light me-auto" variant="ghost" @click="show = !show,editState=false,thisData = {}">
-            إضافة منتج
-          </c-button>
+          <span class="me-auto text-left" v-if="$auth.user.supermarket.product_count <= products.length">
+            <c-button v-if="$nuxt.isOnline && $auth.user.supermarket.pivot.user_type == 'admin'" class="t-1 b-1 r-2 text-light" variant="ghost" @click="countUp()">
+              تمديد
+            </c-button>
+          </span>
+          <span px="6" height="100%" class="me-auto" v-else>
+            <c-button v-if="$nuxt.isOnline" class="t-1 b-1 r-2 text-light me-auto" variant="ghost" @click="show = !show,editState=false,thisData = {}">
+              إضافة منتج
+            </c-button>
+          </span>
         </div>
+
+        <div v-if="$auth.user.supermarket.product_count <= products.length" class="col-12">
+          <div class="alert t-3 text-light b-2 w-100 r-2 mt-3 fs-6" role="alert">
+              <div class="align-items-center d-flex">
+                <i class="fas fa-info-circle fa-2x mx-3"></i>
+                لقد تجاوزت الـ 
+                <span class="text-dark mx-1">{{ products.length }}</span>
+                منتج.
+                يمكن زيادة المساحة بـ 
+                <span class="text-dark mx-1">2000</span>
+                نقطة للحصول على
+                <span class="badge badge-success mr-1">500 اضافية</span>
+              </div>
+
+              <span class="badge t-1 b-1 mr-3 mt-2 r-1 text-dark px-3" v-if="$auth.user.supermarket.pivot.user_type !== 'admin'">
+                  يجب ان تكون مدير
+              </span>
+          </div>
+        </div>
+
+
         <div class="col-xl-12 col-md-12">
             <c-input-group mt=1>
               <c-input-left-element>
                 <i class="fas fa-search"></i>
               </c-input-left-element>
-              <c-input py=5 v-model="search" type="text" placeholder="بحث بحسب رقم الطلب" />
+              <c-input py=5 v-model="search" type="text" placeholder="بحث" />
             </c-input-group>
         </div>
       </div>
@@ -177,6 +205,7 @@ export default {
     ...mapActions({
       removeProduct: "supermarket/products/removeProduct",
       fetchProducts: "supermarket/products/fetchProducts",
+      countUp: "supermarket/products/countUp",
     }),
   },
   watch: {

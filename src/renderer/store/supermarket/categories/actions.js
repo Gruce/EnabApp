@@ -52,6 +52,26 @@ export default {
             })
     },
 
+    async countUp(){
+        if (this.$auth.user.point < 2000){
+            this.$toast.success('عدد النقاط غير كافي')
+            return false
+        }
+
+        this._vm.$dialog.confirm('هل انت متأكد؟').then(async () => {
+            //########### SEND TO API ###########//
+            await this.$axios
+                .post('/api/supermarket/categories/update-category-count', { withCredentials: true })
+                .then((response) => {
+                    this.$toast.success('تم التمديد')
+                    this.$auth.fetchUser();
+                })
+                .catch((error) => {
+                    console.log(error.response.data.message)
+                })
+        })
+    },
+
     async getCategory({commit, dispatch}, id){
         var categories = await this.$auth.$storage.getLocalStorage('supermarket.categories')
         return categories.find(x => x.id == id)

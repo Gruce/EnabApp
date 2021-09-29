@@ -6,11 +6,37 @@
           <c-heading as="h1" fontSize="4xl" ml="4" color="white">الفئات</c-heading>
           <span v-if="categories">(الإجمالي<span class="badge t-1 mx-1">{{ categories.length }}</span>)</span>
 
-
-          <c-button v-if="$nuxt.isOnline" px="6" height="100%" class="t-1 b-1 r-2 text-light me-auto" variant="ghost" @click="show = !show,editState=false,thisData = {}">
-            إضافة فئة
-          </c-button>
+          <span class="me-auto text-left" v-if="$auth.user.supermarket.category_count < categories.length">
+            <c-button v-if="$nuxt.isOnline && $auth.user.supermarket.pivot.user_type == 'admin'" class="t-1 b-1 r-2 text-light" variant="ghost" @click="countUp()">
+              تمديد
+            </c-button>
+          </span>
+          <span px="6" height="100%" class="me-auto" v-else>
+            <c-button v-if="$nuxt.isOnline" class="t-1 b-1 r-2 text-light" variant="ghost" @click="show = !show,editState=false,thisData = {}">
+              إضافة فئة
+            </c-button>
+          </span>
         </div>
+
+        <div v-if="$auth.user.supermarket.category_count < categories.length" class="col-12">
+          <div class="alert t-3 text-light b-2 w-100 r-2 mt-3 fs-6" role="alert">
+              <div class="align-items-center d-flex">
+                <i class="fas fa-info-circle fa-2x mx-3"></i>
+                لقد تجاوزت الـ 
+                <span class="text-dark mx-1">{{ categories.length }}</span>
+                فئة.
+                يمكن زيادة المساحة بـ 
+                <span class="text-dark mx-1">2000</span>
+                نقطة للحصول على
+                <span class="badge badge-success mr-1">200 اضافية</span>
+              </div>
+
+              <span class="badge t-1 b-1 mr-3 mt-2 r-1 text-dark px-3" v-if="$auth.user.supermarket.pivot.user_type !== 'admin'">
+                  يجب ان تكون مدير
+              </span>
+          </div>
+        </div>
+
         <div class="col-xl-12 col-md-12">
           <c-input-group mt=1>
             <c-input-left-element>
@@ -96,9 +122,9 @@ export default {
       products: "supermarket/products/products",
     }),
 
-    categories(){
-      return this.$store.getters['supermarket/categories/categories_all']
-    }
+    categories() {
+      return this.$store.getters["supermarket/categories/categories_all"];
+    },
   },
   data() {
     return {
@@ -110,10 +136,10 @@ export default {
 
       // Pagination
       paginatedData: [],
-      paginatedCounter: 0
+      paginatedCounter: 0,
     };
   },
-  created(){
+  created() {
     this.fetchCategories();
   },
   async mounted() {
@@ -151,6 +177,7 @@ export default {
     ...mapActions({
       removeCategory: "supermarket/categories/removeCategory",
       fetchCategories: "supermarket/categories/fetchCategories",
+      countUp: "supermarket/categories/countUp",
     }),
   },
   watch: {
