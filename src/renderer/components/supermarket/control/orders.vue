@@ -64,7 +64,7 @@
                 <td class="align-middle" scope="row">{{ paginatedCounter + i + 1 }}</td>
                 <td class="align-middle">{{ (order.customer_id ? order.customer_id : 'لايوجد') }}</td>
                 <td class="align-middle">{{ order.order_number }}</td>
-                <td class="align-middle">{{ $n(totalPrice(order.products), 'currency') }}</td>
+                <td class="align-middle">{{ $n(order.total_price, 'currency') }}</td>
               </tr>
             </tbody>
           </table>
@@ -119,12 +119,6 @@ export default {
   methods: {
     closeModal() {
       this.show = false;
-    },
-    totalPrice: function (products) {
-      if (this.products.length < 1) return false;
-      let price = 0;
-      products.forEach((x) => (price += x.pivot.price * x.pivot.count));
-      return price;
     },
     getProducts: function (products) {
       let fullProducts = products.map((x) => {

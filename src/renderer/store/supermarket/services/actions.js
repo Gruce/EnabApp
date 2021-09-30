@@ -1,17 +1,31 @@
+function isNewerVersion(oldVer, newVer) {
+    const oldParts = oldVer.split('.')
+    const newParts = newVer.split('.')
+    for (var i = 0; i < newParts.length; i++) {
+        const a = ~~newParts[i] // parse int
+        const b = ~~oldParts[i] // parse int
+        if (a >= b) return true
+        if (a < b) return false
+    }
+    return false
+}
+
 export default {
     async syncLocalStorage({ state }, dispatch) {
         this.$auth.$storage.setLocalStorage('supermarket.services', state.services)
     },
 
-    async fetchServices({ commit, state }, force = false) {
+    async fetchServices({ commit, state, dispatch }, force = false) {
         let services = this.$auth.$storage.getLocalStorage('supermarket.services')
 
         //############### Fetch from API ###########
         if (services === null || force) // If not set on the storage Or forced
             await this.$axios.get(
                 '/api/supermarket/services', { withCredentials: true }
-            ).then((response) => {
-                services = response.data
+            ).then(async (response) => {
+                let version = await this.$version()
+                services = response.data.filter(x => isNewerVersion(x.version, version))
+
                 commit('set_all', services)
                 this.$auth.$storage.setLocalStorage('supermarket.services', services)
             })
@@ -63,6 +77,9 @@ export default {
                 })
             })
         }
-    }
+    },
+
+
+    
 
 }

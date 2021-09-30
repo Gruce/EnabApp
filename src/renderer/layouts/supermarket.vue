@@ -115,12 +115,9 @@ export default {
 
 <style lang="scss" scoped>
 .bg {
-  background: #5415e7;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #6A82FB, #5415e7);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #6A82FB, #5415e7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
-
+  background: #4f08f7;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #7c92ff, #4f08f7);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #7c92ff, #4f08f7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   background-size: cover;
   height: 100%;
@@ -134,9 +131,10 @@ export default {
   z-index: -1;
 
   background-size: 300% 100%;
-  animation: gradient 3s linear infinite;
+  animation: gradient 2.5s linear infinite;
   animation-direction: alternate;
 }
+
 @keyframes gradient {
   0% {
     background-position: 0%;

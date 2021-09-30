@@ -1,7 +1,8 @@
 <template>
   <div>
 
-    <div class="service mb-3 r-2 hover-shadow-lg hover-translate-y-n3">
+    <div class="service mb-3 r-2 hover-shadow-lg shadow-dark shadow-sm hover-translate-y-n3">
+      <!-- <div class="bg" /> -->
       <div class="position-absolute top-0 start-50 translate-middle">
         <span v-if="service.new" class="badge tb-2 text-light">
           🔥 جديد
@@ -214,6 +215,36 @@ export default {
         opacity: 1;
       }
     }
+  }
+}
+
+.bg {
+  background: #4f08f7;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #7c92ff00, #804affc7);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #7c92ff00, #804affc7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  background-size: cover;
+  height: 110%;
+  width: 110%;
+  top: 0;
+  right: 0;
+  position: absolute;
+  opacity: 0.4;
+  filter: blur(35px);
+  overflow: hidden;
+  z-index: -1;
+
+  background-size: 300% 100%;
+  animation: gradient 2.5s linear infinite;
+  animation-direction: alternate;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
   }
 }
 </style>

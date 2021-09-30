@@ -18,7 +18,7 @@ export default {
     title: "Supermarket",
   },
   mounted(){
-    console.log(this.$business().name)
+    
   },
   methods: {
     // refreshAuth(){

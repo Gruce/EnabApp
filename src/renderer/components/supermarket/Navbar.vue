@@ -85,7 +85,7 @@
                     <i class="fas fa-arrow-left"></i>
                   </nuxt-link>
                 </div>
-                
+
                 <div class="mr-1">
                   <span @click="exit" v-b-tooltip.hover.bottom title="الخروج من النظام" class="badge py-2 px-3 pointer btn-icon-label text-danger">
                     <i class="fas fa-times"></i>
@@ -166,18 +166,23 @@ export default {
     rgba(0, 0, 0, 0.35) 50%,
     rgba(0, 0, 0, 0.5) 100%
   );
+  transition: .15s ease-in-out;
 }
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   background-color: $tb-1;
   border-radius: 0.3rem;
   color: #ffffff;
-
 }
 
 .nav-pills .nav-link,
 .nav-pills > .nav-link {
   color: #ffffff;
+  transition: .3s;
+  margin: 0 1px;
+  &:hover{
+    background-color: $tb-1;
+  }
 }
 
 .signout-icon {
