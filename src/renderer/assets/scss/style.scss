@@ -280,6 +280,18 @@ input.vs__search {
     cursor: pointer;
 }
 
+.group-links {
+    transition: 0.2s ease-in;
+    background: $tb-1 !important;
+    .pointer:hover {
+        background: $tb-2 !important;
+    }
+}
+
+.active {
+    background: $tb-2;
+}
+
 .dg-content-footer{
     direction: ltr !important;
 }

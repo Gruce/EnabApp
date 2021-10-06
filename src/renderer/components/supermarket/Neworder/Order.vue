@@ -198,20 +198,20 @@ export default {
 
 <style lang="scss">
 .main-height {
-  min-height: calc(100vh - 13rem) !important;
-  max-height: calc(100vh - 13rem) !important;
+  min-height: calc(100vh - 14.8rem) !important;
+  max-height: calc(100vh - 14.8rem) !important;
 }
 .h-items-height {
-  min-height: calc(100vh - 12rem) !important;
-  max-height: calc(100vh - 12rem) !important;
+  min-height: calc(100vh - 16rem) !important;
+  max-height: calc(100vh - 16rem) !important;
 }
 .h-sub-items-height {
-  min-height: calc(100vh - 14.75rem) !important;
-  max-height: calc(100vh - 14.75rem) !important;
+  min-height: calc(100vh - 18.2rem) !important;
+  max-height: calc(100vh - 18.2rem) !important;
 }
 .h-list-height {
-  min-height: calc(100vh - 28rem) !important;
-  max-height: calc(100vh - 28rem) !important;
+  min-height: calc(100vh - 30rem) !important;
+  max-height: calc(100vh - 30rem) !important;
 }
 .products-list .list-group-item{
   background: $t-1;

@@ -1,6 +1,6 @@
 {
   "name": "enab",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Enab System",
   "main": "./dist/main/index.js",
   "scripts": {
@@ -57,9 +57,9 @@
     "electron-log": "^4.4.1",
     "electron-updater": "^4.3.9",
     "modified-pos-printer": "^1.2.4",
+    "node-sass": "4.14.1",
     "nuxt-i18n": "^6.28.1",
     "pusher-js": "^7.0.3",
-    "sass": "^1.42.1",
     "socket.io-client": "2.3.0",
     "vue-long-click": "^0.0.4",
     "vue-select": "^3.12.2",
