@@ -77,7 +77,7 @@ export default class BrowserWinHandler {
       }
     )
     
-    this.browserWindow.maximize();
+    // this.browserWindow.maximize();
     this.browserWindow.setMenu(null);
 
     // this.browserWindow.webContents.openDevTools()

@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-6">
+  <div class="mx-5 mt-6">
     <MainUserInformation />
     <MainBusinesses />
   </div>
@@ -10,7 +10,7 @@ import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   created() {
-    this.selectBusinesses(this.$auth.user.businesses)
+    this.selectBusinesses(this.$auth.user.businesses);
   },
   methods: {
     signout() {
@@ -18,7 +18,7 @@ export default {
       this.$router.push("/");
     },
     ...mapMutations({
-      selectBusinesses: 'business/selectBusinesses'
+      selectBusinesses: "business/selectBusinesses",
     }),
   },
 };
@@ -33,10 +33,10 @@ h1 {
   max-height: calc(100vh - 21rem) !important;
 }
 
-.clickable{
-  transition: .2s ease-out;
+.clickable {
+  transition: 0.2s ease-out;
   border-radius: $r-2;
-  &:hover{
+  &:hover {
     background: $tb-2;
   }
 }

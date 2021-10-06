@@ -1,41 +1,55 @@
 <template>
   <div>
-    <div class="position-absolute" style="top: 0%; left: 0%; width: 100%;z-index:1">
+    <div class="position-absolute" style="top: 0%; left: 0%; width: 100%;z-index:1;">
       <div class="navbar p-2">
         <div class="row w-100">
           <div class="col-6 d-flex align-items-center">
-            <ul class="nav nav-pills mr-5">
-              <li class="nav-item">
-                <nuxt-link to="/supermarket" :class="{ 'active' : $nuxt.$route.path === '/supermarket'}" class="nav-link py-1 px-2">
+            <div class="mr-1 group-links p-1 r-1 mr-5">
+              <nuxt-link :to="nav.link" v-for="nav in navs" :key="nav.title">
+                <span :class="{ 'active' : $nuxt.$route.path === nav.link}" class="badge py-2 px-3 pointer mx-1">
+                  <i class="fas" :class="nav.icon"></i>
+                  <span v-if="$nuxt.$route.path === nav.link">
+                    {{ nav.title }}
+                  </span>
+                </span>
+              </nuxt-link>
+              <!-- <nuxt-link to="/supermarket">
+                <span :class="{ 'active' : $nuxt.$route.path === '/supermarket'}" class="badge py-2 px-3 pointer">
                   <i class="fas fa-home"></i>
-                </nuxt-link>
-              </li>
-              <li class="nav-item">
-                <nuxt-link to="/supermarket/new-order" :class="{ 'active' : $nuxt.$route.path === '/supermarket/new-order'}" class="nav-link py-1 px-3">
+                </span>
+              </nuxt-link>
+
+              <nuxt-link to="/supermarket/new-order">
+                <span :class="{ 'active' : $nuxt.$route.path === '/supermarket/new-order'}" class="badge py-2 px-3 pointer">
                   <i class="fas fa-cash-register"></i>
-                </nuxt-link>
-              </li>
-              <li class="nav-item">
-                <nuxt-link to="/supermarket/control" :class="{ 'active' : $nuxt.$route.path === '/supermarket/control'}" class="nav-link py-1 px-3">
+                </span>
+              </nuxt-link>
+
+              <nuxt-link to="/supermarket/control">
+                <span :class="{ 'active' : $nuxt.$route.path === '/supermarket/control'}" class="badge py-2 px-3 pointer">
                   <i class="fas fa-list-ul"></i>
-                </nuxt-link>
-              </li>
-              <li class="nav-item">
-                <nuxt-link to="/supermarket/analytics" :class="{ 'active' : $nuxt.$route.path === '/supermarket/analytics'}" class="nav-link py-1 px-3">
+                </span>
+              </nuxt-link>
+
+              <nuxt-link to="/supermarket/analytics">
+                <span :class="{ 'active' : $nuxt.$route.path === '/supermarket/analytics'}" class="badge py-2 px-3 pointer">
                   <i class="fas fa-chart-pie"></i>
-                </nuxt-link>
-              </li>
-              <li class="nav-item">
-                <nuxt-link to="/supermarket/services" :class="{ 'active' : $nuxt.$route.path === '/supermarket/services'}" class="nav-link py-1 px-3">
+                </span>
+              </nuxt-link>
+
+              <nuxt-link to="/supermarket/services">
+                <span :class="{ 'active' : $nuxt.$route.path === '/supermarket/services'}" class="badge py-2 px-3 pointer">
                   <i class="fas fa-cubes"></i>
-                </nuxt-link>
-              </li>
-              <li class="nav-item">
-                <nuxt-link to="/supermarket/settings" :class="{ 'active' : $nuxt.$route.path === '/supermarket/settings'}" class="nav-link py-1 px-3">
+                </span>
+              </nuxt-link>
+
+              <nuxt-link to="/supermarket/settings">
+                <span :class="{ 'active' : $nuxt.$route.path === '/supermarket/settings'}" class="badge py-2 px-3 pointer">
                   <i class="fas fa-cog"></i>
-                </nuxt-link>
-              </li>
-            </ul>
+                </span>
+              </nuxt-link> -->
+            </div>
+
           </div>
           <div class="col-6">
             <div dir="ltr" class="text-white ml-3 d-flex align-items-center">
@@ -56,39 +70,33 @@
 
                 </div>
 
-                <div class="mr-1">
+                <div class="mr-1 group-links p-1 r-1">
                   <nuxt-link to="/credits">
-                    <div :class="$auth.user.points <= 0 ? 'text-danger' : 'text-light'" v-b-tooltip.hover.bottom title="شحن رصيد" class="badge py-2 px-3 pointer btn-icon-label">
-                      <span class="btn-inner--icon">
-                        <i class="fas fa-credit-card"></i>
-                      </span>
-                      <span class="btn-inner--text">
-                        {{ $auth.user.points }} نقطة
-                      </span>
-                    </div>
+                    <span :class="$auth.user.points <= 0 ? 'text-danger' : 'text-light'" v-b-tooltip.hover.bottom title="شحن رصيد" class="badge py-2 px-3 pointer">
+                      {{ $auth.user.points }} نقطة
+                    </span>
                   </nuxt-link>
+
+                  <span @click="toggleMenu" v-b-tooltip.hover.bottom title="القائمة" class="badge pointer py-2 px-3 text-warning-h">
+                    {{ $auth.user.name }}
+                  </span>
                 </div>
 
-                <div class="mr-1">
-                  <div @click="toggleMenu" v-b-tooltip.hover.bottom title="القائمة" class="badge py-2 px-3 pointer btn-icon-label">
-                    <span class="btn-inner--icon">
-                      <i class="fas fa-bars"></i>
-                    </span>
-                    <span class="btn-inner--text">
-                      {{ $auth.user.name }}
-                    </span>
-                  </div>
-                </div>
-
-                <div class="mr-1">
+                <!-- <div class="mr-1">
                   <nuxt-link to="/" v-b-tooltip.hover.bottom title="الذهاب الى الخدمات" class="badge py-2 px-3 pointer btn-icon-label text-light">
                     <i class="fas fa-arrow-left"></i>
                   </nuxt-link>
-                </div>
+                </div> -->
 
-                <div class="mr-1">
-                  <span @click="exit" v-b-tooltip.hover.bottom title="الخروج من النظام" class="badge py-2 px-3 pointer btn-icon-label text-danger">
-                    <i class="fas fa-times"></i>
+                <div class="mr-3 group-links p-1 r-1">
+                  <span @click="minimize" v-b-tooltip.hover.bottom title="تصغير" class="badge py-2 px-3 pointer">
+                    <i class="fas fa-window-minimize"></i>
+                  </span>
+                  <span @click="maximize" v-b-tooltip.hover.bottom title="تكبير" class="badge py-2 px-3 pointer">
+                    <i class="fas fa-window-maximize"></i>
+                  </span>
+                  <span @click="exit" v-b-tooltip.hover.bottom title="الخروج من النظام" class="badge py-2 px-3 pointer text-danger-h">
+                    <i class="fas fa-window-close"></i>
                   </span>
                 </div>
               </div>
@@ -103,6 +111,7 @@
 <script>
 import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 const { remote, ipcRenderer } = require("electron");
+var win = remote.BrowserWindow.getFocusedWindow();
 
 export default {
   computed: {
@@ -114,12 +123,26 @@ export default {
   data() {
     return {
       datetime: "",
+      navs: [
+        { title: "الصفحة الرئيسية", link: "/supermarket", icon: "fa-home" },
+        { title: "طلب جديد", link: "/supermarket/new-order", icon: "fa-cash-register" },
+        { title: "التحكم", link: "/supermarket/control", icon: "fa-list-ul" },
+        { title: "التحليلات", link: "/supermarket/analytics", icon: "fa-chart-pie" },
+        { title: "الخدمات", link: "/supermarket/services", icon: "fa-cubes" },
+        { title: "الإعدادات", link: "/supermarket/settings", icon: "fa-cog" },
+      ],
     };
   },
   created() {
     // setInterval(this.getNow, 1000);
   },
   methods: {
+    maximize() {
+      win.maximize();
+    },
+    minimize() {
+      win.minimize();
+    },
     exit() {
       this.$dialog
         .confirm("هل انت متأكد من إغلاق النظام؟", {
@@ -158,6 +181,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+div {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
 .navbar {
   background: rgb(0, 0, 0);
   background: linear-gradient(
@@ -166,7 +193,7 @@ export default {
     rgba(0, 0, 0, 0.35) 50%,
     rgba(0, 0, 0, 0.5) 100%
   );
-  transition: .15s ease-in-out;
+  transition: 0.15s ease-in-out;
 }
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
@@ -178,9 +205,9 @@ export default {
 .nav-pills .nav-link,
 .nav-pills > .nav-link {
   color: #ffffff;
-  transition: .3s;
+  transition: 0.3s;
   margin: 0 1px;
-  &:hover{
+  &:hover {
     background-color: $tb-1;
   }
 }
@@ -196,8 +223,16 @@ export default {
 .btn-icon-label {
   transition: 0.2s ease-in;
   background: $tb-1 !important;
-  &:hover {
+  .pointer:hover {
     background: $tb-2 !important;
   }
+}
+
+.active {
+  background: $tb-2 !important;
+}
+
+.group-links {
+  @extend .btn-icon-label;
 }
 </style>
