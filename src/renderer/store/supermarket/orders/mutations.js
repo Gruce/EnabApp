@@ -93,5 +93,9 @@ export default {
     toggleDebt(state){
         const order = state.ordersList[state.selectedOrderNumber]
         order.debt = !order.debt
+    },
+
+    setSettings(state, settings){
+        state.settings = settings
     }
 }

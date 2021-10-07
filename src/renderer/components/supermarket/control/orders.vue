@@ -18,11 +18,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(s, i) in showProducts" :key="s.product.id">
+              <tr v-for="(s, i) in showProducts" :key="s.product ? s.product.id : 'products.'+i">
                 <th scope="row">{{ ++i }}</th>
-                <td>{{ s.product.name }}</td>
-                <td>{{ categories.find(x => x.id == s.product.category_id).name }}</td>
-                <td>{{ s.product.barcode }}</td>
+                <td>{{ s.product ? s.product.name : 'محذوف' }}</td>
+                <td>{{ s.product ? categories.find(x => x.id == s.product.category_id).name : 'محذوف' }}</td>
+                <td>{{ s.product ? s.product.barcode : '######' }}</td>
                 <td>{{ s.price }}</td>
                 <td>{{ s.inCount }}</td>
               </tr>

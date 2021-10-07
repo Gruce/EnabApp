@@ -54,7 +54,7 @@ export default {
     },
 
     async searchItems({ state }, name) {
-        if (!state.onlyProducts) {
+        if (!state.settings.onlyProducts) {
             let categories = await this.dispatch('supermarket/categories/getCategories')
             this.commit('supermarket/categories/set_all', categories.filter(x => x.name.includes(name)));
         }
@@ -166,7 +166,7 @@ export default {
             })
 
 
-        
+
         // Last Order
         let lastOrder = { ...await dispatch('fetchLastOrder') }
         lastOrder.id++
@@ -177,7 +177,7 @@ export default {
             lastOrder.order_price += x.inCount * x.price
             this.commit('supermarket/products/changeCount', { id: x.id, count: x.inCount * -1 })
         })
-        
+
         // Refresh Local Customer Debt
         if (debt_state) this.dispatch('supermarket/customers/debt', { id: customer_id, debt: lastOrder.order_price })
 
@@ -208,6 +208,16 @@ export default {
         commit('selectCategory', id)
     },
 
+    changeSettings({ commit }, settings){
+        this.$auth.$storage.setLocalStorage('supermarket.orders_settings', settings)
+        commit('setSettings', settings)
+    },
+
+    fetchSettings({ commit }){
+        let settings = this.$auth.$storage.getLocalStorage('supermarket.orders_settings')
+        if (settings) commit('setSettings', settings)
+    },
+
     async invoice({ state }) {
         let products = []
         let total = state.products[state.selectedOrderNumber].reduce((sum, { price, inCount }) => sum + price * inCount, 0)
@@ -227,9 +237,9 @@ export default {
         const data = [
             {
                 type: 'text',
-                value: 'Supermarket Name',
+                value: this.$auth.user.supermarket.name,
                 style: `text-align:center;`,
-                css: { "font-weight": "700", "font-size": "18px" }
+                css: { "font-weight": "700", "font-size": "18px", "margin-bottom": "5px" }
             }, {
                 type: 'table',
                 // style the table
@@ -258,11 +268,11 @@ export default {
             },
             {
                 type: 'barCode',
-                value: 'HB4587896',
+                value: state.lastOrder.order_number,
                 height: 12,                     // height of barcode, applicable only to bar and QR codes
-                width: 1,          // width of barcode, applicable only to bar and QR codes
+                width: 2,          // width of barcode, applicable only to bar and QR codes
                 displayValue: true,             // Display value below barcode
-                fontsize: 8,
+                fontsize: 10,
             },
         ]
 

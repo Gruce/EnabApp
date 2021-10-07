@@ -2,17 +2,8 @@
   <CThemeProvider>
     <div class="bg" />
     <CReset />
-    <div class="position-absolute top-0 start-0 pointer my-3 ml-4">
-      <span @click="exit">
-        <UtilitiesClose />
-      </span>
-    </div>
+    <DefaultNavbar />
     <nuxt-child />
-    <div class="position-absolute top-0 pointer my-3 mr-4">
-      <span @click="$router.go(-1);" v-if="$nuxt.$route.path !== '/' && $nuxt.$route.path !== '/login'">
-        <UtilitiesBack />
-      </span>
-    </div>
   </CThemeProvider>
 </template>
 

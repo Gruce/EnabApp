@@ -4,19 +4,11 @@
     <SupermarketServicesCalculator v-if="calculator && calculatorState" :totalPrice="totalPrice" />
 
     <div class="row main-height">
-      <div class="col-5">
+      <div v-if="settings.showProducts" class="col-5">
         <div class="px-2">
           <div class="h-items-height">
             <div class="row">
-              <div class="col-1 px-0">
-                <button @click="hideCategories" type="button" class="btn btn-xs btn-block t-1 b-2 r-2">
-                  <span class="btn-inner--icon">
-                    <i v-if="!hideCategoriesValue" class="fas fa-arrow-right text-light"></i>
-                    <i v-else="hideCategoriesValue" class="fas fa-arrow-left text-light"></i>
-                  </span>
-                </button>
-              </div>
-              <div class="col-11">
+              <div class="col-12">
                 <div id="top-right" class="form-group">
                   <c-input-group>
                     <c-input-left-element>
@@ -33,7 +25,7 @@
               <UtilitiesLoading v-if="products_loading" />
             </div>
             <div class="row mt-3">
-              <div v-if="!hideCategoriesValue" class="col-4 show-scroll">
+              <div v-if="settings.showCategories" class="col-4 show-scroll">
                 <div class="h-sub-items-height category-list p-2">
                   <ul class="nav flex-column p-0">
                     <li :class="(category.id== selectedCategory ? 'activeCategory' : '')" class="nav-item" v-for="category in categories" :key="'category-'+category.id">
@@ -44,10 +36,10 @@
                   </ul>
                 </div>
               </div>
-              <div :class="hideCategoriesValue ? 'col-12' : 'col-8'" class="show-scroll">
+              <div :class="!settings.showCategories ? 'col-12' : 'col-8'" class="show-scroll">
                 <div class="h-sub-items-height p-2">
                   <div class="row">
-                    <div :class="hideCategoriesValue ? 'col-xl-4 col-sm-6' : 'col-xl-6 col-sm-12'" v-for="product in products" :key="'product-'+product.id">
+                    <div :class="!settings.showCategories ? 'col-xl-4 col-sm-6' : 'col-xl-6 col-sm-12'" v-for="product in products" :key="'product-'+product.id">
                       <SupermarketNeworderProduct :orderIndex="orderIndex" :product="product" />
                     </div>
                   </div>
@@ -57,7 +49,7 @@
           </div>
         </div>
       </div>
-      <div class="col-7 r-2 b-1">
+      <div class="col r-2 b-1">
         <div class="card-fluid p-4">
           <div class="text-right">
             <div class="row mx-0">
@@ -75,6 +67,8 @@
                   <c-button :isDisabled="productsAdded.length <= 0" @click="emptyProducts()" variant-color="red" class="r-2" variant="solid">
                     حذف الكل
                   </c-button>
+
+                  <SupermarketNeworderSettings />
                 </div>
               </div>
             </div>
@@ -157,7 +151,7 @@ export default {
       productsAdded: "supermarket/orders/productsAdded",
       lastOrder: "supermarket/orders/lastOrder",
       selectedCategory: "supermarket/orders/selectedCategory",
-      hideCategoriesValue: "supermarket/orders/hideCategoriesValue",
+      settings: "supermarket/orders/settings",
       totalPrice: "supermarket/orders/totalPrice",
 
       // Services Properties
@@ -180,7 +174,6 @@ export default {
   methods: {
     ...mapMutations({
       onlyProducts: "supermarket/orders/onlyProducts",
-      hideCategories: "supermarket/orders/hideCategories",
     }),
     ...mapActions({
       emptyProducts: "supermarket/orders/emptyProducts",

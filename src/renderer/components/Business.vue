@@ -77,14 +77,15 @@ import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   props: ["title", "sub_title", "new_service", "link", "name", "icon", "all"],
-  computed:{
-    hasAdmin(){
-      let businesses = this.all.filter(x => x.pivot.user_type == 'admin')
-      if (businesses.length > 0)
-        return true
-      else
-        return false      
-    }
+  computed: {
+    hasAdmin() {
+      let businesses = this.all.filter((x) => x.pivot.user_type == "admin");
+      if (businesses.length > 0) return true;
+      else return false;
+    },
+  },
+  created() {
+    console.log(this.$auth.user);
   },
   data() {
     return {
@@ -93,10 +94,10 @@ export default {
   },
   methods: {
     async initializeService() {
-      if (this.loading) return false
+      if (this.loading) return false;
       if (this.$auth.user[this.name]) {
         this.$router.push("/" + this.name);
-        this.selectBusiness({name: this.name, title: this.title})
+        this.selectBusiness({ name: this.name, title: this.title });
         window.localStorage.clear();
       } else {
         this.sendCreateBusiness();
@@ -130,13 +131,18 @@ export default {
 
     async newBusiness() {
       this.loading = true;
-      let businesses = await this.all.filter((x) => x.pivot.user_type == "admin");
+      let businesses = await this.all.filter(
+        (x) => x.pivot.user_type == "admin"
+      );
 
       if (businesses.length > 0) {
         if (this.$auth.user.points >= 12000)
-          await this.$dialog.confirm("سيتم إستقطاع 12,000 نقطة").then(async () => {
-            await this.sendCreateBusiness(true);
-          }).catch (async () => {});
+          await this.$dialog
+            .confirm("سيتم إستقطاع 12,000 نقطة")
+            .then(async () => {
+              await this.sendCreateBusiness(true);
+            })
+            .catch(async () => {});
         else
           this.$toast({
             title: "عدد النقاط غير كافي",
@@ -190,7 +196,7 @@ export default {
             "/api/staff/leave",
             {
               id: business.id,
-              business: this.name
+              business: this.name,
             },
             {
               withCredentials: true,
@@ -221,14 +227,14 @@ export default {
       }
     },
     ...mapActions({
-      selectBusiness: 'business/selectBusiness',
-    })
+      selectBusiness: "business/selectBusiness",
+    }),
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.card{
+.card {
   transition: 0.3s ease-in-out;
 }
 .bg {
@@ -238,7 +244,7 @@ export default {
   background: #1a2026 !important;
 }
 
-.opacity{
+.opacity {
   opacity: 0.5;
 }
 </style>

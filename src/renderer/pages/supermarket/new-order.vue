@@ -29,6 +29,7 @@ export default {
     this.fetchProducts();
     this.fetchCategories();
     this.fetchLastOrder();
+    this.fetchSettings();
     // Initiate Order
     if (this.ordersList.length <= 0) this.newOrder();
   },
@@ -37,6 +38,8 @@ export default {
       fetchProducts: "supermarket/products/fetchProducts",
       fetchCategories: "supermarket/categories/fetchCategories",
       fetchLastOrder: "supermarket/orders/fetchLastOrder",
+      fetchSettings: "supermarket/orders/fetchSettings",
+
     }),
 
     ...mapMutations({

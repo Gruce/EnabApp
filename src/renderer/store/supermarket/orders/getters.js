@@ -41,10 +41,6 @@ export default {
         return state.selectedCategory
     },
 
-    hideCategoriesValue: state => {
-        return state.hideCategories
-    },
-
     orders: state => {
         return [...state.orders].reverse()
     },
@@ -60,6 +56,10 @@ export default {
         });
 
         return sales
+    },
+
+    settings: (state) => {
+        return state.settings
     }
 
 

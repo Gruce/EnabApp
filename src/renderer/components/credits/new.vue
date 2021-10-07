@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="row mx-lg-n1 d-flex justify-content-center mt-3">
-      <div class="col-md-12 px-xl-9">
-        <div class="card mt-3 t-1 b-1 r-2 p-4">
+    <div class="row d-flex justify-content-center mt-3">
+      <div class="col-md-12">
+        <div class="card t-1 b-1 r-2 p-5">
           <!-- Payment Methods -->
 
           <div class="row d-flex">

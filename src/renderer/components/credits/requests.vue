@@ -1,5 +1,5 @@
 <template>
-  <div class="show-scroll b-1 r-2 mt-3">
+  <div class="show-scroll t-1 b-1 r-2 mt-3 p-5">
     <table class="table table-borderless table-hover text-light mt-4" v-if="requests.length > 0">
       <thead>
         <tr>
@@ -23,7 +23,7 @@
       </tbody>
     </table>
     <div v-else>
-      <c-alert class="bg-none b-1 r-2 mt-3" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
+      <c-alert class="bg-none r-2 mt-3" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
         <c-alert-icon color="gray.250" name="warning" size="40px" :mr="0" />
         <c-alert-title :mt="4" :mb="1" fontSize="xl">
           لايوجد طلبات

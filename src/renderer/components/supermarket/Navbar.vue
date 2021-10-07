@@ -14,7 +14,6 @@
                 </span>
               </nuxt-link>
             </div>
-
           </div>
           <div class="col-6">
             <div dir="ltr" class="text-white ml-3 d-flex align-items-center">

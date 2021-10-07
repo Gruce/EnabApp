@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row t-1 r-2 b-1 p-3">
+    <div class="row t-1 r-2 b-1 p-3 mx-0">
       <nuxt-link to="/" class="col-6 p-3 clickable">
         <div class="row align-items-center">
           <div class="col-auto">

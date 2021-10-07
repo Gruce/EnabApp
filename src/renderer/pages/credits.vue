@@ -1,10 +1,19 @@
 <template>
-  <div class="container mt-5 text-center">
-    <button @click="recharge = true" :class="recharge ? 'bg-light text-dark' : 't-1 text-light'" class="btn b-1 btn-lg r-2">شحن الرصيد</button>
-    <button @click="recharge = false" :class="!recharge ? 'bg-light text-dark' : 't-1 text-light'" class="btn b-1 btn-lg r-2">الطلبات</button>
+  <div class="container text-center">
+    <div class="mt-6">
 
-    <CreditsNew v-if="recharge" />
-    <CreditsRequests v-else />
+      <div class="group-links p-2 r-2">
+        <span @click="recharge = true" :class="recharge ? 'active' : ''" class="badge r-2 py-3 px-3 pointer fs-5">
+          شحن الرصيد
+        </span>
+        <span @click="recharge = false" :class="!recharge ? 'active' : ''" class="badge r-2 py-3 px-3 pointer fs-5">
+          الطلبات
+        </span>
+      </div>
+
+      <CreditsNew v-if="recharge" />
+      <CreditsRequests v-else />
+    </div>
   </div>
 </template>
 
@@ -12,15 +21,13 @@
 import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
-  data(){
+  data() {
     return {
-      recharge: true
-    }
-  }
+      recharge: true,
+    };
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-
-
 </style>
