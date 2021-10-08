@@ -40,6 +40,12 @@
                   <span @click="toggleMenu" v-b-tooltip.hover.bottom title="القائمة" class="badge pointer py-2 px-3 text-warning-h">
                     {{ $auth.user.name }}
                   </span>
+
+                  <nuxt-link to="/">
+                    <span v-b-tooltip.hover.bottom title="الأعمال" class="badge pointer py-2 px-3">
+                      <i class="fas fa-arrow-left"></i>
+                    </span>
+                  </nuxt-link>
                 </div>
 
                 <!-- <div class="mr-1">
