@@ -408,7 +408,21 @@ input[type=checkbox]:checked+[data-chakra-component="CControlBox"]>*, input[type
     }
 }
 
+
 .card-header {
     background-color: #ffffff08;
     border-bottom: 1px solid #ffffff21;
+}
+
+.carousel-inner {
+    border-radius: $r-1 !important;
+}
+
+[data-chakra-component="CCircularProgress"] > svg {
+    circle:nth-child(1) {
+        color: #fff !important;
+    }
+    circle:nth-child(2) {
+        color: #5cc9a7 !important;
+    }
 }

@@ -35,14 +35,25 @@ export default {
         this.$auth.$storage.setLocalStorage('default-printer', defaultPrinter)
     },
 
-    getPrintState({commit}){
+    getPrintState({ commit }) {
         let thisState = this.$auth.$storage.getLocalStorage('print-state')
         if (thisState)
             commit('setPrintState', thisState)
     },
-    
+
     async setPrintState({ commit, state }) {
         await commit('togglePrintState')
         this.$auth.$storage.setLocalStorage('print-state', state.printState)
+    },
+
+    async fetchAds({ commit, state }, business_id) {
+        await this.$axios
+            .get('/api/ads/' + business_id, { withCredentials: true })
+            .then((response) => {
+                commit('setAds', response.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 }

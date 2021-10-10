@@ -10,11 +10,11 @@
       <SupermarketMenuUpdateProgress />
 
       <!-- Components -->
-      <div class="row d-flex align-content-stretch flex-wrap">
+      <div class="row mb-3">
+        <SupermarketMenuQuickAccess />
+      </div>
+      <div class="row d-flex align-content-stretch flex-wrap components-height">
         <!-- Quick Access Buttons -->
-        <div class="col-1">
-          <SupermarketMenuQuickAccess />
-        </div>
         <!-- Quick Change Buttons -->
         <div class="col-3">
           <SupermarketMenuQuickChange />
@@ -42,7 +42,7 @@
           </div>
         </div>
         <!-- User Configuration -->
-        <div class="col-3 d-flex flex-column">
+        <div class="col-4 d-flex flex-column">
           <div class="row flex-fill">
             <div class="col-12">
               <SupermarketMenuUserProfile />
@@ -56,7 +56,7 @@
         </div>
       </div>
 
-      <div class="row mt-5">
+      <div class="row mt-4">
         <div class="text-center text-light"> عنب، مع كل الحب <i class="fas fa-heart text-danger"></i> </div>
       </div>
     </div>
@@ -85,7 +85,7 @@ export default {
 }
 
 .night {
-  background: rgba(0, 0, 0, 0.4) !important;
+  background: rgba(0, 0, 0, 0.7) !important;
 }
 
 .main-menu {
@@ -94,9 +94,9 @@ export default {
   right: 0;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 10;
   .container {
     // margin-top: 2rem;
@@ -111,7 +111,7 @@ export default {
   .content {
     height: 100%;
     padding: 10px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.1);
     border: 1px solid $t-3;
     border-radius: $r-2;
     transition: 0.3s ease-out;
@@ -119,7 +119,7 @@ export default {
 
   .pointer:hover {
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.3);
     &.bg-success {
       background: #146c43 !important;
     }

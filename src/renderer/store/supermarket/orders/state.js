@@ -8,7 +8,7 @@ export default () => ({
     calculator: false,
     selectedCategory: 0,
     settings: {
-        showProducts: false,
+        showProducts: true,
         showCategories: true,
     }
 })

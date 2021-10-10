@@ -17,5 +17,10 @@ export default {
 
     togglePrintState(state) {
         state.printState = !state.printState
-    }
+    },
+
+    setAds(state, data) {
+        state.ads = data
+    },
+
 }

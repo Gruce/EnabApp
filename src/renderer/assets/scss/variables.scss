@@ -14,6 +14,7 @@ $tb-4: #000000cc;
 $t-2: #fcfcfc90;
 $t-3: #eaecf340;
 .t-1{background: $t-1 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
+.t-1-h{transition: 0.1s linear; &:hover{@extend .t-1}}
 .tb-0{background: $tb-0 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
 .tb-1{background: $tb-1 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
 .tb-2{background: $tb-2 !important;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}

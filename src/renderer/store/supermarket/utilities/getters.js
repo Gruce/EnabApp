@@ -11,6 +11,10 @@ export default {
         return state.defaultPrinter
     },
 
+    ads: state => {
+        return state.ads
+    },
+
     
 
 

@@ -1,5 +1,7 @@
 <template>
-  <div class="height show-scrollr">
+  <div>
+    <SupermarketHomeRank />
+
     <SupermarketHomePerformanceDailyGoals />
 
     <SupermarketHomePerformanceMonthlyStatics class="mt-3" />
@@ -11,8 +13,5 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-.height {
-  min-height: calc(100vh - 10rem) !important;
-  max-height: calc(100vh - 10rem) !important;
-}
+
 </style>

@@ -35,8 +35,8 @@ export default {
 }
 
 .max-height {
-  min-height: 380px !important;
-  max-height: 380px !important;
+  min-height: 30vh !important;
+  max-height: 30vh !important;
 }
 
 // @media (max-height: 1420px) {

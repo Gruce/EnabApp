@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row mx-0 mb-3">
+    <div class="row mx-0 mb-2">
       <div class="col-6 p-0">
         <div class="text-light">
           <div class="display-4">
