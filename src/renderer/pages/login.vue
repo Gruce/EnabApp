@@ -28,9 +28,15 @@
           <nuxt-link to="/forgetpassword" class="text-light">
             هل نسيت كلمة السر؟
           </nuxt-link>
-          
+
           <button type="submit" class="btn btn-block btn-lg r-2 btn-light py-3 mt-5">تسجيل الدخول</button>
         </form>
+      </div>
+
+      <div class="w-100 text-center mt-5">
+        <a href="https://enab.app/businesses/subscribe" class="btn btn-link text-light" target="_blank">
+          <span>ليس لديك حساب؟ أشترك الآن مجاناً</span>
+        </a>
       </div>
     </div>
   </div>
@@ -96,5 +102,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

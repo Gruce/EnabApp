@@ -426,3 +426,12 @@ input[type=checkbox]:checked+[data-chakra-component="CControlBox"]>*, input[type
         color: #5cc9a7 !important;
     }
 }
+
+[data-chakra-component="CTab"]{
+    border-radius: $r-2 !important;
+}
+
+[data-chakra-component="CTab"][aria-selected=true]{
+    background: $tb-2 !important;
+    border-radius: $r-2;
+}

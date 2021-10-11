@@ -98,6 +98,9 @@ export default {
       if (this.$auth.user[this.name]) {
         this.$router.push("/" + this.name);
         this.selectBusiness({ name: this.name, title: this.title });
+
+        // Clear Storage
+        window.localStorage.
         window.localStorage.clear();
       } else {
         this.sendCreateBusiness();

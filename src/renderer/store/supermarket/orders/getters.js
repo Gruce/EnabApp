@@ -45,6 +45,10 @@ export default {
         return [...state.orders].reverse()
     },
 
+    ordersOfCustomer: (state, getters) => id => {
+        return getters.orders.filter(x => x.customer_id == id)
+    },
+
     // Analytics
     sales: (state, getters) => {
         let sales = 0

@@ -64,6 +64,7 @@
 import { mapActions, mapGetters } from "vuex";
 
 export default {
+  props: ['opened', 'data'],
   layout: "supermarket",
   head: {
     title: "Manage",
@@ -74,10 +75,13 @@ export default {
       customerAssign: "supermarket/services/customerAssign",
     }),
   },
-  data() {
+  data(){
     return {
-      open: "orders",
-    };
+      open: "orders"
+    }
+  },
+  mounted(){
+    if (this.opened) this.open = "orders"
   },
   methods: {
     getOpen: function (opened) {

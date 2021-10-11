@@ -1,5 +1,9 @@
 <template>
-  <div class="mt-3">
+<div>
+  <div v-if="selectedCustomer > 0">
+    <SupermarketCustomersCustomer @no-customer="selectedCustomer = -1" :id="selectedCustomer" />
+  </div>
+  <div :class="{ 'd-none': selectedCustomer > 0 }" class="mt-3">
     <!-- Show Products Modal -->
     <c-modal size="5xl" :is-open="show" :on-close="closeModal">
       <c-modal-content class="r-2" ref="content">
@@ -18,13 +22,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(s, i) in showProducts" :key="s.product ? s.product.id : 'products.'+i">
+              <tr v-for="(s, i) in showProducts" :key="s.pivot.product_id">
                 <th scope="row">{{ ++i }}</th>
-                <td>{{ s.product ? s.product.name : 'محذوف' }}</td>
-                <td>{{ s.product ? categories.find(x => x.id == s.product.category_id).name : 'محذوف' }}</td>
-                <td>{{ s.product ? s.product.barcode : '######' }}</td>
-                <td>{{ s.price }}</td>
-                <td>{{ s.inCount }}</td>
+                <td>{{ s.name }}</td>
+                <td>{{ s.category.name }}</td>
+                <td>{{ s.barcode }}</td>
+                <td>{{ s.pivot.price }}</td>
+                <td>{{ s.pivot.count }}</td>
               </tr>
             </tbody>
           </table>
@@ -57,14 +61,27 @@
                 <th scope="col">أسم الزبون</th>
                 <th scope="col">رقم الطلب</th>
                 <th scope="col">المبلغ الكلي</th>
+                <th scope="col">اسم الموظف</th>
+                <th scope="col">التحكم</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(order, i) in paginatedData" :key="order.id" class="table-divider hover-translate-y-n3 pointer" @click="getProducts(order.products), show = true">
+              <tr v-for="(order, i) in paginatedData" :key="order.id" class="table-divider hover-translate-y-n3">
                 <td class="align-middle" scope="row">{{ paginatedCounter + i + 1 }}</td>
-                <td class="align-middle">{{ (order.customer_id ? order.customer_id : 'لايوجد') }}</td>
+                <td class="align-middle">
+                  <button v-if="order.customer" class="btn p-0" @click="selectedCustomer = order.customer.id">
+                    {{ order.customer.name }}
+                  </button>
+                  <span v-else>لايوجد</span>
+                </td>
                 <td class="align-middle">{{ order.order_number }}</td>
                 <td class="align-middle">{{ $n(order.total_price, 'currency') }}</td>
+                <td class="align-middle">{{ order.user.name }}</td>
+                <td class="align-middle">
+                  <c-button variant-color="gray" size="xs" @click="getProducts(order.products), show = true" variant="ghost">
+                    <i class="fas fa-eye"></i>
+                  </c-button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -86,6 +103,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -93,11 +111,6 @@ import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters({
-      categories: "supermarket/categories/categories",
-      products: "supermarket/products/products",
-    }),
-
     orders() {
       return this.$store.getters["supermarket/orders/orders"];
     },
@@ -110,6 +123,7 @@ export default {
       show: false,
       search: "",
       showProducts: [],
+      selectedCustomer: -1,
 
       // Pagination
       paginatedData: [],
@@ -121,14 +135,7 @@ export default {
       this.show = false;
     },
     getProducts: function (products) {
-      let fullProducts = products.map((x) => {
-        return {
-          product: this.products.find((y) => y.id == x.id),
-          inCount: x.pivot.count,
-          price: x.pivot.price,
-        };
-      });
-      this.showProducts = fullProducts;
+      this.showProducts = products;
     },
     ...mapActions({
       fetchOrders: "supermarket/orders/fetchOrders",

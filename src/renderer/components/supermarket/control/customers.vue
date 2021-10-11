@@ -1,6 +1,9 @@
 <template>
   <div class="mt-3">
-    <div class="r-2 border-0 shadow-none">
+    <div v-if="selectedCustomer > 0">
+      <SupermarketCustomersCustomer @no-customer="selectedCustomer = -1" :id="selectedCustomer" />
+    </div>
+    <div :class="{ 'd-none': selectedCustomer > 0 }" class="r-2 border-0 shadow-none">
       <div class="row">
         <div class="col-xl-12 col-md-12 d-flex align-items-center">
           <c-heading as="h1" fontSize="4xl" ml="4" color="white">الزبائن</c-heading>
@@ -81,6 +84,9 @@
                 <td class="align-middle">{{ customer.phonenumber }}</td>
                 <td class="align-middle">{{ customer.location }}</td>
                 <td class="align-middle">
+                  <c-button v-if="customer.id !== 0" variant-color="gray" size="xs" @click="selectedCustomer = customer.id" variant="ghost">
+                    <i class="fas fa-eye"></i>
+                  </c-button>
                   <c-button v-if="customer.id !== 0" variant-color="blue" size="xs" @click="thisData = getCustomer(customer.id), editState = true, show = true" variant="ghost">
                     <i class="fas fa-pen"></i>
                   </c-button>
@@ -118,10 +124,11 @@ export default {
     ...mapGetters({
       getCustomer: "supermarket/customers/customer",
     }),
+    
 
-    customers(){
-      return this.$store.getters['supermarket/customers/customers']
-    }
+    customers() {
+      return this.$store.getters["supermarket/customers/customers"];
+    },
   },
   data() {
     return {
@@ -130,13 +137,14 @@ export default {
       thisData: {},
       editState: "",
       loading: false,
+      selectedCustomer: 0,
 
       // Pagination
       paginatedData: [],
-      paginatedCounter: 0
+      paginatedCounter: 0,
     };
   },
-  created(){
+  created() {
     this.fetchCustomers();
   },
   methods: {
@@ -162,7 +170,6 @@ export default {
     ...mapActions({
       removeCustomer: "supermarket/customers/removeCustomer",
       fetchCustomers: "supermarket/customers/fetchCustomers",
-
     }),
   },
   watch: {

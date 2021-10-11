@@ -8,7 +8,6 @@
       <div class="col-4 height show-scroll">
         <SupermarketHomePerformance />
       </div>
-
     </div>
   </div>
 </template>
