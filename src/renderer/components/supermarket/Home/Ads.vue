@@ -7,7 +7,7 @@
     <div v-else>
       <b-carousel id="carousel-fade" style="text-shadow: 0px 0px 2px #000" class="mb-3" fade indicators img-width="1024" img-height="480">
         <a v-for="ad in ads" :key="ad.id" :href="ad.url" target="_blank">
-          <b-carousel-slide :img-src="ad.image"></b-carousel-slide>
+          <b-carousel-slide :img-src="'https://api.enab.app/storage/' + ad.image"></b-carousel-slide>
         </a>
       </b-carousel>
     </div>
@@ -25,7 +25,7 @@ export default {
     }),
   },
   async created() {
-    await this.fetchAds(this.$auth.user.supermarket.id);
+    await this.fetchAds("supermarket");
     this.loading = false
   },
   data() {

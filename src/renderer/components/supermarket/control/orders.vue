@@ -78,8 +78,8 @@
                 <td class="align-middle">{{ $n(order.total_price, 'currency') }}</td>
                 <td class="align-middle">{{ order.user.name }}</td>
                 <td class="align-middle">
-                  <c-button variant-color="gray" size="xs" @click="getProducts(order.products), show = true" variant="ghost">
-                    <i class="fas fa-eye"></i>
+                  <c-button size="xs" @click="getProducts(order.products), show = true" variant="ghost">
+                    <i class="fas fa-eye text-dark"></i>
                   </c-button>
                 </td>
               </tr>

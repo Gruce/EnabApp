@@ -15,7 +15,7 @@
       <div class="col-xl-12 col-md-12 d-flex align-items-center">
         <div class="row w-100">
           <div class="col-4 t-1-h p-3 r-2 text-center">
-            <h1 class="fs-1 text-light">300$</h1>
+            <h1 class="fs-1 text-light">{{$n(ordersTotal, 'currency')}}</h1>
             <span class="fs-5">إجمالي الطلبات</span>
           </div>
           <div class="col-4 t-1-h p-3 r-2 text-center">
@@ -37,7 +37,7 @@
               <c-tab>النشاطات</c-tab>
             </c-tab-list>
 
-            <c-tab-panels class="mt-2 t-1 r-2 p-2">
+            <c-tab-panels class="mt-2 t-1 r-2 p-3">
               <c-tab-panel>
                 <SupermarketCustomersOrders :orders="orders" />
               </c-tab-panel>
@@ -70,6 +70,10 @@ export default {
       return this.$store.getters["supermarket/orders/ordersOfCustomer"](
         this.id
       );
+    },
+
+    ordersTotal() {
+      return this.orders.reduce((a, b) => +a + +b.total_price, 0);
     },
   },
 };

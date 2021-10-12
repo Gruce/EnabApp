@@ -84,8 +84,8 @@
                 <td class="align-middle">{{ customer.phonenumber }}</td>
                 <td class="align-middle">{{ customer.location }}</td>
                 <td class="align-middle">
-                  <c-button v-if="customer.id !== 0" variant-color="gray" size="xs" @click="selectedCustomer = customer.id" variant="ghost">
-                    <i class="fas fa-eye"></i>
+                  <c-button v-if="customer.id !== 0" size="xs" @click="selectedCustomer = customer.id" variant="ghost">
+                    <i class="fas fa-eye text-dark"></i>
                   </c-button>
                   <c-button v-if="customer.id !== 0" variant-color="blue" size="xs" @click="thisData = getCustomer(customer.id), editState = true, show = true" variant="ghost">
                     <i class="fas fa-pen"></i>

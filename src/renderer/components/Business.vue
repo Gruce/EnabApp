@@ -100,7 +100,6 @@ export default {
         this.selectBusiness({ name: this.name, title: this.title });
 
         // Clear Storage
-        window.localStorage.
         window.localStorage.clear();
       } else {
         this.sendCreateBusiness();

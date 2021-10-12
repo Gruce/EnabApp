@@ -14,7 +14,7 @@
 
 <script>
 const { remote } = require("electron");
-var win = remote.BrowserWindow.getFocusedWindow();
+const win = remote.BrowserWindow.getFocusedWindow();
 
 export default {
   methods: {

@@ -92,7 +92,6 @@ export default {
       this.show = false;
     },
     getProducts: function (products) {
-        console.log(products)
       this.showProducts = products;
     },
   },
