@@ -17,23 +17,22 @@
             </c-button>
           </span>
         </div>
-
-        <div v-if="$auth.user.supermarket.category_count < categories.length" class="col-12">
+        <div v-if="$auth.user.supermarket.category_count <= categories.length" class="col-12">
           <div class="alert t-3 text-light b-2 w-100 r-2 mt-3 fs-6" role="alert">
-              <div class="align-items-center d-flex">
-                <i class="fas fa-info-circle fa-2x mx-3"></i>
-                لقد تجاوزت الـ 
-                <span class="text-dark mx-1">{{ categories.length }}</span>
-                فئة.
-                يمكن زيادة المساحة بـ 
-                <span class="text-dark mx-1">2000</span>
-                نقطة للحصول على
-                <span class="badge badge-success mr-1">200 اضافية</span>
-              </div>
+            <div class="align-items-center d-flex">
+              <i class="fas fa-info-circle fa-2x mx-3"></i>
+              لقد تجاوزت الـ
+              <span class="text-dark mx-1">{{ categories.length }}</span>
+              فئة.
+              يمكن زيادة المساحة بـ
+              <span class="text-dark mx-1">2000</span>
+              نقطة للحصول على
+              <span class="badge badge-success mr-1">200 اضافية</span>
+            </div>
 
-              <span class="badge t-1 b-1 mr-3 mt-2 r-1 text-dark px-3" v-if="$auth.user.supermarket.pivot.user_type !== 'admin'">
-                  يجب ان تكون مدير
-              </span>
+            <span class="badge t-1 b-1 mr-3 mt-2 r-1 text-dark px-3" v-if="$auth.user.supermarket.pivot.user_type !== 'admin'">
+              يجب ان تكون مدير
+            </span>
           </div>
         </div>
 
@@ -66,47 +65,7 @@
           </c-box>
         </c-collapse>
 
-        <div class="table-responsive" v-if="categories.length > 0">
-
-          <table class="table table-cards text-right">
-            <thead>
-              <tr class="text-light">
-                <th scope="col">#</th>
-                <th scope="col">الاسم</th>
-                <th scope="col">عدد المنتجات</th>
-                <th scope="col">التحكم</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(category, i) in paginatedData" :key="category.id" class="table-divider">
-                <td class="align-middle" scope="row">{{ paginatedCounter + i + 1 }}</td>
-                <td class="align-middle">{{ category.name }}</td>
-                <td class="align-middle">{{ category.productsCount }}</td>
-                <td class="align-middle">
-                  <c-button v-if="category.id !== 0" variant-color="blue" size="sm" @click="thisData = getCategory(category.id), editState = true, show = true" variant="ghost">
-                    <i class="fas fa-pen"></i>
-                  </c-button>
-                  <c-button v-if="category.id !== 0" variant-color="red" size="sm" @click="removeCategory(category.id)" variant="ghost">
-                    <i class="fas fa-times"></i>
-                  </c-button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <UtilitiesLoadMore @page="paginatedCounter = $event" @data="paginatedData = $event" :data="categories" perPage="10" />
-
-        </div>
-        <div v-else>
-          <c-alert class="bg-none b-1 r-2" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
-            <c-alert-icon color="gray.250" name="warning" size="40px" :mr="0" />
-            <c-alert-title :mt="4" :mb="1" fontSize="xl">
-              لايوجد فئات
-            </c-alert-title>
-            <c-alert-description maxWidth="sm">
-              يمكن إضافة فئات من خلال (إضافة فئة)
-            </c-alert-description>
-          </c-alert>
-        </div>
+        <UtilitiesTable :data="categories" :properties="table" @remove="remove($event)" @edit="thisData = get($event), editState = true, show = true" />
       </div>
     </div>
   </div>
@@ -118,12 +77,12 @@ import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      getCategory: "supermarket/categories/category",
+      get: "supermarket/categories/category",
       products: "supermarket/products/products",
     }),
 
     categories() {
-      return this.$store.getters["supermarket/categories/categories_all"];
+      return [...this.$store.getters["supermarket/categories/categories_all"]].splice(1);;
     },
   },
   data() {
@@ -134,9 +93,18 @@ export default {
       editState: "",
       loading: false,
 
-      // Pagination
-      paginatedData: [],
-      paginatedCounter: 0,
+      table: {
+        noData: {
+          message: "لايوجد فئات",
+          tip: "يمكن إضافة فئات من خلال (إضافة فئة)",
+        },
+        edit: true,
+        remove: true,
+        head: [
+          { title: "الاسم", column: "name" },
+          { title: "عدد المنتجات", column: "products_count" },
+        ],
+      },
     };
   },
   created() {
@@ -145,12 +113,6 @@ export default {
   async mounted() {
     // Set each category products count
     const products = await this.products;
-    await this.categories.forEach((x) => {
-      this.$store.commit("supermarket/categories/set_products_count", {
-        id: x.id,
-        count: products.filter((y) => y.category_id == x.id).length,
-      });
-    });
   },
 
   methods: {
@@ -175,7 +137,7 @@ export default {
     },
 
     ...mapActions({
-      removeCategory: "supermarket/categories/removeCategory",
+      remove: "supermarket/categories/removeCategory",
       fetchCategories: "supermarket/categories/fetchCategories",
       countUp: "supermarket/categories/countUp",
     }),

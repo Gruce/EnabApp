@@ -13,7 +13,6 @@ export default {
                 .post('/api/supermarket/categories/insert', category, { withCredentials: true })
                 .then((response) => {
                     const newId = response.data.id
-                    category.productsCount = 0
                     const sendCategory = {id: newId, ...category}
                     commit('add', sendCategory)
                     dispatch('syncLocalStorage')
@@ -97,9 +96,6 @@ export default {
 
                     // Set each category products count
                     const products = await this.dispatch('supermarket/products/getProducts')
-                    await response.data.forEach(x => {
-                        commit('set_products_count', {id: x.id, count: (products.filter(y => y.category_id == x.id)).length})
-                    })
 
                     //Save To Storage
                     this.$auth.$storage.setLocalStorage('supermarket.categories', response.data)

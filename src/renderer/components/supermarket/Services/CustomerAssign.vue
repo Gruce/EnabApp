@@ -1,19 +1,20 @@
 <template>
   <!-- Service ID = 3 -->
   <div class="d-inline-block position-relative">
-    <button @click="toggleModal" type="button" :class="[productsAdded.length > 0 ? '' : 'disabled']" class="btn tb-2 text-light btn-icon-label">
-      <span class="btn-inner--icon">
-        <i class="fas fa-user"></i>
-      </span>
-      <span class="btn-inner--text">
-        <span v-if="orderList.customer_id">
-          {{ selectedCustomer }}
-        </span>
-        <span v-else>
-          تعيين زبون
-        </span>
-      </span>
-    </button>
+    <c-button
+    @click="toggleModal"
+    type="button"
+    :class="[
+      productsAdded.length > 0 ? '' : 'disabled',
+      orderList.customer_id ? 'tb-2' : 't-1',
+      orderList.debt ? 'text-warning' : ''
+    ]"
+    class="r-2" variant="solid" v-b-tooltip.hover.bottom 
+    :title="orderList.debt ? 'دين' : 'تعيين زبون'"
+    >
+      <i class="fas fa-user"></i>
+      <span v-if="orderList.customer_id" class="mr-2">{{ selectedCustomer }}</span>
+    </c-button>
 
     <div v-if="showCustomers" class="main">
       <div class="container">
@@ -154,7 +155,7 @@ export default {
     ...mapMutations({
       selectCustomer: "supermarket/orders/selectCustomer",
       unselectCustomer: "supermarket/orders/unselectCustomer",
-      toggleDebt: "supermarket/orders/toggleDebt"
+      toggleDebt: "supermarket/orders/toggleDebt",
     }),
   },
 };

@@ -18,8 +18,7 @@ export default {
   head: {
     title: "Supermarket",
   },
-  mounted(){
-
+  async mounted() {
   },
 };
 </script>

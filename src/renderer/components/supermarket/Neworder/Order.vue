@@ -62,10 +62,15 @@
               </div>
               <div class="col-6 text-left p-0">
                 <div>
+                  <!-- تعيين زبون : خدمة -->
                   <SupermarketServicesCustomerAssign v-if="customerAssign" :orderIndex="orderIndex" :productsAdded="productsAdded" />
+                  
+                  <!-- تخفيض -->
+                  <SupermarketNeworderDiscount v-if="productsAdded.length > 0" />
 
-                  <c-button :isDisabled="productsAdded.length <= 0" @click="emptyProducts()" variant-color="red" class="r-2" variant="solid">
-                    حذف الكل
+                  <!-- حذف الكل -->
+                  <c-button v-b-tooltip.hover.bottom title="حذف جميع المنتجات" :isDisabled="productsAdded.length <= 0" @click="emptyProducts()" variant-color="red" class="r-2" variant="solid">
+                    <i class="fas fa-ban"></i>
                   </c-button>
 
                   <SupermarketNeworderSettings />

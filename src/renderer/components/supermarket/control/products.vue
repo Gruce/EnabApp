@@ -97,49 +97,8 @@
           </c-box>
         </c-collapse>
 
-        <div class="table-responsive" v-if="products.length > 0">
-          <table class="table table-cards text-right">
-            <thead>
-              <tr class="text-light">
-                <th scope="col">#</th>
-                <th scope="col">الاسم</th>
-                <th scope="col">فئة المنتج</th>
-                <th scope="col">العدد</th>
-                <th scope="col">السعر</th>
-                <th scope="col">التحكم</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(product, i) in paginatedData" :key="product.id" class="table-divider">
-                <td class="align-middle" scope="row">{{ paginatedCounter + i + 1 }}</td>
-                <td class="align-middle">{{ product.name }}</td>
-                <td class="align-middle">{{ categories.find(x => x.id == product.category_id).name }}</td>
-                <td class="align-middle">{{ product.count }}</td>
-                <td class="align-middle">{{ $n(product.price, 'currency') }}</td>
-                <td class="align-middle">
-                  <c-button v-if="product.id !== 0" variant-color="blue" size="xs" @click="thisData = getProduct(product.id), editState = true, show = true" variant="ghost">
-                    <i class="fas fa-pen"></i>
-                  </c-button>
-                  <c-button v-if="product.id !== 0" variant-color="red" size="xs" @click="removeProduct(product.id)" variant="ghost">
-                    <i class="fas fa-times"></i>
-                  </c-button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <UtilitiesLoadMore @page="paginatedCounter = $event" @data="paginatedData = $event" :data="products" perPage="10" />
-        </div>
-        <div v-else>
-          <c-alert class="bg-none b-1 r-2 mt-3" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
-            <c-alert-icon color="gray.250" name="warning" size="40px" :mr="0" />
-            <c-alert-title :mt="4" :mb="1" fontSize="xl">
-              لايوجد منتجات
-            </c-alert-title>
-            <c-alert-description maxWidth="sm">
-              يمكن إضافة منتجات من خلال (إضافة منتج)
-            </c-alert-description>
-          </c-alert>
-        </div>
+        <UtilitiesTable :data="products" :properties="table" @remove="remove($event)" @edit="thisData = get($event), editState = true, show = true" />
+        
       </div>
     </div>
   </div>
@@ -152,7 +111,7 @@ export default {
   computed: {
     ...mapGetters({
       categories: "supermarket/categories/categories",
-      getProduct: "supermarket/products/product",
+      get: "supermarket/products/product",
     }),
 
     products(){
@@ -171,10 +130,20 @@ export default {
         { text: "عددي", value: 0 },
       ],
 
-      // Pagination
-      paginatedData: [],
-      paginatedCounter: 0
-
+      table: {
+        noData: {
+          message: "لايوجد منتجات",
+          tip: "يمكن إضافة منتجات من خلال (إضافة منتج)",
+        },
+        edit: true,
+        remove: true,
+        head: [
+          { title: "الاسم", column: "name" },
+          { title: "فئة المنتج", column: "category.name" },
+          { title: "العدد", column: "count" },
+          { title: "السعر", column: "price" },
+        ],
+      },
     };
   },
   created(){
@@ -203,7 +172,7 @@ export default {
     },
 
     ...mapActions({
-      removeProduct: "supermarket/products/removeProduct",
+      remove: "supermarket/products/removeProduct",
       fetchProducts: "supermarket/products/fetchProducts",
       countUp: "supermarket/products/countUp",
     }),

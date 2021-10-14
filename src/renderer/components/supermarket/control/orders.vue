@@ -53,53 +53,7 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div class="table-responsive" v-if="orders.length > 0">
-          <table class="table table-cards text-right">
-            <thead>
-              <tr class="text-light">
-                <th scope="col">#</th>
-                <th scope="col">أسم الزبون</th>
-                <th scope="col">رقم الطلب</th>
-                <th scope="col">المبلغ الكلي</th>
-                <th scope="col">اسم الموظف</th>
-                <th scope="col">التحكم</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(order, i) in paginatedData" :key="order.id" class="table-divider hover-translate-y-n3">
-                <td class="align-middle" scope="row">{{ paginatedCounter + i + 1 }}</td>
-                <td class="align-middle">
-                  <button v-if="order.customer" class="btn p-0" @click="selectedCustomer = order.customer.id">
-                    {{ order.customer.name }}
-                  </button>
-                  <span v-else>لايوجد</span>
-                </td>
-                <td class="align-middle">{{ order.order_number }}</td>
-                <td class="align-middle">{{ $n(order.total_price, 'currency') }}</td>
-                <td class="align-middle">{{ order.user.name }}</td>
-                <td class="align-middle">
-                  <c-button size="xs" @click="getProducts(order.products), show = true" variant="ghost">
-                    <i class="fas fa-eye text-dark"></i>
-                  </c-button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <UtilitiesLoadMore @page="paginatedCounter = $event" @data="paginatedData = $event" :data="orders" perPage="10" />
-
-        </div>
-        <div v-else>
-          <c-alert class="bg-none b-1 r-2" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
-            <c-alert-icon color="gray.250" name="warning" size="40px" :mr="0" />
-            <c-alert-title :mt="4" :mb="1" fontSize="xl">
-              لايوجد طلبات
-            </c-alert-title>
-            <c-alert-description maxWidth="sm">
-              يمكن الشروع بإضافة الطلبات من خلال
-              <nuxt-link to="/supermarket/new-order" class="fw-bold text-light"> نافذة الطلبات </nuxt-link>
-            </c-alert-description>
-          </c-alert>
-        </div>
+          <UtilitiesTable :data="orders" :properties="table" @watch="selectedCustomer = $event"/>
       </div>
     </div>
   </div>
@@ -125,9 +79,20 @@ export default {
       showProducts: [],
       selectedCustomer: -1,
 
-      // Pagination
-      paginatedData: [],
-      paginatedCounter: 0,
+      table: {
+        noData: {
+          message: "لايوجد طلبات",
+          tip: "يمكن إضافة طلب من خلال (إضافة طلب)",
+          link: "/supermarket/new-order"
+        },
+        watch: true,
+        head: [
+          { title: "اسم الزبون", column: "customer.name" },
+          { title: "رقم  الطلب", column: "order_number" },
+          { title: "المبلغ الكلي", column: "total_price" },
+          { title: "اسم الموظف", column: "user.name" },
+        ],
+      },
     };
   },
   methods: {

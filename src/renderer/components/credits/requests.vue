@@ -55,6 +55,8 @@ export default {
           return "اسياسيل";
         case 2:
           return "زين";
+        case 3:
+          return "زين كاش";
         default:
           return "غير معروف";
       }

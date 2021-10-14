@@ -1,7 +1,7 @@
 <template>
   <div class="d-inline">
-    <c-button @click="open" class="r-2 t-1" variant="solid" v-b-tooltip.hover.bottom title="الاعدادات">
-      <i class="fas fa-cogs"></i>
+    <c-button @click="open" class="r-2 t-1" variant="solid" v-b-tooltip.hover.bottom title="تخفيض">
+      <i class="fas fa-percentage"></i>
     </c-button>
 
     <c-modal size="xl" :is-open="isOpen" :on-close="close" :closeOnOverlayClick="false" is-centered>

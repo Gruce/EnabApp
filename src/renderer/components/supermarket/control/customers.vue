@@ -64,53 +64,7 @@
           </c-box>
         </c-collapse>
 
-        <div class="table-responsive" v-if="customers.length > 0">
-          <table class="table table-cards text-right">
-            <thead>
-              <tr class="text-light">
-                <th scope="col">#</th>
-                <th scope="col">الاسم</th>
-                <th scope="col">الدين</th>
-                <th scope="col">رقم الهاتف</th>
-                <th scope="col">العنوان</th>
-                <th scope="col">التحكم</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(customer, i) in paginatedData" :key="customer.id" class="table-divider">
-                <td class="align-middle" scope="row">{{ paginatedCounter + i + 1 }}</td>
-                <td class="align-middle">{{ customer.name }}</td>
-                <td class="align-middle">{{ customer.debt }}</td>
-                <td class="align-middle">{{ customer.phonenumber }}</td>
-                <td class="align-middle">{{ customer.location }}</td>
-                <td class="align-middle">
-                  <c-button v-if="customer.id !== 0" size="xs" @click="selectedCustomer = customer.id" variant="ghost">
-                    <i class="fas fa-eye text-dark"></i>
-                  </c-button>
-                  <c-button v-if="customer.id !== 0" variant-color="blue" size="xs" @click="thisData = getCustomer(customer.id), editState = true, show = true" variant="ghost">
-                    <i class="fas fa-pen"></i>
-                  </c-button>
-                  <c-button v-if="customer.id !== 0" variant-color="red" size="xs" @click="removeCustomer(customer.id)" variant="ghost">
-                    <i class="fas fa-times"></i>
-                  </c-button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <UtilitiesLoadMore @page="paginatedCounter = $event" @data="paginatedData = $event" :data="customers" perPage="10" />
-
-        </div>
-        <div v-else>
-          <c-alert class="bg-none b-1 r-2 mt-3" variant="subtle" flexDirection="column" justifyContent="center" textAlign="center" height="200px">
-            <c-alert-icon color="gray.250" name="warning" size="40px" :mr="0" />
-            <c-alert-title :mt="4" :mb="1" fontSize="xl">
-              لايوجد زبائن
-            </c-alert-title>
-            <c-alert-description maxWidth="sm">
-              يمكن إضافة زبائن من خلال (إضافة زبون)
-            </c-alert-description>
-          </c-alert>
-        </div>
+        <UtilitiesTable :data="customers" :properties="table" @watch="selectedCustomer = $event" @remove="remove($event)" @edit="thisData = get($event), editState = true, show = true" />
       </div>
     </div>
   </div>
@@ -122,7 +76,7 @@ import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      getCustomer: "supermarket/customers/customer",
+      get: "supermarket/customers/customer",
     }),
     
 
@@ -139,9 +93,21 @@ export default {
       loading: false,
       selectedCustomer: 0,
 
-      // Pagination
-      paginatedData: [],
-      paginatedCounter: 0,
+      table: {
+        noData: {
+          message: "لايوجد زبائن",
+          tip: "يمكن إضافة زبون من خلال (إضافة زبون)",
+        },
+        edit: true,
+        remove: true,
+        watch: true,
+        head: [
+          { title: "الاسم", column: "name" },
+          { title: "الدين", column: "debt" },
+          { title: "رقم الهاتف", column: "phonenumber" },
+          { title: "العنوان", column: "location" },
+        ],
+      },
     };
   },
   created() {
@@ -168,7 +134,7 @@ export default {
     },
 
     ...mapActions({
-      removeCustomer: "supermarket/customers/removeCustomer",
+      remove: "supermarket/customers/removeCustomer",
       fetchCustomers: "supermarket/customers/fetchCustomers",
     }),
   },

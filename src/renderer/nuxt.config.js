@@ -42,6 +42,8 @@ module.exports = {
     { src: "~/plugins/crisp.js", mode: "client" },
     { src: "~/plugins/utilities.js", mode: "client" },
     { src: "~/plugins/click-outside.js", mode: "client" },
+    { src: "~/plugins/lodash.js", mode: "client" },
+    
 
 
 
@@ -87,7 +89,9 @@ module.exports = {
 
     // Chakra UI
     '@chakra-ui/nuxt',
-    '@nuxtjs/emotion'
+    '@nuxtjs/emotion',
+
+
   ],
 
   recaptcha: {

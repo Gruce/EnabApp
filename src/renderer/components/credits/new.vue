@@ -45,11 +45,20 @@
             </div>
           </div>
 
-          <input class="form-control form-control-lg t-3 r-2 my-4" v-model="card_number" placeholder="رقم الرصيد" />
+          <div v-if="selectedMethod.name !== 'ZainCash'">
+            <input class="form-control form-control-lg t-3 r-2 my-4" v-model="card_number" placeholder="رقم الرصيد" />
 
-          <button :disabled="submitRequest ? true : false" @click="request(), submitRequest=true" class="btn btn-light btn-lg r-2 py-3 mt-3">
-            أدفع
-          </button>
+
+            <button :disabled="submitRequest ? true : false" @click="request(), submitRequest=true" class="btn btn-block btn-light btn-lg r-2 py-3 mt-3">
+              أدفع
+            </button>
+          </div>
+
+          <div v-else class="w-100">
+            <CreditsZaincash :credit="credit" />
+          </div>
+
+
           <small class="text-right mt-1">
             * سيتم شحن النقاط في حسابك خلال فترة لاتتجاوز 24 ساعة
           </small>
@@ -66,17 +75,23 @@
 import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
 
 export default {
+  computed: {
+    selectedMethod() {
+      return this.payments.find((x) => x.enabled == true)
+    }
+  },
   data() {
     return {
       payments: [
         { name: "Asiacell", enabled: true, icon: "asiacell", statue: true },
         { name: "Zain", enabled: false, icon: "zaincash", statue: true },
-        {
-          name: "Credit Card",
-          enabled: false,
-          icon: "MA",
-          statue: false,
-        },
+        { name: "ZainCash", enabled: false, icon: "zaincash", statue: true },
+        // {
+        //   name: "Credit Card",
+        //   enabled: false,
+        //   icon: "MA",
+        //   statue: false,
+        // },
       ],
       credit: 5000,
       points: 2500,

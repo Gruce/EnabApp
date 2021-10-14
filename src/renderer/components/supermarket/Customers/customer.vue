@@ -23,8 +23,8 @@
             <span class="fs-5">الدين</span>
           </div>
           <div class="col-4 t-1-h p-3 r-2 text-center">
-            <h1 class="fs-1 text-light">300$</h1>
-            <span class="fs-5">الدين</span>
+            <h1 class="fs-1 text-light">{{ orders.length }}</h1>
+            <span class="fs-5">عدد الطلبات</span>
           </div>
         </div>
       </div>
