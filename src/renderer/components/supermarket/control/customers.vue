@@ -98,9 +98,11 @@ export default {
           message: "لايوجد زبائن",
           tip: "يمكن إضافة زبون من خلال (إضافة زبون)",
         },
-        edit: true,
-        remove: true,
-        watch: true,
+        control: [
+          {name: "watch", icon: "fa-eye"},
+          {name: "edit", icon: "fa-pen", variant: "primary"},
+          {name: "remove", icon: "fa-times", variant: "danger"},
+        ],
         head: [
           { title: "الاسم", column: "name" },
           { title: "الدين", column: "debt" },
@@ -136,11 +138,6 @@ export default {
     ...mapActions({
       remove: "supermarket/customers/removeCustomer",
       fetchCustomers: "supermarket/customers/fetchCustomers",
-    }),
-  },
-  watch: {
-    ...mapActions({
-      search: "supermarket/customers/search",
     }),
   },
 };

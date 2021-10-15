@@ -33,16 +33,27 @@ export default {
         }
     },
 
-    async editProduct({ commit, dispatch }, product) {
-        await commit('edit', product)
-        dispatch('syncLocalStorage')
-        //########### SEND TO API ###########//.
-        await this.$axios
-            .post('/api/supermarket/products/update', product, { withCredentials: true })
-            .catch((error) => {
-                console.log(error)
-            })
-        this.$toast.success('تم التعديل')
+    async editProduct({ state, commit, dispatch }, product) {
+        if (await this.dispatch('supermarket/categories/getCategory', product.category_id) === undefined) {
+            this.$toast.error('هذه الفئة غير موجودة')
+            return false
+        }
+
+        else if (state.products.find(x => (x.name == product.name && x.category_id == product.category_id))) {
+            this.$toast.info('هذا المنتج موجود بالفعل!')
+            return false
+        }
+        else {
+            await commit('edit', product)
+            dispatch('syncLocalStorage')
+            //########### SEND TO API ###########//.
+            await this.$axios
+                .post('/api/supermarket/products/update', product, { withCredentials: true })
+                .catch((error) => {
+                    console.log(error)
+                })
+            this.$toast.success('تم التعديل')
+        }
     },
 
     async removeProduct({ commit, dispatch }, id) {
@@ -69,8 +80,8 @@ export default {
         //     })
     },
 
-    async countUp(){
-        if (this.$auth.user.point < 2000){
+    async countUp() {
+        if (this.$auth.user.point < 2000) {
             this.$toast.success('عدد النقاط غير كافي')
             return false
         }

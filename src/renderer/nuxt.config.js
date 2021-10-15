@@ -91,7 +91,6 @@ module.exports = {
     '@chakra-ui/nuxt',
     '@nuxtjs/emotion',
 
-
   ],
 
   recaptcha: {

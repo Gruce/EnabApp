@@ -1,6 +1,12 @@
 <template>
   <div>
-    <div class="table-responsive" v-if="data">
+    <div class="table-responsive" v-if="data.length > 0">
+      <c-input-group v-if="properties.search" mt=1>
+        <c-input-left-element>
+          <i class="fas fa-search"></i>
+        </c-input-left-element>
+        <c-input py=5 v-model="searchInput" type="text" placeholder="بحث" />
+      </c-input-group>
       <table class="table table-cards text-right">
         <thead>
           <tr class="text-light">
@@ -23,27 +29,21 @@
             <!-- Control Column -->
             <td class="align-middle">
               <!-- Custom Control -->
-              <slot name="control" />
+              <!-- <slot name="control" /> -->
 
               <!-- Controllable Buttons -->
               <div class="d-inline-block" v-if="x.id">
-                <c-button v-if="properties.watch" size="sm" @click="$emit('watch', x.id)" variant="ghost">
-                  <i class="fas fa-eye text-dark"></i>
-                </c-button>
-
-                <c-button v-if="properties.edit" variant-color="blue" size="sm" @click="$emit('edit', x.id)" variant="ghost">
-                  <i class="fas fa-pen"></i>
-                </c-button>
-
-                <c-button v-if="properties.remove" variant-color="red" size="sm" @click="$emit('remove', x.id)" variant="ghost">
-                  <i class="fas fa-times"></i>
-                </c-button>
+                <div v-for="control in properties.control" :key="control.name" class="d-inline-block">
+                  <c-button v-if="$_.get(x, control.column ? control.column : 'id')" size="sm" @click="$emit(control.name, $_.get(x, control.column ? control.column : 'id'))" variant="ghost">
+                    <i class="fas" :class="[control.icon, 'text-'+(control.variant ? control.variant : 'dark')]"></i>
+                  </c-button>
+                </div>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
-      <UtilitiesLoadMore @page="paginatedCounter = $event" @data="paginatedData = $event" :data="data" perPage="10" />
+      <UtilitiesLoadMore @page="paginatedCounter = $event" @data="paginatedData = $event" :data="datas" perPage="10" />
 
     </div>
     <div v-else>
@@ -52,9 +52,13 @@
         <c-alert-title :mt="4" :mb="1" fontSize="xl" v-if="properties.noData.message">{{properties.noData.message}}</c-alert-title>
         <c-alert-title :mt="4" :mb="1" fontSize="xl" v-else>لايوجد بيانات</c-alert-title>
         <c-alert-description maxWidth="sm">
-          <span v-if="properties.noData.tip">{{properties.noData.tip}}</span>
+          <span v-if="properties.noData.tip">
+            <nuxt-link v-if="properties.noData.link" :to="properties.noData.link" class="fw-bold text-light">
+              {{properties.noData.tip}}
+            </nuxt-link>
+            <span v-else>{{properties.noData.tip}}</span>
+          </span>
           <span v-else></span>
-          <nuxt-link v-if="properties.noData.link" to="/supermarket/new-order" class="fw-bold text-light"> نافذة الطلبات </nuxt-link>
         </c-alert-description>
       </c-alert>
     </div>
@@ -68,12 +72,23 @@ export default {
     columns() {
       return this.properties.head.filter((x) => x.column);
     },
+    datas() {
+      let datas = this.data;
+      if (this.searchInput !== "") {
+        datas = datas.filter((x) => {
+          let t = this.$_.get(x, this.properties.search);
+          return this.$_.includes((t + ''), this.searchInput);
+        });
+      }
+      return datas;
+    },
   },
   data() {
     return {
       // Pagination
       paginatedData: [],
       paginatedCounter: 0,
+      searchInput: "",
     };
   },
 };

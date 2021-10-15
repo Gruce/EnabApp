@@ -20,31 +20,21 @@
 
         <div v-if="$auth.user.supermarket.product_count <= products.length" class="col-12">
           <div class="alert t-3 text-light b-2 w-100 r-2 mt-3 fs-6" role="alert">
-              <div class="align-items-center d-flex">
-                <i class="fas fa-info-circle fa-2x mx-3"></i>
-                لقد تجاوزت الـ 
-                <span class="text-dark mx-1">{{ products.length }}</span>
-                منتج.
-                يمكن زيادة المساحة بـ 
-                <span class="text-dark mx-1">2000</span>
-                نقطة للحصول على
-                <span class="badge badge-success mr-1">500 اضافية</span>
-              </div>
+            <div class="align-items-center d-flex">
+              <i class="fas fa-info-circle fa-2x mx-3"></i>
+              لقد تجاوزت الـ
+              <span class="text-dark mx-1">{{ products.length }}</span>
+              منتج.
+              يمكن زيادة المساحة بـ
+              <span class="text-dark mx-1">2000</span>
+              نقطة للحصول على
+              <span class="badge badge-success mr-1">500 اضافية</span>
+            </div>
 
-              <span class="badge t-1 b-1 mr-3 mt-2 r-1 text-dark px-3" v-if="$auth.user.supermarket.pivot.user_type !== 'admin'">
-                  يجب ان تكون مدير
-              </span>
+            <span class="badge t-1 b-1 mr-3 mt-2 r-1 text-dark px-3" v-if="$auth.user.supermarket.pivot.user_type !== 'admin'">
+              يجب ان تكون مدير
+            </span>
           </div>
-        </div>
-
-
-        <div class="col-xl-12 col-md-12">
-            <c-input-group mt=1>
-              <c-input-left-element>
-                <i class="fas fa-search"></i>
-              </c-input-left-element>
-              <c-input py=5 v-model="search" type="text" placeholder="بحث" />
-            </c-input-group>
         </div>
       </div>
       <div class="mt-3">
@@ -98,7 +88,7 @@
         </c-collapse>
 
         <UtilitiesTable :data="products" :properties="table" @remove="remove($event)" @edit="thisData = get($event), editState = true, show = true" />
-        
+
       </div>
     </div>
   </div>
@@ -114,9 +104,9 @@ export default {
       get: "supermarket/products/product",
     }),
 
-    products(){
-      return this.$store.getters['supermarket/products/products']
-    }
+    products() {
+      return this.$store.getters["supermarket/products/products"];
+    },
   },
   data() {
     return {
@@ -135,8 +125,11 @@ export default {
           message: "لايوجد منتجات",
           tip: "يمكن إضافة منتجات من خلال (إضافة منتج)",
         },
-        edit: true,
-        remove: true,
+        search: "name",
+        control: [
+          {name: "edit", icon: "fa-pen", variant: "primary"},
+          {name: "remove", icon: "fa-times", variant: "danger"},
+        ],
         head: [
           { title: "الاسم", column: "name" },
           { title: "فئة المنتج", column: "category.name" },
@@ -146,7 +139,7 @@ export default {
       },
     };
   },
-  created(){
+  created() {
     this.fetchProducts();
   },
   methods: {
@@ -175,11 +168,6 @@ export default {
       remove: "supermarket/products/removeProduct",
       fetchProducts: "supermarket/products/fetchProducts",
       countUp: "supermarket/products/countUp",
-    }),
-  },
-  watch: {
-    ...mapActions({
-      search: "supermarket/products/search",
     }),
   },
 };

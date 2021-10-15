@@ -1,8 +1,10 @@
 <template>
   <div>
-    <div v-if="!updateProgress.percent" class="content py-4 text-center d-flex flex-column justify-content-center align-items-center">
+    <div @click="$emit('toggle')" v-if="!updateProgress.percent" class="content pointer py-4 text-center d-flex flex-column justify-content-center align-items-center">
       <i class="fas fa-history fa-3x text-light"></i>
-      <span class="text-light mt-3 fw-bold h6">{{version}} <small class="text-light">(اخر اصدار)</small></span>
+      <span class="text-light mt-3 fw-bold h6">{{version}}
+        <small class="text-light">(اخر اصدار)</small>
+      </span>
     </div>
     <div v-if="updateProgress.percent && updateProgress.percent !==100" class="content bg-info text-center d-flex flex-column justify-content-center align-items-center">
       <i class="fas fa-redo fa-spin fa-3x text-light"></i>
@@ -35,11 +37,15 @@ export default {
   data() {
     return {
       version: "",
+      show: false,
     };
   },
   methods: {
     updateCompleted() {
       ipcRenderer.send("restart_app");
+    },
+    closeModal() {
+      this.show = false;
     },
   },
 };

@@ -13,7 +13,10 @@
       <div class="row mb-3">
         <SupermarketMenuQuickAccess />
       </div>
-      <div class="row d-flex align-content-stretch flex-wrap components-height">
+      <div v-if="updateDetails">
+        <SupermarketMenuUpdateDetails @toggle="updateDetails = false" />
+      </div>
+      <div v-else class="row d-flex align-content-stretch flex-wrap components-height">
         <!-- Quick Access Buttons -->
         <!-- Quick Change Buttons -->
         <div class="col-3">
@@ -37,7 +40,7 @@
               </a>
             </div>
             <div class="col-6">
-              <SupermarketMenuUpdate />
+              <SupermarketMenuUpdate @toggle="updateDetails = true" />
             </div>
           </div>
         </div>
@@ -74,6 +77,7 @@ export default {
   data() {
     return {
       day: true,
+      updateDetails: false
     };
   },
 };

@@ -35,15 +35,6 @@
             </span>
           </div>
         </div>
-
-        <div class="col-xl-12 col-md-12">
-          <c-input-group mt=1>
-            <c-input-left-element>
-              <i class="fas fa-search"></i>
-            </c-input-left-element>
-            <c-input py=5 v-model="search" type="text" placeholder="بحث" />
-          </c-input-group>
-        </div>
       </div>
 
       <div class="mt-3 mb-3">
@@ -98,8 +89,11 @@ export default {
           message: "لايوجد فئات",
           tip: "يمكن إضافة فئات من خلال (إضافة فئة)",
         },
-        edit: true,
-        remove: true,
+        search: "name",
+        control: [
+          {name: "edit", icon: "fa-pen", variant: "primary"},
+          {name: "remove", icon: "fa-times", variant: "danger"},
+        ],
         head: [
           { title: "الاسم", column: "name" },
           { title: "عدد المنتجات", column: "products_count" },
@@ -140,11 +134,6 @@ export default {
       remove: "supermarket/categories/removeCategory",
       fetchCategories: "supermarket/categories/fetchCategories",
       countUp: "supermarket/categories/countUp",
-    }),
-  },
-  watch: {
-    ...mapActions({
-      search: "supermarket/categories/search",
     }),
   },
 };
